@@ -64,7 +64,7 @@ export default class RichTextEditor extends Component {
           onClickInlineStyle={this.toggleInlineStyle}
           onClickBlockType={this.toggleBlockType}
           headingLabel={this.props.headingLabel}
-          buttonNodes={this.props.toolbarButtonNodes} />
+          useDefaultButtons>{this.props.children}</Toolbar>
         <div className='rich-editor-body'>
           <Editor
             blockRendererFn={this.blockRendererFn}
@@ -309,8 +309,8 @@ export default class RichTextEditor extends Component {
     return false;
   }
   _handleReturnSubmit(ev) {
-    if(typeof this.props.onEnterKeyDown === 'function' && KeyBindingUtil.hasCommandModifier(ev)) {
-      this.props.onEnterKeyDown(ev);
+    if(typeof this.props.onEnterKeyDownWithCommand === 'function' && KeyBindingUtil.hasCommandModifier(ev)) {
+      this.props.onEnterKeyDownWithCommand(ev);
       return true;
     }
     return false;
@@ -357,7 +357,6 @@ RichTextEditor.propTypes = {
   readOnly: PropTypes.bool.isRequired,
   onClickAddImage: PropTypes.func.isRequired,
   onClickFileAttach: PropTypes.func.isRequired,
-  onEnterKeyDown: PropTypes.func,
-  onPaste: PropTypes.func,
-  toolbarButtonNodes: PropTypes.objectOf(PropTypes.node)
+  onEnterKeyDownWithCommand: PropTypes.func,
+  onPaste: PropTypes.func
 };

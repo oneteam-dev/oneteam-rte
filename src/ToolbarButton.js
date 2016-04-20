@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-// import SvgIcon from 'components/utils/SvgIcon';
 
 export default class ToolbarButton extends Component {
   constructor(props) {
@@ -8,15 +7,15 @@ export default class ToolbarButton extends Component {
     this.handleMouseDown = ev => this._handleMouseDown(ev);
   }
   render() {
-    const { active, iconName } = this.props;
+    const { active, type } = this.props;
     return (
       <span
         className={classNames('rich-editor-toolbar-button', { active })}
         onMouseDown={this.handleMouseDown}>
         <span className='rich-editor-toolbar-button-inner'>
-          {this.props.buttonNode}
-          {/*<img className={'svg-icon icon ' + this.props.name} src={this._svg} onClick={this.props.onClick}/>
-          <SvgIcon name={`${iconName}${active ? '-blue' : ''}`} />*/}
+          <span className={`rich-editor-toolbar-button-icon ${type}`}>
+            {this.props.children ? this.props.children : ''}
+          </span>
         </span>
       </span>
     );
@@ -30,8 +29,6 @@ export default class ToolbarButton extends Component {
 ToolbarButton.displayName = 'ToolbarButton';
 ToolbarButton.propTypes = {
   type: PropTypes.string.isRequired,
-  iconName: PropTypes.string,
   active: PropTypes.bool.isRequired,
-  onClickButton: PropTypes.func.isRequired,
-  buttonNode: PropTypes.node
+  onClickButton: PropTypes.func.isRequired
 };
