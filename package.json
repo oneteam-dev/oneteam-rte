@@ -15,7 +15,8 @@
     "lint": "eslint src",
     "test": "mocha --compilers js:babel-register test/**/*.js",
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
-    "build": "npm run clean && babel -d lib --presets es2015 src"
+    "cp:draft-js-css": "cp node_modules/draft-js/dist/Draft.css lib/base.css",
+    "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css"
   },
   "author": "Oneteam Inc.",
   "license": "MIT",
