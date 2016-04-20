@@ -11,18 +11,19 @@ export default class CheckableListItem extends Component {
     const { checked, onChangeChecked } = blockProps;
 
     return (
-      <div data-offset-key={offsetKey}>
-        <span
-          className={classNames('checkable-list-item-checkbox', {
-            'is-checked': checked
-          })}
-          contentEditable='false'
-          suppressContentEditableWarning>
-          <input type='checkbox' checked={checked} onChange={onChangeChecked}/>
-        </span>
-        <span className='checkable-list-item-text' data-offset-key={offsetKey}>
+      <div data-offset-key={offsetKey} className='checkable-list-item-body'>
+        <div className={classNames('checkable-list-item-checkbox', {
+          'is-checked': checked
+        })}>
+          <input
+            type='checkbox'
+            contentEditable='false'
+            suppressContentEditableWarning
+            checked={checked} onChange={onChangeChecked} />
+        </div>
+        <div className='checkable-list-item-text'>
           <EditorBlock {...this.props} />
-        </span>
+        </div>
       </div>
     );
   }
