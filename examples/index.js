@@ -19,6 +19,6 @@ ReactDOM.render((
       initialHtml={'<h1>RichTextEditor</h1>'}
       headingLabel='Heading'
       useDefaultButtons />
-    <buttton onClick={() => console.log(richTextEditor.getSerializedBody())}>Log</buttton>
+    <buttton onClick={() => console.log(richTextEditor.getHTML())}>Log</buttton>
   </div>
 ), document.querySelector('#app-root'));
