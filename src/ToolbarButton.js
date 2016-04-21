@@ -30,5 +30,6 @@ ToolbarButton.displayName = 'ToolbarButton';
 ToolbarButton.propTypes = {
   type: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
-  onClickButton: PropTypes.func.isRequired
+  onClickButton: PropTypes.func,
+  children: PropTypes.node
 };

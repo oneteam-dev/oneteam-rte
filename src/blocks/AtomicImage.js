@@ -14,6 +14,7 @@ export default class AtomicImage extends Component {
 
 AtomicImage.displayName = 'AtomicImage';
 AtomicImage.propTypes = {
+  offsetKey: PropTypes.string,
   blockProps: PropTypes.shape({
     src: PropTypes.string.isRequired,
     alt: PropTypes.func.isRequired

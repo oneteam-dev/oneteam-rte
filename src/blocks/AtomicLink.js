@@ -13,6 +13,8 @@ export default class AtomicLink extends Component {
 
 AtomicLink.displayName = 'AtomicLink';
 AtomicLink.propTypes = {
+  offsetKey: PropTypes.string,
+  block: PropTypes.any,
   blockProps: PropTypes.shape({
     url: PropTypes.string.isRequired
   }).isRequired

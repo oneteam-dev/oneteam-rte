@@ -10,9 +10,10 @@ import Toolbar from './Toolbar';
 import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicLink from './blocks/AtomicLink';
+import Link from './blocks/Link';
 import {
   moveSelectionToEnd, createEditorState, createCheckedState, insertBlockAfter,
-  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth
+  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, findLinkEntities
 } from './utils';
 import {
   BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES, OLD_INLINE_STYLES
@@ -24,11 +25,8 @@ export default class RichTextEditor extends Component {
 
     const decorator = new CompositeDecorator([
       {
-        strategy: this.findLinkEntities,
-        component(props) {
-          const { url } = Entity.get(props.entityKey).getData();
-          return <a href={url}>{props.children}</a>;
-        }
+        strategy: findLinkEntities,
+        component: Link
       }
     ]);
     const editorState = createEditorState(this.props.initialHtml.replace(/>\s+</g, '><'), decorator);
@@ -64,7 +62,7 @@ export default class RichTextEditor extends Component {
           onClickInlineStyle={this.toggleInlineStyle}
           onClickBlockType={this.toggleBlockType}
           headingLabel={this.props.headingLabel}
-          useDefaultButtons>{this.props.children}</Toolbar>
+          useDefaultButtons={!!this.props.useDefaultButtons} />
         <div className='rich-editor-body'>
           <Editor
             blockRendererFn={this.blockRendererFn}
@@ -85,18 +83,6 @@ export default class RichTextEditor extends Component {
   }
   componentWillMount() {
     this.onChange(moveSelectionToEnd(this.state.editorState));
-  }
-  findLinkEntities(contentBlock, callback) {
-    contentBlock.findEntityRanges(
-      (character) => {
-        const entityKey = character.getEntity();
-        return (
-          entityKey !== null &&
-          Entity.get(entityKey).getType() === ENTITY_TYPES.LINK
-        );
-      },
-      callback
-    );
   }
   blockStyleFn(block) { // eslint-disable-line complexity
     switch (block.getType()) {
@@ -358,5 +344,6 @@ RichTextEditor.propTypes = {
   onClickAddImage: PropTypes.func.isRequired,
   onClickFileAttach: PropTypes.func.isRequired,
   onEnterKeyDownWithCommand: PropTypes.func,
-  onPaste: PropTypes.func
+  onPaste: PropTypes.func,
+  useDefaultButtons: PropTypes.bool
 };

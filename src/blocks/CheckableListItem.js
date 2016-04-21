@@ -31,6 +31,7 @@ export default class CheckableListItem extends Component {
 
 CheckableListItem.displayName = 'CheckableListItem';
 CheckableListItem.propTypes = {
+  offsetKey: PropTypes.string,
   blockProps: PropTypes.shape({
     checked: PropTypes.bool.isRequired,
     onChangeChecked: PropTypes.func.isRequired
