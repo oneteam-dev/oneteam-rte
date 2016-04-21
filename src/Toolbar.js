@@ -41,7 +41,11 @@ export default class Toolbar extends Component {
         <span className={classNames('rich-editor-toolbar-button', {
           active: HEADER_BLOCK_TYPES.some(t => t === blockType)
         })}>
-          <span className='rich-editor-toolbar-button-inner width-auto'>
+          <span className={classNames([
+            'rich-editor-toolbar-button-inner',
+            'rich-editor-toolbar-headings',
+            'width-auto'
+          ])}>
             <DropdownButton
               id='rich-editor-toolbar-headings'
               bsSize='small'
