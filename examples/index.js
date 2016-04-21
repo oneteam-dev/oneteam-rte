@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { RichTextEditor } from '../lib';
+import RichTextEditor from '../lib';
 import '../lib/base.css';
 import './index.css';
 

@@ -11,7 +11,7 @@
     "lib"
   ],
   "scripts": {
-    "start": "webpack-dev-server --port 8008 --progress --host 0.0.0.0",
+    "start": "webpack-dev-server --port 8008 --progress",
     "lint": "eslint src",
     "test": "mocha --compilers js:babel-register test/**/*.js",
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
