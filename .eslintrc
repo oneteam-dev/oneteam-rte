@@ -1,11 +1,12 @@
 {
-  "extends": "eslint:recommended",
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
   "plugins": ["babel", "react"],
   "env": {
     "browser": true
   },
   "rules": {
-    "no-unused-vars": 1
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1
   }
 }
