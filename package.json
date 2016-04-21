@@ -22,11 +22,10 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.3",
-    "draft-js": "github:oneteam-dev/draft-js#oneteam",
-    "draft-js-export-html": "github:oneteam-dev/draft-js-export-html#oneteam",
+    "draft-js": "github:oneteam-dev/draft-js#v0.0.1-oneteam",
+    "draft-js-export-html": "github:oneteam-dev/draft-js-export-html#v0.0.1-oneteam",
     "lodash": "^4.11.1",
-    "react-bootstrap": "^0.29.0",
-    "to-markdown": "^3.0.0"
+    "react-bootstrap": "^0.29.0"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.1",
