@@ -17,7 +17,8 @@ ReactDOM.render((
       onClickAddImage={() => console.log('onClickAddImage')}
       onClickFileAttach={() => console.log('onClickFileAttach')}
       initialHtml={'<h1>RichTextEditor</h1>'}
-      headingLabel='Heading' />
+      headingLabel='Heading'
+      useDefaultButtons />
     <buttton onClick={() => console.log(richTextEditor.getSerializedBody())}>Log</buttton>
   </div>
 ), document.querySelector('#app-root'));
