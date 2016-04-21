@@ -5,7 +5,6 @@ import {
 } from 'draft-js';
 import { stateToHTML } from 'draft-js-export-html';
 import classNames from 'classnames';
-import toMarkdown from 'to-markdown';
 import Toolbar from './Toolbar';
 import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
@@ -343,15 +342,10 @@ export default class RichTextEditor extends Component {
     }
     return false;
   }
-  getSerializedBody() {
+  getHTML() {
     const contentState = this.state.editorState.getCurrentContent();
-    const htmlBody = stateToHTML(contentState, this.state.checkedState)
-      .replace(/figure/g, 'div')
-      .replace(/\n/g, '');
-    const body = toMarkdown(htmlBody, { gfm: true })
-      .replace(/<div>(.+)<\/div>\n/g, '$1\n')
-      .replace(/<div>(.+)<\/div>$/g, '$1');
-    return { body, htmlBody };
+    return stateToHTML(contentState, this.state.checkedState)
+      .replace(/figure/g, 'div');
   }
 }
 
