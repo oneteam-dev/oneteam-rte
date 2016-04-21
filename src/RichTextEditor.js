@@ -13,7 +13,8 @@ import AtomicLink from './blocks/AtomicLink';
 import Link from './blocks/Link';
 import {
   moveSelectionToEnd, createEditorState, createCheckedState, insertBlockAfter,
-  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, findLinkEntities
+  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, findLinkEntities,
+  insertText
 } from './utils';
 import {
   BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES, OLD_INLINE_STYLES
@@ -229,10 +230,30 @@ export default class RichTextEditor extends Component {
     return false;
   }
   _handleTab(ev) {
+    if (this._handleTabInsertTabChar(ev)) {
+      return true;
+    }
+
     const { editorState } = this.state;
     const newEditorState = RichUtils.onTab(ev, editorState, MAX_LIST_DEPTH);
     if (newEditorState !== editorState) {
       this.onChange(newEditorState);
+    }
+  }
+  _handleTabInsertTabChar(ev) {
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    const content = editorState.getCurrentContent();
+    const blockKey = selection.getStartKey();
+    const block = content.getBlockForKey(blockKey);
+
+    if (!isListItem(block)) {
+      ev.preventDefault();
+      const newEditorState = insertText(editorState, '\t');
+      if (newEditorState !== editorState) {
+        this.onChange(newEditorState);
+        return true;
+      }
     }
   }
   _handlePastedFiles(files) {

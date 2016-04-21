@@ -7,3 +7,4 @@ export { default as isCursorAtEnd } from './isCursorAtEnd';
 export { default as removeBlockStyle } from './removeBlockStyle';
 export { default as adjustBlockDepth } from './adjustBlockDepth';
 export { default as findLinkEntities } from './findLinkEntities';
+export { default as insertText } from './insertText';
