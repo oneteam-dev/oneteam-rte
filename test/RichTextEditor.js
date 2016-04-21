@@ -13,18 +13,18 @@ global.navigator = global.window.navigator;
 global.HTMLElement = global.window.HTMLElement;
 
 describe('RichTextEditor', () => {
-  it('Properly mounted is that', () => {
+  it('is mounted', () => {
     renderer.render(
       <RichTextEditor
         placeholder='placeholder'
         readOnly={false}
-        ref={c => richTextEditor = c}
-        onEnterKeyDown={() => console.log('onEnterKeyDown')}
+        onEnterKeyDownWithCommand={() => console.log('onEnterKeyDownWithCommand')}
         onPaste={() => console.log('onPaste')}
         onClickAddImage={() => console.log('onClickAddImage')}
         onClickFileAttach={() => console.log('onClickFileAttach')}
         initialHtml={'<h1>RichTextEditor</h1>'}
-        headingLabel='Heading' />
+        headingLabel='Heading'
+        useDefaultButtons />
     );
     const output = renderer.getRenderOutput();
     assert(output);
