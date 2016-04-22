@@ -12,12 +12,13 @@ import {
 export default class Toolbar extends Component {
   constructor(props) {
     super(props);
-    this.handleClickAddImage = ev => this._handleClickAddImage(ev);
-    this.handleClickFileAttach = ev => this._handleClickFileAttach(ev);
-    this.handleSelectHeading = (ev, eventKey) => this._handleSelectHeading(ev, eventKey);
+    this.handleSelectHeading = eventKey => this._handleSelectHeading(eventKey);
   }
   render() {
-    const { editorState, useDefaultButtons } = this.props;
+    const {
+      editorState, onClickAddImage, onClickFileAttach, useDefaultButtons,
+      onClickInlineStyle, onClickBlockType
+    } = this.props;
     const currentInlineStyle = editorState.getCurrentInlineStyle();
     const selection = editorState.getSelection();
     const blockType = editorState
@@ -30,11 +31,11 @@ export default class Toolbar extends Component {
         <ToolbarButton
           type='file-photo'
           active={false}
-          onClickButton={this.handleClickAddImage}>{useDefaultButtons ? 'file-photo' : null}</ToolbarButton>
+          onClickButton={onClickAddImage}>{useDefaultButtons ? 'file-photo' : null}</ToolbarButton>
         <ToolbarButton
           type='file-attach'
           active={false}
-          onClickButton={this.handleClickFileAttach}>{useDefaultButtons ? 'file-attach' : null}</ToolbarButton>
+          onClickButton={onClickFileAttach}>{useDefaultButtons ? 'file-attach' : null}</ToolbarButton>
 
         <span className='rich-editor-toolbar-separate'></span>
 
@@ -71,7 +72,7 @@ export default class Toolbar extends Component {
             key={type}
             type={type}
             active={currentInlineStyle.has(type)}
-            onClickButton={this.props.onClickInlineStyle}>{useDefaultButtons ? type : null}</ToolbarButton>
+            onClickButton={onClickInlineStyle}>{useDefaultButtons ? type : null}</ToolbarButton>
         ))}
 
         {ORDERED_BLOCK_TYPES.filter(type => !/^header\-/.test(type)).map(type => (
@@ -79,16 +80,10 @@ export default class Toolbar extends Component {
             key={type}
             type={type}
             active={type === blockType}
-            onClickButton={this.props.onClickBlockType}>{useDefaultButtons ? type : null}</ToolbarButton>
+            onClickButton={onClickBlockType}>{useDefaultButtons ? type : null}</ToolbarButton>
         ))}
       </div>
     );
-  }
-  _handleClickAddImage() {
-    this.props.onClickAddImage();
-  }
-  _handleClickFileAttach() {
-    this.props.onClickFileAttach();
   }
   _handleSelectHeading(eventKey) {
     // ev.preventDefault();\
@@ -111,5 +106,5 @@ Toolbar.propTypes = {
   onSelectHeading: PropTypes.func.isRequired,
   onClickInlineStyle: PropTypes.func.isRequired,
   onClickBlockType: PropTypes.func.isRequired,
-  useDefaultButtons: PropTypes.bool
+  useDefaultButtons: PropTypes.bool.isRequired
 };

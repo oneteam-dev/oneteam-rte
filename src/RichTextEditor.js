@@ -62,7 +62,7 @@ export default class RichTextEditor extends Component {
           onClickInlineStyle={this.toggleInlineStyle}
           onClickBlockType={this.toggleBlockType}
           headingLabel={this.props.headingLabel}
-          useDefaultButtons={!!this.props.useDefaultButtons} />
+          useDefaultButtons={this.props.useDefaultButtons} />
         <div className='rich-editor-body'>
           <Editor
             blockRendererFn={this.blockRendererFn}
@@ -350,12 +350,18 @@ export default class RichTextEditor extends Component {
 }
 
 RichTextEditor.displayName = 'RichTextEditor';
-RichTextEditor.defaultProps = { initialHtml: '', placeholder: '' };
+RichTextEditor.defaultProps = {
+  initialHtml: '',
+  placeholder: 'Contents here...',
+  headingLabel: 'Heading',
+  readOnly: false,
+  useDefaultButtons: false
+};
 RichTextEditor.propTypes = {
-  headingLabel: PropTypes.string.isRequired,
+  headingLabel: PropTypes.string,
   initialHtml: PropTypes.string,
   placeholder: PropTypes.string,
-  readOnly: PropTypes.bool.isRequired,
+  readOnly: PropTypes.bool,
   onClickAddImage: PropTypes.func.isRequired,
   onClickFileAttach: PropTypes.func.isRequired,
   onEnterKeyDownWithCommand: PropTypes.func,
