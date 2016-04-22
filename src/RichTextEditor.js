@@ -344,8 +344,7 @@ export default class RichTextEditor extends Component {
   }
   getHTML() {
     const contentState = this.state.editorState.getCurrentContent();
-    return stateToHTML(contentState, this.state.checkedState)
-      .replace(/figure/g, 'div');
+    return stateToHTML(contentState, this.state.checkedState);
   }
 }
 
