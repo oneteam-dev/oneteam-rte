@@ -28,8 +28,8 @@
     "react-bootstrap": "^0.29.0"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.1",
-    "react-dom": "^0.14.0 || ^15.0.1"
+    "react": "~0.14.0 || ^15.0.1",
+    "react-dom": "~0.14.0 || ^15.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -51,6 +51,8 @@
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.1",
     "style-loader": "^0.13.1",
+    "stylus": "^0.54.2",
+    "stylus-loader": "^2.0.0",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   }
