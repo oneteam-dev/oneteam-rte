@@ -1,0 +1,257 @@
+$default-font-size = 14px
+$default-line-height = 1.78
+$heading1-font-size = 30px
+$heading2-font-size = 25px
+$heading3-font-size = 20px
+$heading4-font-size = 16px
+$heading5-font-size = 14px
+$heading-line-height = 1.5
+$list-line-height = 2.14
+$blockquote-border-left-color = rgba(#333, 0.08)
+$topic-title-height = 50px
+$topic-recipients-height = 45px
+$header-height = $topic-title-height + $topic-recipients-height
+$footer-height = 76px
+$richeditor-body-min-height = 240px
+$richeditor-toolbar-height = 35px
+$toolbar-selected-background-color = rgba(#333, 0.08)
+$toolbar-hover-background-color = rgba(#333, 0.04)
+
+#rich-editor
+  height: 'calc(100% - %s - %s)' % ($header-height $footer-height)
+  min-height: $richeditor-body-min-height + $richeditor-toolbar-height
+  &.RichEditor-hidePlaceholder
+    .public-DraftEditorPlaceholder-root
+      display: none
+  .public-DraftEditorPlaceholder-root
+    color: rgba(#333, 0.1)
+  .rich-editor-body
+    height: 'calc(100% - %s)' % $richeditor-toolbar-height
+    min-height: 240px
+    color: #555
+    font-size: 14px
+    line-height: 1.5
+    h1, h2, h3, h4, h5
+      line-height: 1.5
+      font-weight: normal
+      color: #333
+    h1
+      font-size: $heading1-font-size
+    h2
+      font-size: $heading2-font-size
+    h3
+      font-size: $heading3-font-size
+    h4
+      font-size: $heading4-font-size
+    h5
+      font-size: $heading5-font-size
+    ul, ol
+      line-height: $list-line-height
+    blockquote
+      padding: 0px 15px
+      margin: 25px 0
+      font-size: 18px
+      border-left: 2px solid $blockquote-border-left-color
+      line-height: 1.5
+    .checkable-list-item
+      list-style: none
+      transform: translateX(-1.5em)
+    .checkable-list-item-body
+      position: relative
+    .checkable-list-item-checkbox
+      position: absolute
+      input
+        width: 20px
+        height: 20px
+        border: 1px solid #d5cdcd
+        background-color: white
+        border-radius: 50%
+        vertical-align: middle
+        cursor: pointer
+        &:checked
+          border-color: #009cd6
+          background-color: rgba(0, 174, 239, 0.8)
+          &::before
+            content: ""
+            width: 6px
+            height: 10px
+            border-bottom: 2px solid #fff
+            border-right: 2px solid #fff
+            transform: rotate(45deg)
+            top: 3px
+            left: 6px
+      &.is-checked + .checkable-list-item-text
+        text-decoration: line-through
+        color: #d6d6d6
+    .checkable-list-item-text
+      padding-left: 28px
+  .rich-editor-toolbar
+    position: relative;
+    z-index: 2
+    background-color: #ddd
+    height: 35px
+    padding: 5px 10px 0
+  .rich-editor-toolbar-button
+    cursor: pointer
+    margin-left: 10px
+    vertical-align: middle
+    display: inline-block
+    &:first-child
+      margin-left: 5px
+    &.active
+      .rich-editor-toolbar-button-inner
+        background-color: $toolbar-selected-background-color
+        .rich-editor-toolbar-button-icon
+          opacity: 1
+          color: #00aeef
+      .dropdown-toggle
+        opacity: 1
+        color: #00aeef
+    .rich-editor-toolbar-button-inner
+      width: 24px
+      height: 24px
+      display: inline-block
+      text-align: center
+      border-radius: 3px
+      &:hover
+        background-color: $toolbar-hover-background-color
+      &.width-auto
+        width: auto
+    .rich-editor-toolbar-button-icon
+      display: inline-block
+      background-position: center
+      background-repeat: no-repeat
+      background-size: 100% auto
+      vertical-align: middle
+      opacity: .5
+      font-size: 12px
+      font-family: FontAwesome
+      font-style: normal
+      font-weight: normal
+      &.file-photo
+        &::before
+          content: "\f03e"
+      &.file-attach
+        &::before
+          content: "\f0c6"
+      &.BOLD
+        &::before
+          content: "\f032"
+      &.ITALIC
+        &::before
+          content: "\f033"
+      &.STRIKETHROUGH
+        &::before
+          content: "\f0cc"
+      &.blockquote
+        &::before
+          content: "\f10d"
+      &.checkable-list-item
+        &::before
+          content: "\f05d"
+      &.unordered-list-item
+        &::before
+          content: "\f0ca"
+      &.ordered-list-item
+        &::before
+          content: "\f0cb"
+    .btn-group.open
+      .dropdown-toggle
+        box-shadow: none
+    .dropdown-toggle
+      padding: 3px 4px 3px
+      border: 0
+      background: none
+      opacity: .5
+      .caret
+        margin-left: 4px
+      &.active, &:active
+        box-shadow: none
+    .open
+      & > .dropdown-toggle
+        color: inherit
+    .dropdown-menu
+      margin-top: 4px
+      box-shadow: 0 0 2px #eee
+      border: none
+      .active
+        & > a,
+        & > a:hover,
+        & > a:focus
+          background-color: $toolbar-selected-background-color
+          color: inherit
+    .rich-editor-toolbar-headings
+      .dropdown-menu
+        li:nth-child(1) a
+          font-size: $heading1-font-size
+        li:nth-child(2) a
+          font-size: $heading2-font-size
+        li:nth-child(3) a
+          font-size: $heading3-font-size
+        li:nth-child(4) a
+          font-size: $heading4-font-size
+        li:nth-child(5) a
+          font-size: $heading5-font-size
+      .rich-editor-toolbar-headings-menu
+        position: relative
+        z-index: 1
+      .rich-editor-toolbar-headings-remove
+        position: absolute
+        z-index: 1
+        font-size: 12px
+        display: inline-block
+        border: 1px solid #aaa
+        border-radius: 50%
+        width: 14px
+        height: 14px
+        text-align: center
+        line-height: 12px
+        vertical-align: middle
+        padding: 0 0 1px 1px
+        color: #999
+        top: 50%
+        right: 6px
+        transform: translateY(-50%)
+    .rich-editor-toolbar-colors
+      .dropdown-menu
+        width: 160px
+        li
+          display: inline-block
+          a
+            padding: 3px 10px
+  .rich-editor-toolbar-separate
+    vertical-align: middle
+    width: 1px
+    height: 15px
+    background-color: #ddd
+    margin: 0 5px 0 20px
+    display: inline-block
+  .DraftEditor-root
+    height: 100%
+    max-height: none
+    min-height: 240px
+    overflow: auto
+    padding: 18px 10px
+    position: relative
+    z-index: 1
+    cursor: text
+    a
+      cursor: text
+      &:hover,
+      &:focus
+        color: #00aeef
+        text-decoration: none
+  .public-DraftStyleDefault-ul:first-child,
+  .public-DraftStyleDefault-ol:first-child,
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  h4:first-child,
+  h5:first-child
+    margin-top: 0
+  .align-center .public-DraftStyleDefault-ltr
+    text-align: center
+  .align-right .public-DraftStyleDefault-ltr
+    text-align: right
+  .align-justify .public-DraftStyleDefault-ltr
+    text-align: justify
