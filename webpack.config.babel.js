@@ -7,9 +7,6 @@ const entry = [
   'webpack/hot/dev-server'
 ];
 const plugins = [
-  new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-  }),
   new webpack.HotModuleReplacementPlugin()
 ];
 
@@ -37,6 +34,10 @@ export default {
       {
         test: /\.css$/,
         loaders: ['style', 'css']
+      },
+      {
+        test: /\.styl$/,
+        loaders: ['style', 'css', 'stylus']
       }
     ]
   },
