@@ -2,6 +2,10 @@
 
 Oneteam Rich text editor.
 
+```
+npm i oneteam-rte
+```
+
 ## Contributing
 
 1. Fork it!
