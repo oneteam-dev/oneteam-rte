@@ -50,7 +50,7 @@ export default class Toolbar extends Component {
             <DropdownButton
               id='rich-editor-toolbar-headings'
               bsSize='small'
-              title={this._getHeadingLabel(blockType)}
+              title={this._createHeadingLabel(blockType)}
               className='rich-editor-toolbar-headings'
               onSelect={this.handleSelectHeading}>
               {HEADER_BLOCK_TYPES.map(type => (
@@ -59,7 +59,7 @@ export default class Toolbar extends Component {
                   key={type}
                   eventKey={type}
                   active={blockType === type}>
-                  {this._getHeadingLabel(type)}
+                  {this._createHeadingLabel(type)}
                   {blockType === type ? <span className='rich-editor-toolbar-headings-remove'>x</span> : null}
                 </MenuItem>
               ))}
@@ -86,11 +86,10 @@ export default class Toolbar extends Component {
     );
   }
   _handleSelectHeading(eventKey) {
-    // ev.preventDefault();\
     // this.props.onSelectHeading(eventKey);
     setTimeout(() => this.props.onSelectHeading(eventKey), 0);
   }
-  _getHeadingLabel(type) {
+  _createHeadingLabel(type) {
     const { headingLabel } = this.props;
     return HEADER_BLOCK_TYPES.some(t => t === type) ?
       `${headingLabel} ${findKey(BLOCK_TYPES, t => t === type).slice(1)}` : `${headingLabel} 1`;
