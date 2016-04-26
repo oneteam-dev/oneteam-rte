@@ -16,7 +16,8 @@
     "test": "mocha --compilers js:babel-register test/**/*.js",
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
     "cp:draft-js-css": "cp node_modules/draft-js/dist/Draft.css lib/base.css",
-    "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css"
+    "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css",
+    "prepublish": "npm run lint && npm test && npm run build"
   },
   "author": "Oneteam Inc.",
   "license": "MIT",
