@@ -19,6 +19,7 @@ export const INLINE_STYLES = {
 };
 
 export const ENTITY_TYPES = {
+  DOWNLOAD_LINK: 'DOWNLOAD_LINK',
   LINK: 'LINK',
   IMAGE: 'IMAGE',
   IFRAME: 'IFRAME'

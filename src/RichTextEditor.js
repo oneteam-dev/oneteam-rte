@@ -8,9 +8,10 @@ import classNames from 'classnames';
 import Toolbar from './Toolbar';
 import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
-import AtomicLink from './blocks/AtomicLink';
 import AtomicIFrame from './blocks/AtomicIFrame';
+import DownloadLink from './blocks/DownloadLink';
 import LinkDecorator from './decorators/LinkDecorator';
+import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
 import {
   moveSelectionToEnd, createEditorState, createCheckedState, insertBlockAfter,
   isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, insertText, getIFrameAttrs
@@ -23,7 +24,7 @@ export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
 
-    const decorator = new CompositeDecorator([LinkDecorator]);
+    const decorator = new CompositeDecorator([LinkDecorator, DownloadLinkDecorator]);
     const editorState = createEditorState(this.props.initialHtml.replace(/>\s+</g, '><'), decorator);
     const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
 
@@ -41,14 +42,15 @@ export default class RichTextEditor extends Component {
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.blockRendererFn = block => this._blockRendererFn(block);
     this.insertIFrame = () => this._insertIFrame();
+    this.addLink = () => this._addLink();
+    this.removeLink = () => this._removeLink();
   }
   render() {
     const { editorState } = this.state;
-    const firstBlockType = editorState.getCurrentContent().getBlockMap().first().getType();
 
     return (
       <div id='rich-editor' className={classNames({
-        'RichEditor-hidePlaceholder': firstBlockType !== BLOCK_TYPES.UNSTYLED
+        'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
       })} onClick={this.focus}>
         <Toolbar
           editorState={editorState}
@@ -58,6 +60,8 @@ export default class RichTextEditor extends Component {
           onSelectHeading={this.toggleBlockType}
           onClickInlineStyle={this.toggleInlineStyle}
           onClickBlockType={this.toggleBlockType}
+          onClickAddLink={this.addLink}
+          onClickRemoveLink={this.removeLink}
           headingLabel={this.props.headingLabel}
           tooltipTexts={this.props.tooltipTexts}
           useDefaultButtons={this.props.useDefaultButtons} />
@@ -81,6 +85,16 @@ export default class RichTextEditor extends Component {
   }
   componentWillMount() {
     this.onChange(moveSelectionToEnd(this.state.editorState));
+  }
+  _shouldHidePlaceholder() {
+    const { editorState } = this.state;
+    const contentState = editorState.getCurrentContent();
+    if (!contentState.hasText()) {
+      if (contentState.getBlockMap().first().getType() !== BLOCK_TYPES.UNSTYLED) {
+        return true;
+      }
+    }
+    return false;
   }
   blockStyleFn(block) { // eslint-disable-line complexity
     switch (block.getType()) {
@@ -108,10 +122,10 @@ export default class RichTextEditor extends Component {
           editable: false
         };
       }
-      if (type === ENTITY_TYPES.LINK) {
+      if (type === ENTITY_TYPES.DOWNLOAD_LINK) {
         return {
-          component: AtomicLink,
-          props: { url: data.url },
+          component: DownloadLink,
+          props: {},
           editable: true
         };
       }
@@ -158,12 +172,17 @@ export default class RichTextEditor extends Component {
     );
     this.onChange(newEditorState);
   }
-  _insertDownloadLink({ name, download_url }) {
-    const entityKey = Entity.create(ENTITY_TYPES.LINK, 'MUTABLE', { url: download_url, target: '_blank' });
+  _insertDownloadLink({ name, download_url, size }) {
+    const entityKey = Entity.create(ENTITY_TYPES.DOWNLOAD_LINK, 'MUTABLE', {
+      name,
+      size,
+      url: download_url,
+      target: '_blank'
+    });
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
       this.state.editorState,
       entityKey,
-      name
+      ' '
     );
     this.onChange(newEditorState);
   }
@@ -195,6 +214,26 @@ export default class RichTextEditor extends Component {
       this.state.editorState,
       inlineStyle
     );
+    this.onChange(newEditorState);
+  }
+  _addLink() {
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    if (selection.isCollapsed()) {
+      return;
+    }
+    const url = window.prompt('Enter a URL');
+    const entityKey = Entity.create(ENTITY_TYPES.LINK, 'MUTABLE', { url });
+    const newEditorState = RichUtils.toggleLink(editorState, selection, entityKey);
+    this.onChange(newEditorState);
+  }
+  _removeLink() {
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    if (selection.isCollapsed()) {
+      return;
+    }
+    const newEditorState = RichUtils.toggleLink(editorState, selection, null);
     this.onChange(newEditorState);
   }
   _handleKeyCommand(command) { // eslint-disable-line complexity

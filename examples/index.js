@@ -20,7 +20,9 @@ ReactDOM.render((
         blockquote: '引用文',
         'checkable-list-item': 'チェックリスト',
         'unordered-list-item': '箇条書き',
-        'ordered-list-item': '番号付きリスト'
+        'ordered-list-item': '番号付きリスト',
+        addLink: 'リンクを挿入',
+        removeLink: 'リンクを削除'
       }}
       ref={c => richTextEditor = c}
       onEnterKeyDownWithCommand={() => console.log('onEnterKeyDownWithCommand')}

@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Entity } from 'draft-js';
 
-export default function Link(props) {
-  const { url } = Entity.get(props.entityKey).getData();
-  return <a href={url}>{props.children}</a>;
+export default function Link({ offsetKey, children }) {
+  return <span className='link' data-offset-key={offsetKey}>{children}</span>;
 }
 
 Link.propTypes = {
-  entityKey: PropTypes.string,
+  offsetKey: PropTypes.string,
   children: PropTypes.any
 };
