@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
+import Tooltip from 'react-bootstrap/lib/Tooltip';
 import classNames from 'classnames';
 
 export default class ToolbarButton extends Component {
@@ -9,15 +11,17 @@ export default class ToolbarButton extends Component {
   render() {
     const { active, type } = this.props;
     return (
-      <span
-        className={classNames('rich-editor-toolbar-button', { active })}
-        onMouseDown={this.handleMouseDown}>
-        <span className='rich-editor-toolbar-button-inner'>
-          <span className={`rich-editor-toolbar-button-icon ${type}`}>
-            {this.props.children ? this.props.children : ''}
+      <OverlayTrigger placement='bottom' overlay={<Tooltip id={type}>{this.props.tooltipText}</Tooltip>}>
+        <span
+          className={classNames('rich-editor-toolbar-button', { active })}
+          onMouseDown={this.handleMouseDown}>
+          <span className='rich-editor-toolbar-button-inner'>
+            <span className={`rich-editor-toolbar-button-icon ${type}`}>
+              {this.props.children ? this.props.children : ''}
+            </span>
           </span>
         </span>
-      </span>
+      </OverlayTrigger>
     );
   }
   _handleMouseDown(ev) {
@@ -31,5 +35,6 @@ ToolbarButton.propTypes = {
   type: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
   onClickButton: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  tooltipText: PropTypes.string
 };

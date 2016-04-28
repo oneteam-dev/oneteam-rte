@@ -10,11 +10,10 @@ import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicLink from './blocks/AtomicLink';
 import AtomicIFrame from './blocks/AtomicIFrame';
-import Link from './blocks/Link';
+import LinkDecorator from './decorators/LinkDecorator';
 import {
   moveSelectionToEnd, createEditorState, createCheckedState, insertBlockAfter,
-  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, findLinkEntities,
-  insertText, getIFrameAttrs
+  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, insertText, getIFrameAttrs
 } from './utils';
 import {
   BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES, OLD_INLINE_STYLES
@@ -24,12 +23,7 @@ export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
 
-    const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      }
-    ]);
+    const decorator = new CompositeDecorator([LinkDecorator]);
     const editorState = createEditorState(this.props.initialHtml.replace(/>\s+</g, '><'), decorator);
     const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
 
@@ -65,6 +59,7 @@ export default class RichTextEditor extends Component {
           onClickInlineStyle={this.toggleInlineStyle}
           onClickBlockType={this.toggleBlockType}
           headingLabel={this.props.headingLabel}
+          tooltipTexts={this.props.tooltipTexts}
           useDefaultButtons={this.props.useDefaultButtons} />
         <div className='rich-editor-body'>
           <Editor
@@ -106,24 +101,24 @@ export default class RichTextEditor extends Component {
       const type = entity.getType();
       const data = entity.getData();
 
-      if(type === ENTITY_TYPES.IMAGE) {
+      if (type === ENTITY_TYPES.IMAGE) {
         return {
           component: AtomicImage,
           props: { src: data.src, alt: data.alt },
           editable: false
         };
       }
-      if(type === ENTITY_TYPES.LINK) {
+      if (type === ENTITY_TYPES.LINK) {
         return {
           component: AtomicLink,
           props: { url: data.url },
           editable: true
         };
       }
-      if(type === ENTITY_TYPES.IFRAME) {
+      if (type === ENTITY_TYPES.IFRAME) {
         return {
           component: AtomicIFrame,
-          props: { src: data.src },
+          props: data,
           editable: false
         };
       }
@@ -386,5 +381,6 @@ RichTextEditor.propTypes = {
   onClickFileAttach: PropTypes.func.isRequired,
   onEnterKeyDownWithCommand: PropTypes.func,
   onPaste: PropTypes.func,
+  tooltipTexts: PropTypes.objectOf(PropTypes.string).isRequired,
   useDefaultButtons: PropTypes.bool
 };
