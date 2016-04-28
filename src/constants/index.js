@@ -20,7 +20,8 @@ export const INLINE_STYLES = {
 
 export const ENTITY_TYPES = {
   LINK: 'LINK',
-  IMAGE: 'IMAGE'
+  IMAGE: 'IMAGE',
+  IFRAME: 'IFRAME'
 };
 
 export const ORDERED_BLOCK_TYPES = [

@@ -12,7 +12,9 @@ import {
 export default class Toolbar extends Component {
   constructor(props) {
     super(props);
+
     this.handleSelectHeading = eventKey => this._handleSelectHeading(eventKey);
+    this.handleClickEmbed = () => this._handleClickEmbed();
   }
   render() {
     const {
@@ -36,6 +38,10 @@ export default class Toolbar extends Component {
           type='file-attach'
           active={false}
           onClickButton={onClickFileAttach}>{useDefaultButtons ? 'file-attach' : null}</ToolbarButton>
+        <ToolbarButton
+          type='embed-iframe'
+          active={false}
+          onClickButton={this.handleClickEmbed}>{useDefaultButtons ? 'embed-iframe' : null}</ToolbarButton>
 
         <span className='rich-editor-toolbar-separate'></span>
 
@@ -89,6 +95,9 @@ export default class Toolbar extends Component {
     // this.props.onSelectHeading(eventKey);
     setTimeout(() => this.props.onSelectHeading(eventKey), 0);
   }
+  _handleClickEmbed() {
+    this.props.onClickEmbed();
+  }
   _createHeadingLabel(type) {
     const { headingLabel } = this.props;
     return HEADER_BLOCK_TYPES.some(t => t === type) ?
@@ -102,6 +111,7 @@ Toolbar.propTypes = {
   editorState: PropTypes.instanceOf(EditorState).isRequired,
   onClickAddImage: PropTypes.func.isRequired,
   onClickFileAttach: PropTypes.func.isRequired,
+  onClickEmbed: PropTypes.func.isRequired,
   onSelectHeading: PropTypes.func.isRequired,
   onClickInlineStyle: PropTypes.func.isRequired,
   onClickBlockType: PropTypes.func.isRequired,
