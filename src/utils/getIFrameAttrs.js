@@ -4,7 +4,7 @@ export default function getIFrameAttrs(htmlString) {
     result[nodeName] = nodeValue;
     return result;
   }, {});
-};
+}
 
 function parseIFrameTag(string) {
   const el = document.createElement('div');

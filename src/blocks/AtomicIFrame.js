@@ -5,7 +5,7 @@ export default class AtomicIFrame extends Component {
     super(props);
   }
   render() {
-    const { block, blockProps, offsetKey } = this.props;
+    const { blockProps, offsetKey } = this.props;
     const { src } = blockProps;
     return (
       <div
@@ -23,7 +23,6 @@ export default class AtomicIFrame extends Component {
 AtomicIFrame.displayName = 'AtomicIFrame';
 AtomicIFrame.propTypes = {
   offsetKey: PropTypes.string,
-  block: PropTypes.any,
   blockProps: PropTypes.shape({
     src: PropTypes.string.isRequired
   }).isRequired
