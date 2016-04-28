@@ -9,11 +9,12 @@ import Toolbar from './Toolbar';
 import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicLink from './blocks/AtomicLink';
+import AtomicIFrame from './blocks/AtomicIFrame';
 import Link from './blocks/Link';
 import {
   moveSelectionToEnd, createEditorState, createCheckedState, insertBlockAfter,
   isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, findLinkEntities,
-  insertText
+  insertText, getIFrameAttrs
 } from './utils';
 import {
   BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES, OLD_INLINE_STYLES
@@ -45,6 +46,7 @@ export default class RichTextEditor extends Component {
     this.insertImage = file => this._insertImage(file);
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.blockRendererFn = block => this._blockRendererFn(block);
+    this.insertIFrame = () => this._insertIFrame();
   }
   render() {
     const { editorState } = this.state;
@@ -58,6 +60,7 @@ export default class RichTextEditor extends Component {
           editorState={editorState}
           onClickAddImage={this.props.onClickAddImage}
           onClickFileAttach={this.props.onClickFileAttach}
+          onClickEmbed={this.insertIFrame}
           onSelectHeading={this.toggleBlockType}
           onClickInlineStyle={this.toggleInlineStyle}
           onClickBlockType={this.toggleBlockType}
@@ -106,20 +109,22 @@ export default class RichTextEditor extends Component {
       if(type === ENTITY_TYPES.IMAGE) {
         return {
           component: AtomicImage,
-          props: {
-            src: data.src,
-            alt: data.alt
-          },
+          props: { src: data.src, alt: data.alt },
           editable: false
         };
       }
       if(type === ENTITY_TYPES.LINK) {
         return {
           component: AtomicLink,
-          props: {
-            url: data.url
-          },
+          props: { url: data.url },
           editable: true
+        };
+      }
+      if(type === ENTITY_TYPES.IFRAME) {
+        return {
+          component: AtomicIFrame,
+          props: { src: data.src },
+          editable: false
         };
       }
     }
@@ -145,7 +150,7 @@ export default class RichTextEditor extends Component {
 
     return null;
   }
-  _insertImage({name, original_url, preview_url}) {
+  _insertImage({ name, original_url, preview_url }) {
     const entityKey = Entity.create(ENTITY_TYPES.IMAGE, 'IMMUTABLE', {
       src: preview_url,
       'data-original-url': original_url,
@@ -158,12 +163,28 @@ export default class RichTextEditor extends Component {
     );
     this.onChange(newEditorState);
   }
-  _insertDownloadLink({name, download_url}) {
+  _insertDownloadLink({ name, download_url }) {
     const entityKey = Entity.create(ENTITY_TYPES.LINK, 'MUTABLE', { url: download_url, target: '_blank' });
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
       this.state.editorState,
       entityKey,
       name
+    );
+    this.onChange(newEditorState);
+  }
+  _insertIFrame() {
+    const string = window.prompt('Paste the iframe tag.');
+    if (!/<iframe.+?<\/iframe>/.test(string)) {
+      return alert('iframe タグを埋め込んでください');
+    }
+
+    const attrs = getIFrameAttrs(string);
+    const entityKey = Entity.create(ENTITY_TYPES.IFRAME, 'IMMUTABLE', attrs);
+    this.focus();
+    const newEditorState = AtomicBlockUtils.insertAtomicBlock(
+      this.state.editorState,
+      entityKey,
+      ' '
     );
     this.onChange(newEditorState);
   }

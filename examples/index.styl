@@ -85,6 +85,41 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
         color: #d6d6d6
     .checkable-list-item-text
       padding-left: 28px
+    .iframe-placeholder
+      border: 1px solid rgba(0, 0, 0, .2)
+      background-color: #fff
+      width: 650px
+      height: 65px
+      box-shadow: 0 2px 0 rgba(1, 1, 1, .05)
+      padding: 15px 28px
+      border-radius: 3px
+      -webkit-user-select: none
+      user-select: none
+    .iframe-placeholder-icon
+      display: inline-block
+      background-position: center
+      background-repeat: no-repeat
+      background-size: 100% auto
+      color: #00aeef
+      font-size: 24px
+      font-family: FontAwesome
+      font-style: normal
+      font-weight: normal
+      vertical-align: middle
+      margin-right: 16px
+      -webkit-user-select: none
+      user-select: none
+      &::before
+        content: "\f121"
+    .iframe-placeholder-src
+      width: 500px
+      display: inline-block
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+      vertical-align: middle
+      -webkit-user-select: none
+      user-select: none
   .rich-editor-toolbar
     position: relative;
     z-index: 2
@@ -134,6 +169,9 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
       &.file-attach
         &::before
           content: "\f0c6"
+      &.embed-iframe
+        &::before
+          content: "\f121"
       &.BOLD
         &::before
           content: "\f032"
