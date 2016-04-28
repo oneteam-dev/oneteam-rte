@@ -6,15 +6,13 @@ export default class AtomicIFrame extends Component {
   }
   render() {
     const { blockProps, offsetKey } = this.props;
-    const { src } = blockProps;
     return (
       <div
+        className='iframe-placeholder'
         contentEditable='false'
         suppressContentEditableWarning
-        className='iframe-placeholder'
         data-offset-key={offsetKey}>
-        <span className='iframe-placeholder-icon'></span>
-        <span className='iframe-placeholder-src'>{src}</span>
+        <iframe {...blockProps}></iframe>
       </div>
     );
   }
@@ -23,7 +21,5 @@ export default class AtomicIFrame extends Component {
 AtomicIFrame.displayName = 'AtomicIFrame';
 AtomicIFrame.propTypes = {
   offsetKey: PropTypes.string,
-  blockProps: PropTypes.shape({
-    src: PropTypes.string.isRequired
-  }).isRequired
+  blockProps: PropTypes.objectOf(PropTypes.any).isRequired
 };
