@@ -5,10 +5,11 @@ import classNames from 'classnames';
 export default class CheckableListItem extends Component {
   constructor(props) {
     super(props);
+    this.handleChangeCheckbox = ev => this._handleChangeCheckbox(ev);
   }
   render() {
     const { blockProps, offsetKey } = this.props;
-    const { checked, onChangeChecked } = blockProps;
+    const { checked } = blockProps;
 
     return (
       <div data-offset-key={offsetKey} className='checkable-list-item-body'>
@@ -18,13 +19,16 @@ export default class CheckableListItem extends Component {
           })}
           contentEditable='false'
           suppressContentEditableWarning>
-          <input type='checkbox' checked={checked} onChange={onChangeChecked} />
+          <input type='checkbox' checked={checked} onChange={this.handleChangeCheckbox} />
         </div>
         <div className='checkable-list-item-text'>
           <EditorBlock {...this.props} />
         </div>
       </div>
     );
+  }
+  _handleChangeCheckbox({ target }) {
+    this.props.blockProps.onChangeChecked(target.checked);
   }
 }
 

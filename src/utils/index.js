@@ -8,4 +8,3 @@ export { default as removeBlockStyle } from './removeBlockStyle';
 export { default as adjustBlockDepth } from './adjustBlockDepth';
 export { default as createFindEntitiesBy } from './createFindEntitiesBy';
 export { default as insertText } from './insertText';
-export { default as getIFrameAttrs } from './getIFrameAttrs';

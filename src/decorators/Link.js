@@ -6,5 +6,5 @@ export default function Link({ offsetKey, children }) {
 
 Link.propTypes = {
   offsetKey: PropTypes.string,
-  children: PropTypes.any
+  children: PropTypes.node
 };

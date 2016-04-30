@@ -1,7 +1,9 @@
 import findKey from 'lodash/findKey';
 import React, { Component, PropTypes } from 'react';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
+import FormControl from 'react-bootstrap/lib/FormControl';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
+import Button from 'react-bootstrap/lib/Button';
 import { EditorState } from 'draft-js';
 import classNames from 'classnames';
 import ToolbarButton from './ToolbarButton';
@@ -12,9 +14,12 @@ import {
 export default class Toolbar extends Component {
   constructor(props) {
     super(props);
+    this.state = { linkValue: '', validLinkValue: true };
 
     this.handleSelectHeading = eventKey => this._handleSelectHeading(eventKey);
     this.handleClickEmbed = () => this._handleClickEmbed();
+    this.handleChangeLinkValueInput = ev => this._handleChangeLinkValueInput(ev);
+    this.handleSubmitAddLink = ev => this._handleSubmitAddLink(ev);
   }
   render() {
     const {
@@ -45,11 +50,27 @@ export default class Toolbar extends Component {
           active={false}
           tooltipText={tooltipTexts.embedIFrame}
           onClickButton={this.handleClickEmbed}>{useDefaultButtons ? 'embed-iframe' : null}</ToolbarButton>
-        <ToolbarButton
-          type='add-link'
-          active={false}
-          tooltipText={tooltipTexts.addLink}
-          onClickButton={this.props.onClickAddLink}>{useDefaultButtons ? 'add-link' : null}</ToolbarButton>
+
+        <div className='add-link-wrapper'>
+          <ToolbarButton
+            type='add-link'
+            active={false}
+            onClickButton={() => this.props.onClickAddLink()}
+            tooltipText={tooltipTexts.addLink}>{useDefaultButtons ? 'add-link' : null}</ToolbarButton>
+          <div className={classNames('add-link-input', {
+            'is-open': this.props.isOpenAddLink
+          })}>
+            <FormControl
+              type='text'
+              pattern='^https?:\/\/.+'
+              value={this.state.linkValue}
+              onChange={this.handleChangeLinkValueInput} />
+            <Button onClick={this.handleSubmitAddLink}>✔</Button>
+            <span className={classNames('add-link-input-error-message', {
+              show: !this.state.validLinkValue
+            })}>{this.props.addLinkValueErrorMessage}</span>
+          </div>
+        </div>
 
         <ToolbarButton
           type='remove-link'
@@ -107,6 +128,26 @@ export default class Toolbar extends Component {
       </div>
     );
   }
+  _handleSubmitAddLink(ev) {
+    ev.preventDefault();
+    if (this._validateLinkValue()) {
+      this.props.onSubmitAddLink(this.state.linkValue);
+      this.setState({ linkValue: '' });
+    } else {
+      // Error message popover
+      this.setState({ validLinkValue: false }, () => {
+        setTimeout(() => this.setState({ validLinkValue: true }), 2000);
+      });
+    }
+  }
+  _handleChangeLinkValueInput(ev) {
+    this.setState({
+      linkValue: ev.target.value
+    });
+  }
+  _validateLinkValue() {
+    return this.state.linkValue !== '' && /^https?:\/\/.+/.test(this.state.linkValue);
+  }
   _handleSelectHeading(eventKey) {
     // this.props.onSelectHeading(eventKey);
     setTimeout(() => this.props.onSelectHeading(eventKey), 0);
@@ -133,6 +174,9 @@ Toolbar.propTypes = {
   onClickBlockType: PropTypes.func.isRequired,
   onClickAddLink: PropTypes.func.isRequired,
   onClickRemoveLink: PropTypes.func.isRequired,
+  onSubmitAddLink: PropTypes.func.isRequired,
   useDefaultButtons: PropTypes.bool.isRequired,
+  addLinkValueErrorMessage: PropTypes.string,
+  isOpenAddLink: PropTypes.bool,
   tooltipTexts: PropTypes.objectOf(PropTypes.string).isRequired
 };

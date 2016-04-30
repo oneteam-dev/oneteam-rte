@@ -9,5 +9,6 @@ export default function getIFrameAttrs(htmlString) {
 function parseIFrameTag(string) {
   const el = document.createElement('div');
   el.innerHTML = string;
+  debugger;
   return el.getElementsByTagName('iframe')[0];
 }

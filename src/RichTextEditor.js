@@ -11,11 +11,11 @@ import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
 import LinkDecorator from './decorators/LinkDecorator';
-import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
 import {
   moveSelectionToEnd, createEditorState, createCheckedState, insertBlockAfter,
-  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, insertText, getIFrameAttrs
+  isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, insertText
 } from './utils';
+import { getIFrameAttrs } from './helpers';
 import {
   BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES, OLD_INLINE_STYLES
 } from './constants';
@@ -24,13 +24,16 @@ export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
 
-    const decorator = new CompositeDecorator([LinkDecorator, DownloadLinkDecorator]);
-    const editorState = createEditorState(this.props.initialHtml.replace(/>\s+</g, '><'), decorator);
+    const initialHtml = this.props.initialHtml.replace(/>\s+</g, '><'); // FIXME ;(
+    const decorator = new CompositeDecorator([LinkDecorator]);
+    const editorState = createEditorState(initialHtml, decorator);
     const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
 
-    this.state = { editorState, checkedState };
+    this.state = { editorState, checkedState, isOpenAddLinkInput: false };
 
     this.focus = () => this.refs.editor.focus();
+    this.blur = () => this.refs.editor.blur();
+    this.handleClickEditorBody = ev => this._handleClickEditorBody(ev);
     this.onChange = editorState => this.setState({ editorState });
     this.handleKeyCommand = command => this._handleKeyCommand(command);
     this.handlePastedFiles = files => this._handlePastedFiles(files);
@@ -42,16 +45,17 @@ export default class RichTextEditor extends Component {
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.blockRendererFn = block => this._blockRendererFn(block);
     this.insertIFrame = () => this._insertIFrame();
-    this.addLink = () => this._addLink();
+    this.addLink = url => this._addLink(url);
     this.removeLink = () => this._removeLink();
+    this.toggleAddLinkInput = state => this._toggleAddLinkInput(state);
   }
   render() {
-    const { editorState } = this.state;
+    const { editorState, isOpenAddLinkInput } = this.state;
 
     return (
       <div id='rich-editor' className={classNames({
         'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
-      })} onClick={this.focus}>
+      })}>
         <Toolbar
           editorState={editorState}
           onClickAddImage={this.props.onClickAddImage}
@@ -60,12 +64,15 @@ export default class RichTextEditor extends Component {
           onSelectHeading={this.toggleBlockType}
           onClickInlineStyle={this.toggleInlineStyle}
           onClickBlockType={this.toggleBlockType}
-          onClickAddLink={this.addLink}
+          onClickAddLink={this.toggleAddLinkInput}
+          onSubmitAddLink={this.addLink}
           onClickRemoveLink={this.removeLink}
+          isOpenAddLink={isOpenAddLinkInput}
           headingLabel={this.props.headingLabel}
           tooltipTexts={this.props.tooltipTexts}
+          addLinkValueErrorMessage={this.props.addLinkValueErrorMessage}
           useDefaultButtons={this.props.useDefaultButtons} />
-        <div className='rich-editor-body'>
+        <div className='rich-editor-body' onClick={this.handleClickEditorBody}>
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={this.blockStyleFn}
@@ -85,6 +92,14 @@ export default class RichTextEditor extends Component {
   }
   componentWillMount() {
     this.onChange(moveSelectionToEnd(this.state.editorState));
+  }
+  _handleClickEditorBody({ target }) {
+    // FIXME ;(   does not respond check box in the Safari
+    if (target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
+      this.blur();
+    }
+    this.focus();
+    this.toggleAddLinkInput(false);
   }
   _shouldHidePlaceholder() {
     const { editorState } = this.state;
@@ -125,7 +140,7 @@ export default class RichTextEditor extends Component {
       if (type === ENTITY_TYPES.DOWNLOAD_LINK) {
         return {
           component: DownloadLink,
-          props: {},
+          props: data,
           editable: true
         };
       }
@@ -145,12 +160,9 @@ export default class RichTextEditor extends Component {
         component: CheckableListItem,
         props: {
           checked: !!checkedState[blockKey],
-          onChangeChecked: ev => {
-            this.setState({
-              checkedState: assign({}, checkedState, {
-                [blockKey]: ev.target.checked
-              })
-            });
+          onChangeChecked: checked => {
+            const newCheckedState = assign({}, checkedState, { [blockKey]: checked });
+            this.setState({ checkedState: newCheckedState });
           }
         },
         editable: true
@@ -182,7 +194,7 @@ export default class RichTextEditor extends Component {
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
       this.state.editorState,
       entityKey,
-      ' '
+      name
     );
     this.onChange(newEditorState);
   }
@@ -203,6 +215,7 @@ export default class RichTextEditor extends Component {
     this.onChange(newEditorState);
   }
   _toggleBlockType(blockType) {
+    this.focus();
     const newEditorState = RichUtils.toggleBlockType(
       this.state.editorState,
       blockType
@@ -210,19 +223,20 @@ export default class RichTextEditor extends Component {
     this.onChange(newEditorState);
   }
   _toggleInlineStyle(inlineStyle) {
+    this.focus();
     const newEditorState = RichUtils.toggleInlineStyle(
       this.state.editorState,
       inlineStyle
     );
     this.onChange(newEditorState);
   }
-  _addLink() {
+  _addLink(url) {
+    this.toggleAddLinkInput(false);
     const { editorState } = this.state;
     const selection = editorState.getSelection();
     if (selection.isCollapsed()) {
       return;
     }
-    const url = window.prompt('Enter a URL');
     const entityKey = Entity.create(ENTITY_TYPES.LINK, 'MUTABLE', { url });
     const newEditorState = RichUtils.toggleLink(editorState, selection, entityKey);
     this.onChange(newEditorState);
@@ -230,9 +244,6 @@ export default class RichTextEditor extends Component {
   _removeLink() {
     const { editorState } = this.state;
     const selection = editorState.getSelection();
-    if (selection.isCollapsed()) {
-      return;
-    }
     const newEditorState = RichUtils.toggleLink(editorState, selection, null);
     this.onChange(newEditorState);
   }
@@ -397,6 +408,11 @@ export default class RichTextEditor extends Component {
     }
     return false;
   }
+  _toggleAddLinkInput(isOpenAddLinkInput) {
+    this.setState({
+      isOpenAddLinkInput: isOpenAddLinkInput !== undefined ? isOpenAddLinkInput : !this.state.isOpenAddLinkInput
+    });
+  }
   getHTML() {
     const contentState = this.state.editorState.getCurrentContent();
     return stateToHTML(contentState, this.state.checkedState);
@@ -416,6 +432,7 @@ RichTextEditor.propTypes = {
   initialHtml: PropTypes.string,
   placeholder: PropTypes.string,
   readOnly: PropTypes.bool,
+  addLinkValueErrorMessage: PropTypes.string,
   onClickAddImage: PropTypes.func.isRequired,
   onClickFileAttach: PropTypes.func.isRequired,
   onEnterKeyDownWithCommand: PropTypes.func,
