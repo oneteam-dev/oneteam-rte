@@ -28,6 +28,7 @@ ReactDOM.render((
       onEnterKeyDownWithCommand={() => console.log('onEnterKeyDownWithCommand')}
       onPaste={() => console.log('onPaste')}
       onClickAddImage={() => console.log('onClickAddImage')}
+      addLinkValueErrorMessage='有効なURLを入力してください'
       onClickFileAttach={() => console.log('onClickFileAttach')} />
     <button onClick={() => console.log(richTextEditor.getHTML())}>Log</button>
   </div>

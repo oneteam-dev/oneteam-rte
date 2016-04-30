@@ -238,6 +238,27 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
     background-color: #ddd
     margin: 0 5px 0 20px
     display: inline-block
+  .add-link-wrapper
+    cursor: pointer
+    margin-left: 10px
+    vertical-align: middle
+    display: inline-block
+    .rich-editor-toolbar-button
+      margin-left: 0
+  .add-link-input
+    position: absolute
+    width: 320px
+    margin-top: 6px
+    display: none
+    &.is-open
+      display: block
+    &-error-message
+      display: none
+      &.show
+        display: block
+    .form-control
+      display: inline-block
+      width: 280px
   .DraftEditor-root
     height: 100%
     max-height: none
