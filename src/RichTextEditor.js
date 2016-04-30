@@ -11,6 +11,7 @@ import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
 import LinkDecorator from './decorators/LinkDecorator';
+import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
 import {
   moveSelectionToEnd, createEditorState, createCheckedState, insertBlockAfter,
   isListItem, isCursorAtEnd, removeBlockStyle, adjustBlockDepth, insertText
@@ -25,7 +26,7 @@ export default class RichTextEditor extends Component {
     super(props);
 
     const initialHtml = this.props.initialHtml.replace(/>\s+</g, '><'); // FIXME ;(
-    const decorator = new CompositeDecorator([LinkDecorator]);
+    const decorator = new CompositeDecorator([LinkDecorator, DownloadLinkDecorator]);
     const editorState = createEditorState(initialHtml, decorator);
     const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
 
