@@ -27,6 +27,7 @@ export default class RichTextEditor extends Component {
       onChangeCheckedState: PropTypes.func.isRequired,
       placeholder: PropTypes.string,
       readOnly: PropTypes.bool,
+      className: PropTypes.string,
       blockRendererFn: PropTypes.func,
       onEnterKeyDownWithCommand: PropTypes.func,
       onPastedFiles: PropTypes.func,
@@ -50,9 +51,9 @@ export default class RichTextEditor extends Component {
   }
   render() {
     return (
-      <div className={classnames({
+      <div className={classnames('rte', {
         'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
-      })} onClick={this.handleClickEditor}>
+      }, this.props.className)} onClick={this.handleClickEditor}>
         <Editor
           ref='editor'
           blockRendererFn={this.blockRendererFn}

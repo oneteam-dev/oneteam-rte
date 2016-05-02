@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import FormControl from 'react-bootstrap/lib/FormControl'
+import Button from 'react-bootstrap/lib/Button'
 import { EditorState } from 'draft-js';
 import ButtonBase from './ButtonBase';
 import toggleLink from '../functions/toggleLink';
@@ -44,13 +46,13 @@ export default class AddLink extends Component {
         <div className={classnames('rte-toolbar-button-add-link-input', {
           'is-show': this.state.isOpen
         })}>
-          <input
+          <FormControl
             type='text'
             pattern='^https?:\/\/.+'
             placeholder={this.props.placeholder}
             value={this.state.value}
             onChange={this.handleChangeValue} />
-          <button onClick={this.handleSubmit}>{this.props.buttonText}</button>
+          <Button onClick={this.handleSubmit}>{this.props.buttonText}</Button>
           <span className={classnames('add-link-error-message', {
             'is-show': !this.state.validValue
           })}>{this.props.validationErrorMessage}</span>

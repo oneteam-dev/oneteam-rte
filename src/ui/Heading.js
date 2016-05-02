@@ -14,7 +14,8 @@ export default class Heading extends Component {
       editorState: PropTypes.instanceOf(EditorState).isRequired,
       onToggle: PropTypes.func.isRequired,
       className: PropTypes.string,
-      name: PropTypes.string
+      name: PropTypes.string,
+      closeNode: PropTypes.node
     };
   }
   static get defaultProps() {
@@ -42,7 +43,7 @@ export default class Heading extends Component {
               eventKey={type}
               active={blockType === type}>
               {this._createName(type)}
-              {blockType === type ? <span className='rte-toolbar-heading-remove'>x</span> : null}
+              {blockType === type ? this.props.closeNode : null}
             </MenuItem>
           ))}
         </DropdownButton>
