@@ -3,6 +3,7 @@ import React from 'react';
 import TestUtils from 'react-addons-test-utils';
 import assert from 'assert';
 import RichTextEditor from '../src/RichTextEditor';
+import { createEditorState, createCheckedState } from '../src/utils';
 import { jsdom } from 'jsdom';
 
 const renderer = TestUtils.createRenderer();
@@ -13,18 +14,15 @@ global.navigator = global.window.navigator;
 global.HTMLElement = global.window.HTMLElement;
 
 describe('RichTextEditor', () => {
-  it('is mounted', () => {
+  it('mounted', () => {
+    const editorState = createEditorState('');
+    const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
     renderer.render(
       <RichTextEditor
-        placeholder='placeholder'
-        readOnly={false}
-        onEnterKeyDownWithCommand={() => console.log('onEnterKeyDownWithCommand')}
-        onPaste={() => console.log('onPaste')}
-        onClickAddImage={() => console.log('onClickAddImage')}
-        onClickFileAttach={() => console.log('onClickFileAttach')}
-        initialHtml={'<h1>RichTextEditor</h1>'}
-        headingLabel='Heading'
-        useDefaultButtons />
+        editorState={editorState}
+        checkedState={checkedState}
+        onChangeCheckedState={() => {}}
+        onChange={() => {}} />
     );
     const output = renderer.getRenderOutput();
     assert(output);

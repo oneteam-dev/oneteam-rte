@@ -13,17 +13,18 @@
   "scripts": {
     "start": "webpack-dev-server --port 8008 --progress",
     "lint": "eslint src",
-    "test": "mocha --compilers js:babel-register test/**/*.js",
+    "test-src": "mocha --compilers js:babel-register test/**/*.js",
+    "test": "npm run lint && npm run test-src",
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
     "cp:draft-js-css": "cp node_modules/draft-js/dist/Draft.css lib/base.css",
     "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css",
-    "prepublish": "npm run lint && npm test && npm run build"
+    "prepublish": "npm test && npm run build"
   },
   "author": "Oneteam Inc.",
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.3",
-    "draft-js": "github:oneteam-dev/draft-js#v0.0.5-oneteam",
+    "draft-js": "github:oneteam-dev/draft-js#v0.0.6-oneteam",
     "draft-js-export-html": "github:oneteam-dev/draft-js-export-html#v0.0.7-oneteam",
     "lodash": "^4.11.1",
     "react-bootstrap": "^0.29.0"
@@ -45,15 +46,18 @@
     "eslint": "^2.8.0",
     "eslint-plugin-babel": "^3.2.0",
     "eslint-plugin-react": "^5.0.1",
+    "file-loader": "^0.8.5",
     "jsdom": "^8.4.0",
     "mocha": "^2.4.5",
     "power-assert": "^1.3.1",
     "react": "^15.0.1",
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-fa": "^4.0.1",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.2",
     "stylus-loader": "^2.0.0",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.0",
     "webpack-dev-server": "^1.14.1"
   }

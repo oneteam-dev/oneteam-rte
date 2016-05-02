@@ -8,26 +8,33 @@ $heading5-font-size = 14px
 $heading-line-height = 1.5
 $list-line-height = 2.14
 $blockquote-border-left-color = rgba(#333, 0.08)
-$topic-title-height = 50px
-$topic-recipients-height = 45px
-$header-height = $topic-title-height + $topic-recipients-height
-$footer-height = 76px
-$richeditor-body-min-height = 240px
-$richeditor-toolbar-height = 35px
 $toolbar-selected-background-color = rgba(#333, 0.08)
 $toolbar-hover-background-color = rgba(#333, 0.04)
 
-#rich-editor
-  height: 'calc(100% - %s - %s)' % ($header-height $footer-height)
-  min-height: $richeditor-body-min-height + $richeditor-toolbar-height
+.rich-text-editor
   &.RichEditor-hidePlaceholder
     .public-DraftEditorPlaceholder-root
       display: none
   .public-DraftEditorPlaceholder-root
     color: rgba(#333, 0.1)
-  .rich-editor-body
-    height: 'calc(100% - %s)' % $richeditor-toolbar-height
-    min-height: 240px
+  .rte-toolbar-button-add-link
+    position: relative
+    z-index: 1
+    display: inline-block
+    &-input
+      position: absolute
+      width: 500px
+      top: 24px
+      z-index: 1
+      display: none
+      &.is-show
+        display: block
+    .add-link-error-message
+      display: none
+      margin-left: 10px
+      &.is-show
+        display: inline-block
+  .rich-text-editor-body
     color: #555
     font-size: 14px
     line-height: 1.5
@@ -88,13 +95,23 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
     .iframe-placeholder
       -webkit-user-select: none
       user-select: none
-  .rich-editor-toolbar
+  .rich-text-editor-toolbar
     position: relative;
     z-index: 2
     background-color: #ddd
     height: 35px
     padding: 5px 10px 0
-  .rich-editor-toolbar-button
+    .rte-toolbar-button
+      margin: 0 8px
+      cursor: pointer
+    .rte-toolbar-divider
+      margin: 0 8px
+      vertical-align: middle
+      width: 1px
+      height: 15px
+      background-color: #fff
+      display: inline-block
+  .rich-text-editor-toolbar-button
     cursor: pointer
     margin-left: 10px
     vertical-align: middle
@@ -120,56 +137,6 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
         background-color: $toolbar-hover-background-color
       &.width-auto
         width: auto
-    .rich-editor-toolbar-button-icon
-      display: inline-block
-      background-position: center
-      background-repeat: no-repeat
-      background-size: 100% auto
-      vertical-align: middle
-      opacity: .5
-      font-size: 12px
-      font-family: FontAwesome
-      font-style: normal
-      font-weight: normal
-      &.file-photo
-        &::before
-          content: "\f03e"
-      &.file-attach
-        &::before
-          content: "\f0c6"
-      &.embed-iframe
-        &::before
-          content: "\f121"
-      &.BOLD
-        &::before
-          content: "\f032"
-      &.ITALIC
-        &::before
-          content: "\f033"
-      &.STRIKETHROUGH
-        &::before
-          content: "\f0cc"
-      &.blockquote
-        &::before
-          content: "\f10d"
-      &.checkable-list-item
-        &::before
-          content: "\f05d"
-      &.unordered-list-item
-        &::before
-          content: "\f0ca"
-      &.ordered-list-item
-        &::before
-          content: "\f0cb"
-      &.add-link
-        &::before
-          content: "\f0c1"
-      &.remove-link
-        &::before
-          content: "\f127"
-    .btn-group.open
-      .dropdown-toggle
-        box-shadow: none
     .dropdown-toggle
       padding: 3px 4px 3px
       border: 0
@@ -245,7 +212,7 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
     display: inline-block
     .rich-editor-toolbar-button
       margin-left: 0
-  .add-link-input
+  .rte-toolbar-button-add-link-input
     position: absolute
     width: 320px
     margin-top: 6px
@@ -285,9 +252,3 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
   h4:first-child,
   h5:first-child
     margin-top: 0
-  .align-center .public-DraftStyleDefault-ltr
-    text-align: center
-  .align-right .public-DraftStyleDefault-ltr
-    text-align: right
-  .align-justify .public-DraftStyleDefault-ltr
-    text-align: justify
