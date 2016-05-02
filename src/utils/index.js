@@ -4,6 +4,6 @@ export { default as createFindEntitiesBy } from './createFindEntitiesBy';
 export { default as getCurrentBlockType } from './getCurrentBlockType';
 export { default as getEntityAtCursor } from './getEntityAtCursor';
 export { default as hasCurrentInlineStyle } from './hasCurrentInlineStyle';
-export { default as currentBlockTypeIs } from './currentBlockTypeIs';
+export { default as checkCurrentBlockType } from './checkCurrentBlockType';
 export { default as isCursorAtEnd } from './isCursorAtEnd';
 export { default as isListItem } from './isListItem';

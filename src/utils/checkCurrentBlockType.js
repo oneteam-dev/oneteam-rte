@@ -1,5 +1,5 @@
 import getCurrentBlockType from './getCurrentBlockType';
 
-export default function isCurrentBlockType(editorState, type) {
+export default function checkCurrentBlockType(editorState, type) {
   return getCurrentBlockType(editorState) === type;
 }
