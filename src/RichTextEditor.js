@@ -12,6 +12,8 @@ import {
 import { isListItem, isCursorAtEnd } from './utils';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH } from './constants';
 
+const _isSafari = /safari/.test(navigator.userAgent.toLowerCase());
+
 export default class RichTextEditor extends Component {
   static get defaultProps() {
     return {
@@ -35,12 +37,14 @@ export default class RichTextEditor extends Component {
       customStyleMap: PropTypes.objectOf(PropTypes.any)
     };
   }
+  get _isSafari() {
+    return _isSafari;
+  }
   constructor(props) {
     super(props);
 
     this.focus = () => this.refs.editor.focus();
     this.blur = () => this.refs.editor.blur();
-    this.handleClickEditor = ev => this._handleClickEditor(ev);
     this.onChange = editorState => this.props.onChange(editorState);
     this.onChangeCheckedState = checkedState => this.props.onChangeCheckedState(checkedState);
     this.handleKeyCommand = command => this._handleKeyCommand(command);
@@ -53,7 +57,7 @@ export default class RichTextEditor extends Component {
     return (
       <div className={classnames('rte', {
         'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
-      }, this.props.className)} onClick={this.handleClickEditor}>
+      }, this.props.className)} onClick={ev => this._handleClickEditor(ev)}>
         <Editor
           ref='editor'
           blockRendererFn={this.blockRendererFn}
@@ -72,10 +76,10 @@ export default class RichTextEditor extends Component {
   }
   _handleClickEditor({ target }) {
     // FIXME ;(   does not respond check box in the Safari
-    if (target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
+    if (this._isSafari && target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
       this.blur();
+      this.focus();
     }
-    this.focus();
   }
   _shouldHidePlaceholder() {
     const { editorState } = this.props;
