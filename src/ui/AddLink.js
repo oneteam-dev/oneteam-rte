@@ -10,7 +10,7 @@ export default class AddLink extends Component {
   static get propTypes() {
     return {
       editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onSubmit: PropTypes.func.isRequired,
+      onInsertLink: PropTypes.func.isRequired,
       className: PropTypes.string,
       iconClassName: PropTypes.string,
       placeholder: PropTypes.string,
@@ -36,14 +36,14 @@ export default class AddLink extends Component {
   }
   render() {
     return (
-      <span className={classnames('rte-toolbar-button-add-link', this.props.className)}>
+      <span className={classnames('rich-text-editor-toolbar-button-add-link', this.props.className)}>
         <BaseButton className={this.props.iconClassName} onMouseDown={ev => {
           ev.preventDefault();
           this.setState({ isOpen: !this.state.isOpen });
         }}>
           {this.props.children}
         </BaseButton>
-        <div className={classnames('rte-toolbar-button-add-link-input', {
+        <div className={classnames('rich-text-editor-toolbar-button-add-link-input', {
           'is-show': this.state.isOpen
         })}>
           <FormControl
@@ -69,7 +69,7 @@ export default class AddLink extends Component {
       const value = this._hasHTTPProtocol(this.state.value) ? this.state.value :
         this._addHTTPProtocol(this.state.value);
       const newEditorState = toggleLink(this.props.editorState, value);
-      this.props.onSubmit(newEditorState);
+      this.props.onInsertLink(newEditorState);
       this.setState({ value: '', isOpen: false });
     } else {
       this.setState({ validValue: false }, () => {

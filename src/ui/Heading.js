@@ -12,10 +12,10 @@ export default class Heading extends Component {
   static get propTypes() {
     return {
       editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onToggle: PropTypes.func.isRequired,
+      onToggleBlockType: PropTypes.func.isRequired,
       className: PropTypes.string,
       name: PropTypes.string,
-      closeNode: PropTypes.node
+      closeButtonNode: PropTypes.node
     };
   }
   static get defaultProps() {
@@ -43,7 +43,7 @@ export default class Heading extends Component {
               eventKey={type}
               active={blockType === type}>
               {this._createName(type)}
-              {blockType === type ? this.props.closeNode : null}
+              {blockType === type ? this.props.closeButtonNode : null}
             </MenuItem>
           ))}
         </DropdownButton>
@@ -51,8 +51,8 @@ export default class Heading extends Component {
     );
   }
   _handleSelect(type) {
-    // this.props.onSelectHeading(type);
-    setTimeout(() => this.props.onToggle(toggleBlockType(this.props.editorState, type)), 0);
+    // this.props.onToggleBlockType(type);
+    setTimeout(() => this.props.onToggleBlockType(toggleBlockType(this.props.editorState, type)), 0);
   }
   _createName(type) {
     const { name } = this.props;

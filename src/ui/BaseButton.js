@@ -1,3 +1,4 @@
+import isFunction from 'lodash/isFunction';
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
@@ -20,22 +21,22 @@ export default class BaseButton extends Component {
     const { className, active, children } = this.props;
     return (
       <span
-        className={classnames('rte-toolbar-button', className, { active })}
+        className={classnames('rich-text-editor-toolbar-button', className, { active })}
         onMouseDown={this.handleMouseDown}
         onClick={this.handleClick}>
-        <span className='rte-toolbar-button-inner'>
+        <span className='rich-text-editor-toolbar-button-inner'>
           {children ? children : null}
         </span>
       </span>
     );
   }
   _handleMouseDown(ev) {
-    if (typeof this.props.onMouseDown === 'function') {
+    if (isFunction(this.props.onMouseDown)) {
       this.props.onMouseDown(ev);
     }
   }
   _handleClick(ev) {
-    if (typeof this.props.onClick === 'function') {
+    if (isFunction(this.props.onClick)) {
       this.props.onClick(ev);
     }
   }

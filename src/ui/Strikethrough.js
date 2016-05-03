@@ -7,7 +7,7 @@ export default class Strikethrough extends Component {
   static get propTypes() {
     return {
       editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onToggle: PropTypes.func.isRequired,
+      onToggleInlineStyle: PropTypes.func.isRequired,
       children: PropTypes.node,
       className: PropTypes.string
     };
@@ -23,7 +23,7 @@ export default class Strikethrough extends Component {
       <InlineStyleButton
         type={INLINE_STYLES.STRIKETHROUGH}
         editorState={this.props.editorState}
-        onToggle={this.props.onToggle}
+        onToggle={this.props.onToggleInlineStyle}
         className={this.props.className}>
         {this.props.children}
       </InlineStyleButton>
