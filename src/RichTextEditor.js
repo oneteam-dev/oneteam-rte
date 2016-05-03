@@ -135,8 +135,7 @@ export default class RichTextEditor extends Component {
             const newCheckedState = assign({}, checkedState, { [blockKey]: checked });
             this.onChangeCheckedState(newCheckedState);
           }
-        },
-        editable: true
+        }
       };
     }
 
