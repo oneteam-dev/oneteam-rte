@@ -7,19 +7,22 @@ export default class ButtonBase extends Component {
       className: PropTypes.string,
       active: PropTypes.bool,
       children: PropTypes.node,
-      onMouseDown: PropTypes.func
+      onMouseDown: PropTypes.func,
+      onClick: PropTypes.func
     };
   }
   constructor(props) {
     super(props);
     this.handleMouseDown = ev => this._handleMouseDown(ev);
+    this.handleClick = ev => this._handleClick(ev);
   }
   render() {
     const { className, active, children } = this.props;
     return (
       <span
         className={classnames('rte-toolbar-button', className, { active })}
-        onMouseDown={this.handleMouseDown}>
+        onMouseDown={this.handleMouseDown}
+        onClick={this.handleClick}>
         <span className='rte-toolbar-button-inner'>
           {children ? children : null}
         </span>
@@ -29,6 +32,11 @@ export default class ButtonBase extends Component {
   _handleMouseDown(ev) {
     if (typeof this.props.onMouseDown === 'function') {
       this.props.onMouseDown(ev);
+    }
+  }
+  _handleClick(ev) {
+    if (typeof this.props.onClick === 'function') {
+      this.props.onClick(ev);
     }
   }
 }
