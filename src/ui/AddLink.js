@@ -32,7 +32,7 @@ export default class AddLink extends Component {
     this.state = { value: '', validValue: true, isOpen: false };
 
     this.handleChangeValue = ({ target }) => this.setState({ value: target.value });
-    this.handleSubmit = ev => this._handleSubmit(ev);
+    this.handleClickButton = ev => this._handleClickButton(ev);
   }
   render() {
     return (
@@ -52,7 +52,7 @@ export default class AddLink extends Component {
             placeholder={this.props.placeholder}
             value={this.state.value}
             onChange={this.handleChangeValue} />
-          <Button onClick={this.handleSubmit}>{this.props.buttonText}</Button>
+          <Button onClick={this.handleClickButton}>{this.props.buttonText}</Button>
           <span className={classnames('add-link-error-message', {
             'is-show': !this.state.validValue
           })}>{this.props.validationErrorMessage}</span>
@@ -63,10 +63,12 @@ export default class AddLink extends Component {
   close() {
     this.setState({ isOpen: false });
   }
-  _handleSubmit(ev) {
+  _handleClickButton(ev) {
     ev.preventDefault();
-    if (this._validateValue()) {
-      const newEditorState = toggleLink(this.props.editorState, this.state.value);
+    if (this._isValidValue()) {
+      const value = this._hasHTTPProtocol(this.state.value) ? this.state.value :
+        this._addHTTPProtocol(this.state.value);
+      const newEditorState = toggleLink(this.props.editorState, value);
       this.props.onSubmit(newEditorState);
       this.setState({ value: '', isOpen: false });
     } else {
@@ -75,7 +77,14 @@ export default class AddLink extends Component {
       });
     }
   }
-  _validateValue() {
-    return this.state.value !== '' && /^https?:\/\/.+/.test(this.state.value);
+  _isValidValue() {
+    return this.state.value !== '';
+    // return this.state.value !== '' && /^https?:\/\/.+/.test(this.state.value);
+  }
+  _hasHTTPProtocol(value) {
+    return /^https?:\/\/.+/.test(value);
+  }
+  _addHTTPProtocol(value) {
+    return `http://${value}`;
   }
 }
