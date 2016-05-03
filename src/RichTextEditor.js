@@ -7,7 +7,7 @@ import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
 import classnames from 'classnames';
 import {
-  moveSelectionToEnd, insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText
+  insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText
 } from './functions';
 import { isListItem, isCursorAtEnd } from './utils';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH } from './constants';
