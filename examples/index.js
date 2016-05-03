@@ -9,7 +9,7 @@ import {
   Divider, AddLink, RemoveLink
 } from '../lib/ui';
 import getHTML from '../lib/getHTML';
-import { createEditorState, createCheckedState, hasCurrentInlineStyle, currentBlockTypeIs } from '../lib/utils';
+import { createEditorState, createCheckedState, hasCurrentInlineStyle, checkCurrentBlockType } from '../lib/utils';
 import { toggleLink } from '../lib/functions';
 import { Entity, AtomicBlockUtils, CompositeDecorator } from '../lib/draft'
 import LinkDecorator from '../lib/decorators/LinkDecorator';
@@ -133,7 +133,7 @@ class RichTextEditorDemo extends Component {
             <OverlayTrigger
               placement='bottom'
               overlay={<Tooltip id='BLOCKQUOTE'>Blockquote</Tooltip>}>
-              <Icon name='quote-left' inverse={currentBlockTypeIs(editorState, 'blockquote')}/>
+              <Icon name='quote-left' inverse={checkCurrentBlockType(editorState, 'blockquote')}/>
             </OverlayTrigger>
           </Blockquote>
 
@@ -143,7 +143,7 @@ class RichTextEditorDemo extends Component {
             <OverlayTrigger
               placement='bottom'
               overlay={<Tooltip id='CHECKABLELIST'>CheckableList</Tooltip>}>
-              <Icon name='check-circle-o' inverse={currentBlockTypeIs(editorState, 'checkable-list-item')}/>
+              <Icon name='check-circle-o' inverse={checkCurrentBlockType(editorState, 'checkable-list-item')}/>
             </OverlayTrigger>
           </CheckableList>
 
@@ -153,7 +153,7 @@ class RichTextEditorDemo extends Component {
             <OverlayTrigger
               placement='bottom'
               overlay={<Tooltip id='UNORDEREDLIST'>UnorderedList</Tooltip>}>
-              <Icon name='list-ul' inverse={currentBlockTypeIs(editorState, 'unordered-list-item')}/>
+              <Icon name='list-ul' inverse={checkCurrentBlockType(editorState, 'unordered-list-item')}/>
             </OverlayTrigger>
           </UnorderedList>
 
@@ -163,7 +163,7 @@ class RichTextEditorDemo extends Component {
             <OverlayTrigger
               placement='bottom'
               overlay={<Tooltip id='ORDEREDLIST'>OrderedList</Tooltip>}>
-              <Icon name='list-ol' inverse={currentBlockTypeIs(editorState, 'ordered-list-item')}/>
+              <Icon name='list-ol' inverse={checkCurrentBlockType(editorState, 'ordered-list-item')}/>
             </OverlayTrigger>
           </OrderedList>
 
