@@ -70,9 +70,6 @@ export default class RichTextEditor extends Component {
       </div>
     );
   }
-  componentWillMount() {
-    this.onChange(moveSelectionToEnd(this.props.editorState));
-  }
   _handleClickEditor({ target }) {
     // FIXME ;(   does not respond check box in the Safari
     if (target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
