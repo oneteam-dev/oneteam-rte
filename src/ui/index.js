@@ -2,7 +2,7 @@ export { default as AddLink } from './AddLink';
 export { default as Blockquote } from './Blockquote';
 export { default as BlockTypeButton } from './BlockTypeButton';
 export { default as Bold } from './Bold';
-export { default as ButtonBase } from './ButtonBase';
+export { default as BaseButton } from './BaseButton';
 export { default as Divider } from './Divider';
 export { default as Heading } from './Heading';
 export { default as InlineStyleButton } from './InlineStyleButton';

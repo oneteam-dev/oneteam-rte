@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FormControl from 'react-bootstrap/lib/FormControl'
 import Button from 'react-bootstrap/lib/Button'
 import { EditorState } from 'draft-js';
-import ButtonBase from './ButtonBase';
+import BaseButton from './BaseButton';
 import toggleLink from '../functions/toggleLink';
 import classnames from 'classnames';
 
@@ -37,12 +37,12 @@ export default class AddLink extends Component {
   render() {
     return (
       <span className={classnames('rte-toolbar-button-add-link', this.props.className)}>
-        <ButtonBase className={this.props.iconClassName} onMouseDown={ev => {
+        <BaseButton className={this.props.iconClassName} onMouseDown={ev => {
           ev.preventDefault();
           this.setState({ isOpen: !this.state.isOpen });
         }}>
           {this.props.children}
-        </ButtonBase>
+        </BaseButton>
         <div className={classnames('rte-toolbar-button-add-link-input', {
           'is-show': this.state.isOpen
         })}>

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
 import classnames from 'classnames';
-import ButtonBase from './ButtonBase';
+import BaseButton from './BaseButton';
 import toggleLink from '../functions/toggleLink';
 
 export default class RemoveLink extends Component {
@@ -24,9 +24,9 @@ export default class RemoveLink extends Component {
   }
   render() {
     return (
-      <ButtonBase className={classnames(this.props.className)} onMouseDown={this.handleMouseDown}>
+      <BaseButton className={classnames(this.props.className)} onMouseDown={this.handleMouseDown}>
         {this.props.children}
-      </ButtonBase>
+      </BaseButton>
     );
   }
   _handleMouseDown(ev) {

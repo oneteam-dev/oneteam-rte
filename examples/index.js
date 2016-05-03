@@ -5,7 +5,7 @@ import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Tooltip from 'react-bootstrap/lib/Tooltip';
 import Editor from '../lib';
 import {
-  ButtonBase, Bold, Italic, Strikethrough, Heading, Blockquote, CheckableList, UnorderedList, OrderedList,
+  BaseButton, Bold, Italic, Strikethrough, Heading, Blockquote, CheckableList, UnorderedList, OrderedList,
   Divider, AddLink, RemoveLink
 } from '../lib/ui';
 import getHTML from '../lib/getHTML';
@@ -35,7 +35,7 @@ class RichTextEditorDemo extends Component {
     return (
       <div className='rich-text-editor' id='rich-text-editor'>
         <div className='rich-text-editor-toolbar'>
-          <ButtonBase
+          <BaseButton
             className='rich-text-editor-button rich-text-editor-button--insert-image'
             onMouseDown={ev => console.log('onClick Insert image')}>
             <OverlayTrigger
@@ -43,9 +43,9 @@ class RichTextEditorDemo extends Component {
               overlay={<Tooltip id='INSERT_IMAGE'>Insert Image</Tooltip>}>
               <Icon name='image' />
             </OverlayTrigger>
-          </ButtonBase>
+          </BaseButton>
 
-          <ButtonBase
+          <BaseButton
             className='rich-text-editor-button rich-text-editor-button--upload-file'
             onMouseDown={ev => console.log('onClick Upload file')}>
             <OverlayTrigger
@@ -53,19 +53,19 @@ class RichTextEditorDemo extends Component {
               overlay={<Tooltip id='UPLOAD_FILE'>Upload file</Tooltip>}>
               <Icon name='paperclip' />
             </OverlayTrigger>
-          </ButtonBase>
+          </BaseButton>
 
-          <ButtonBase
+          <BaseButton
             id='embed-iframe'
             className='rich-text-editor-button rich-text-editor-button--embed-code'
             description='Embed code'
             onClick={ev => console.log('onClick Embed code')}>
-              <OverlayTrigger
-                placement='bottom'
-                overlay={<Tooltip id='IFRAME'>Embed iframe</Tooltip>}>
-                <Icon name='code' />
-              </OverlayTrigger>
-            </ButtonBase>
+            <OverlayTrigger
+              placement='bottom'
+              overlay={<Tooltip id='IFRAME'>Embed iframe</Tooltip>}>
+              <Icon name='code' />
+            </OverlayTrigger>
+          </BaseButton>
 
           <AddLink
             ref={c => this._addLink = c}

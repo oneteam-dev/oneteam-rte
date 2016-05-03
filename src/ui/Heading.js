@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { EditorState } from 'draft-js';
-import ButtonBase from './ButtonBase';
+import BaseButton from './BaseButton';
 import toggleBlockType from '../functions/toggleBlockType';
 import getCurrentBlockType from '../utils/getCurrentBlockType';
 import { BLOCK_TYPES, HEADER_BLOCK_TYPES } from '../constants';
@@ -29,7 +29,7 @@ export default class Heading extends Component {
     const blockType = getCurrentBlockType(this.props.editorState);
 
     return (
-      <ButtonBase className={this.props.className}>
+      <BaseButton className={this.props.className}>
         <DropdownButton
           id='rte-toolbar-heading'
           bsSize='small'
@@ -47,7 +47,7 @@ export default class Heading extends Component {
             </MenuItem>
           ))}
         </DropdownButton>
-      </ButtonBase>
+      </BaseButton>
     );
   }
   _handleSelect(type) {

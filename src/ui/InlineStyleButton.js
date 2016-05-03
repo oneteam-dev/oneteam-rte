@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
-import ButtonBase from './ButtonBase';
+import BaseButton from './BaseButton';
 import toggleInlineStyle from '../functions/toggleInlineStyle';
 import hasCurrentInlineStyle from '../utils/hasCurrentInlineStyle';
 
@@ -30,12 +30,12 @@ export default class InlineStyleButton extends Component {
   }
   render() {
     return (
-      <ButtonBase
+      <BaseButton
         className={this.props.className}
         onMouseDown={this.handleMouseDown}
         active={hasCurrentInlineStyle(this.props.editorState, this.props.type)}>
         {this.props.children}
-      </ButtonBase>
+      </BaseButton>
     );
   }
 }

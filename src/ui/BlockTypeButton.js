@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
-import ButtonBase from './ButtonBase';
+import BaseButton from './BaseButton';
 import toggleBlockType from '../functions/toggleBlockType';
 import checkCurrentBlockType from '../utils/checkCurrentBlockType';
 
@@ -30,12 +30,12 @@ export default class BlockTypeButton extends Component {
   }
   render() {
     return (
-      <ButtonBase
+      <BaseButton
         className={this.props.className}
         onMouseDown={this.handleMouseDown}
         active={checkCurrentBlockType(this.props.editorState, this.props.type)}>
         {this.props.children}
-      </ButtonBase>
+      </BaseButton>
     );
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
-export default class ButtonBase extends Component {
+export default class BaseButton extends Component {
   static get propTypes() {
     return {
       className: PropTypes.string,
