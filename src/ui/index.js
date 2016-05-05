@@ -1,4 +1,4 @@
-export { default as AddLink } from './AddLink';
+export { default as InsertLink } from './InsertLink';
 export { default as Blockquote } from './Blockquote';
 export { default as BlockTypeButton } from './BlockTypeButton';
 export { default as Bold } from './Bold';

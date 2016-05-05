@@ -21,6 +21,7 @@ export default class Body extends Component {
       checkedState: PropTypes.objectOf(PropTypes.bool),
       changeEditorState: PropTypes.func,
       changeCheckedState: PropTypes.func,
+      closeInsertLinkInput: PropTypes.func,
 
       placeholder: PropTypes.string,
       readOnly: PropTypes.bool,
@@ -48,6 +49,7 @@ export default class Body extends Component {
     this.focus = () => this.refs.editor.focus();
     this.blur = () => this.refs.editor.blur();
     this.handleClickWrapper = ev => this._handleClickWrapper(ev);
+    this.handleMouseDownWrapper = ev => this._handleMouseDownWrapper(ev);
     this.handleKeyCommand = command => this._handleKeyCommand(command);
     this.handlePastedFiles = files => this._handlePastedFiles(files);
     this.handleReturn = ev => this._handleReturn(ev);
@@ -61,7 +63,7 @@ export default class Body extends Component {
       <div
         className={classnames('rich-text-editor-body', {
           'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
-        }, this.props.className)} onClick={this.handleClickWrapper}>
+        }, this.props.className)} onClick={this.handleClickWrapper} onMouseDown={this.handleMouseDownWrapper}>
         <Editor
           ref='editor'
           blockRendererFn={this.blockRendererFn}
@@ -77,6 +79,11 @@ export default class Body extends Component {
           customStyleMap={this.props.customStyleMap} />
       </div>
     );
+  }
+  _handleMouseDownWrapper() {
+    if (isFunction(this.props.closeInsertLinkInput)) {
+      this.props.closeInsertLinkInput();
+    }
   }
   _handleClickWrapper({ target }) {
     // FIXME ;(   does not respond check box in the Safari

@@ -6,7 +6,7 @@ import BaseButton from './BaseButton';
 import toggleLink from '../functions/toggleLink';
 import classnames from 'classnames';
 
-export default class AddLink extends Component {
+export default class InsertLink extends Component {
   static get propTypes() {
     return {
       editorState: PropTypes.instanceOf(EditorState).isRequired,
@@ -16,46 +16,50 @@ export default class AddLink extends Component {
       placeholder: PropTypes.string,
       validationErrorMessage: PropTypes.string,
       children: PropTypes.node,
-      buttonText: PropTypes.string
+      buttonText: PropTypes.string,
+      isOpen: PropTypes.bool,
+      onMouseDownToggle: PropTypes.func.isRequired
     };
   }
   static get defaultProps() {
     return {
       className: '',
+      iconClassName: '',
       placeholder: 'Enter a URL...',
       validationErrorMessage: 'Please enter a valid URL.',
-      buttonText: '✔'
+      buttonText: '✔',
+      isOpen: false
     };
   }
   constructor(props) {
     super(props);
-    this.state = { value: '', validValue: true, isOpen: false };
+    this.state = { value: '', validValue: true };
 
     this.handleChangeValue = ({ target }) => this.setState({ value: target.value });
     this.handleClickButton = ev => this._handleClickButton(ev);
   }
   render() {
+    const {
+      className, children, isOpen, onMouseDownToggle, placeholder, buttonText, validationErrorMessage
+    } = this.props;
     return (
-      <span className={classnames('rich-text-editor-toolbar-button-add-link', this.props.className)}>
-        <BaseButton className={this.props.iconClassName} onMouseDown={ev => {
-          ev.preventDefault();
-          this.setState({ isOpen: !this.state.isOpen });
-        }}>
-          {this.props.children}
+      <span className={classnames('rich-text-editor-toolbar-button-insert-link', className)}>
+        <BaseButton className={this.props.iconClassName} onMouseDown={onMouseDownToggle}>
+          {children}
         </BaseButton>
-        <div className={classnames('rich-text-editor-toolbar-button-add-link-input', {
-          'is-show': this.state.isOpen
+        <div className={classnames('rich-text-editor-toolbar-button-insert-link-input', {
+          'is-show': isOpen
         })}>
           <FormControl
             type='text'
             pattern='^https?:\/\/.+'
-            placeholder={this.props.placeholder}
+            placeholder={placeholder}
             value={this.state.value}
             onChange={this.handleChangeValue} />
-          <Button onClick={this.handleClickButton}>{this.props.buttonText}</Button>
-          <span className={classnames('add-link-error-message', {
+          <Button onClick={this.handleClickButton}>{buttonText}</Button>
+          <span className={classnames('insert-link-error-message', {
             'is-show': !this.state.validValue
-          })}>{this.props.validationErrorMessage}</span>
+          })}>{validationErrorMessage}</span>
         </div>
       </span>
     );
@@ -79,7 +83,6 @@ export default class AddLink extends Component {
   }
   _isValidValue() {
     return this.state.value !== '';
-    // return this.state.value !== '' && /^https?:\/\/.+/.test(this.state.value);
   }
   _hasHTTPProtocol(value) {
     return /^https?:\/\/.+/.test(value);

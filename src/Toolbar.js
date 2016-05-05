@@ -6,7 +6,7 @@ import Tooltip from 'react-bootstrap/lib/Tooltip';
 import classnames from 'classnames';
 import {
   BaseButton, Bold, Italic, Strikethrough, Heading, Blockquote, CheckableList,
-  UnorderedList, OrderedList, Divider, AddLink, RemoveLink
+  UnorderedList, OrderedList, Divider, InsertLink, RemoveLink
 } from './ui';
 import { hasCurrentInlineStyle, getCurrentBlockType, checkCurrentBlockType } from './utils';
 import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from './constants';
@@ -18,6 +18,8 @@ export default class Toolbar extends Component {
       editorState: PropTypes.instanceOf(EditorState),
       checkedState: PropTypes.objectOf(PropTypes.bool),
       changeEditorState: PropTypes.func,
+      toggleInsertLinkInput: PropTypes.func,
+      isOpenInsertLinkInput: PropTypes.bool,
 
       children: PropTypes.node,
       onClickInsertImage: PropTypes.func,
@@ -38,7 +40,8 @@ export default class Toolbar extends Component {
   }
   static get defaultProps() {
     return {
-      itemOptions: DEFAULT_ITEM_OPTONS
+      itemOptions: DEFAULT_ITEM_OPTONS,
+      isOpenInsertLinkInput: false
     };
   }
   constructor(props) {
@@ -47,6 +50,7 @@ export default class Toolbar extends Component {
     this.handleClickInsertImage = ev => this._handleClickInsertImage(ev);
     this.handleClickUploadFile = ev => this._handleClickUploadFile(ev);
     this.handleMouseDownEmbedIFrame = ev => this._handleMouseDownEmbedIFrame(ev);
+    this.handleMouseDownInsertLink = ev => this._handleMouseDownInsertLink(ev);
     this.handleInsertLink = editorState => this._changeEditorState(editorState);
     this.handleRemoveLink = editorState => this._changeEditorState(editorState);
     this.handleToggleBlockType = editorState => this._changeEditorState(editorState);
@@ -57,7 +61,7 @@ export default class Toolbar extends Component {
     };
   }
   render() {
-    const { editorState, children, itemOptions } = this.props;
+    const { editorState, children, itemOptions, isOpenInsertLinkInput } = this.props;
 
     return (
       <div className='rich-text-editor-toolbar'>{children ? children : [
@@ -94,19 +98,20 @@ export default class Toolbar extends Component {
           </OverlayTrigger>
         </BaseButton>,
 
-        <AddLink
-          key={ITEM_NAMES.ADD_LINK}
-          ref={c => this._addLink = c}
+        <InsertLink
+          key={ITEM_NAMES.INSERT_LINK}
           editorState={editorState}
           onInsertLink={this.handleInsertLink}
-          validationErrorMessage={itemOptions[ITEM_NAMES.ADD_LINK].validationErrorMessage}
-          placeholder={itemOptions[ITEM_NAMES.ADD_LINK].placeholder}>
+          isOpen={isOpenInsertLinkInput}
+          onMouseDownToggle={this.handleMouseDownInsertLink}
+          validationErrorMessage={itemOptions[ITEM_NAMES.INSERT_LINK].validationErrorMessage}
+          placeholder={itemOptions[ITEM_NAMES.INSERT_LINK].placeholder}>
           <OverlayTrigger
             placement='bottom'
-            overlay={<Tooltip id={ITEM_NAMES.ADD_LINK}>{itemOptions[ITEM_NAMES.ADD_LINK].description}</Tooltip>}>
-            <span>{itemOptions[ITEM_NAMES.ADD_LINK].iconNode}</span>
+            overlay={<Tooltip id={ITEM_NAMES.INSERT_LINK}>{itemOptions[ITEM_NAMES.INSERT_LINK].description}</Tooltip>}>
+            <span>{itemOptions[ITEM_NAMES.INSERT_LINK].iconNode}</span>
           </OverlayTrigger>
-        </AddLink>,
+        </InsertLink>,
 
         <RemoveLink
           key={ITEM_NAMES.REMOVE_LINK}
@@ -269,6 +274,12 @@ export default class Toolbar extends Component {
   _handleMouseDownEmbedIFrame(ev) {
     if (isFunction(this.props.onMouseDownEmbedIFrame)) {
       this.props.onMouseDownEmbedIFrame(ev);
+    }
+  }
+  _handleMouseDownInsertLink(ev) {
+    if (isFunction(this.props.toggleInsertLinkInput)) {
+      ev.preventDefault();
+      this.props.toggleInsertLinkInput();
     }
   }
   _changeEditorState(editorState) {

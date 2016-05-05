@@ -15,8 +15,8 @@ export default {
     description: 'Embed iframe',
     iconNode: <Icon name='code' />
   },
-  [ITEM_NAMES.ADD_LINK]: {
-    description: 'Add link',
+  [ITEM_NAMES.INSERT_LINK]: {
+    description: 'Insert link',
     iconNode: <Icon name='link' />
   },
   [ITEM_NAMES.REMOVE_LINK]: {

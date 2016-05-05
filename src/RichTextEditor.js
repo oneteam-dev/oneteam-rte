@@ -47,7 +47,7 @@ export default class RichTextEditor extends Component {
     const editorState = createEditorState(initialHtml, decorator);
     const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
 
-    this.state = { editorState, checkedState };
+    this.state = { editorState, checkedState, isOpenInsertLinkInput: false };
 
     this.changeEditorState = editorState => this.setState({ editorState });
     this.changeCheckedState = checkedState => this.setState({ checkedState });
@@ -56,15 +56,18 @@ export default class RichTextEditor extends Component {
     this.insertIFrame = iframeTagString => this._insertIFrame(iframeTagString);
   }
   render() {
-    const { editorState, checkedState } = this.state;
+    const { editorState, checkedState, isOpenInsertLinkInput } = this.state;
     const content = Children.map((this.props.children || []), child => {
       return cloneElement(
         child,
         {
           editorState,
           checkedState,
+          isOpenInsertLinkInput,
           changeEditorState: this.changeEditorState,
           changeCheckedState: this.changeCheckedState,
+          toggleInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: !isOpenInsertLinkInput }),
+          closeInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: false }),
           ref: c => this[`_${child.type.name.toLowerCase()}`] = c,
           onToggleHeadingAfter: () => this._body ? this._body.focus() : null
         }

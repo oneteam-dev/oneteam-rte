@@ -1,7 +1,7 @@
 export const INSERT_IMAGE = 'INSERT_IMAGE';
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const EMBED_IFRAME = 'EMBED_IFRAME';
-export const ADD_LINK = 'ADD_LINK';
+export const INSERT_LINK = 'INSERT_LINK';
 export const REMOVE_LINK = 'REMOVE_LINK';
 export const DIVIDER = 'DIVIDER';
 export const HEADING = 'HEADING';
@@ -26,9 +26,9 @@ export default {
     description: 'Embed iframe',
     iconNode: 'Embed iframe'
   },
-  [ADD_LINK]: {
-    description: 'Add link',
-    iconNode: 'Add link',
+  [INSERT_LINK]: {
+    description: 'Insert link',
+    iconNode: 'Insert link',
     validationErrorMessage: 'Error',
     placeholder: 'url here...'
   },
