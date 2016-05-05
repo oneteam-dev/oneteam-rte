@@ -8,7 +8,7 @@ export default class RemoveLink extends Component {
   static get propTypes() {
     return {
       editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onClick: PropTypes.func.isRequired,
+      onRemoveLink: PropTypes.func.isRequired,
       children: PropTypes.node,
       className: PropTypes.string
     };
@@ -32,6 +32,6 @@ export default class RemoveLink extends Component {
   _handleMouseDown(ev) {
     ev.preventDefault();
     const newEditorState = toggleLink(this.props.editorState);
-    this.props.onClick(newEditorState);
+    this.props.onRemoveLink(newEditorState);
   }
 }

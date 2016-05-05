@@ -3,7 +3,8 @@
   "parser": "babel-eslint",
   "plugins": ["babel", "react"],
   "env": {
-    "browser": true
+    "browser": true,
+    "node": true
   },
   "rules": {
     "react/jsx-uses-react": 1,

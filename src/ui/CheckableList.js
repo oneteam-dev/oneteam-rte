@@ -7,7 +7,7 @@ export default class CheckableList extends Component {
   static get propTypes() {
     return {
       editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onToggle: PropTypes.func.isRequired,
+      onToggleBlockType: PropTypes.func.isRequired,
       children: PropTypes.node,
       className: PropTypes.string
     };
@@ -23,7 +23,7 @@ export default class CheckableList extends Component {
       <BlockTypeButton
         type={BLOCK_TYPES.CHECKABLE_LIST_ITEM}
         editorState={this.props.editorState}
-        onToggle={this.props.onToggle}
+        onToggle={this.props.onToggleBlockType}
         className={this.props.className}>
         {this.props.children}
       </BlockTypeButton>
