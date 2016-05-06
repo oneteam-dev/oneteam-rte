@@ -21,6 +21,13 @@
     "prepublish": "npm test && npm run build"
   },
   "author": "Oneteam Inc.",
+  "contributors": [
+    {
+      "name": "Atsushi NAGASE",
+      "email": "a@ngs.io",
+      "url": "http://ngs.io/"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.3",
