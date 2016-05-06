@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import RichTextEditor, { Toolbar, Body } from '../lib';
+import RichTextEditor, { Toolbar, Body } from '../src';
 import itemOptions from './itemOptions';
-import '../lib/base.css';
+import '../node_modules/draft-js/dist/Draft.css';
 import './index.styl';
 
 let rte;
