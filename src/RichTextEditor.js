@@ -8,6 +8,7 @@ import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
 import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
 import { ENTITY_TYPES } from './constants';
+import * as functions from './functions';
 
 export default class RichTextEditor extends Component {
   static get propTypes() {
@@ -54,6 +55,13 @@ export default class RichTextEditor extends Component {
     this.insertImage = imageFile => this._insertImage(imageFile);
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.insertIFrame = iframeTagString => this._insertIFrame(iframeTagString);
+    for(let key in functions) {
+      this[key] = ((fn) => {
+        return (...args) => {
+          this.changeEditorState(fn(this.state.editorState, ...args));
+        }
+      })(functions[key]);
+    }
   }
   render() {
     const { editorState, checkedState, isOpenInsertLinkInput } = this.state;
