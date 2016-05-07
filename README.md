@@ -1,4 +1,4 @@
-# oneteam-rte [![Build Status][travis-image]][travis-url]
+# oneteam-rte [![Circle CI](https://circleci.com/gh/oneteam-dev/oneteam-rte.svg?style=svg&circle-token=45d404aab2e1e3343e0388129acc5279057b43d4)](https://circleci.com/gh/oneteam-dev/oneteam-rte)
 
 Oneteam Rich text editor.
 
@@ -14,11 +14,17 @@ npm i oneteam-rte
 4. Push to the branch: git push origin my-new-feature
 5. Submit a pull request :D
 
-## License
+## Publish new version
+
+```sh
+git checkout master
+git version patch -m 'Version bump to %s' # (or major, minor)
+git push --tags
+git push origin master # That's it
+```
+
+### License
 
 MIT
 
 © Oneteam Inc.
-
-[travis-image]: http://img.shields.io/travis/oneteam-dev/oneteam-rte/master.svg?branch=master&style=flat-square
-[travis-url]: https://travis-ci.org/oneteam-dev/oneteam-rte
