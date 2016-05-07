@@ -9,7 +9,10 @@ let rte;
 
 render((
   <div>
-    <RichTextEditor initialHtml='<h1>oneteam-rte</h1><div><br /></div><div>Oneteam rich text editor</div>' ref={c => window.rte = rte = c}>
+    <RichTextEditor
+      initialHtml='<h1>oneteam-rte</h1><div><br /></div><div>Oneteam rich text editor</div>'
+      onChange={(...args) => { console.info(...args); }}
+      ref={c => window.rte = rte = c}>
       <Toolbar itemOptions={itemOptions} />
       <Body />
     </RichTextEditor>

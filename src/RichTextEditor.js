@@ -1,5 +1,6 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import { Entity, CompositeDecorator, AtomicBlockUtils } from 'draft-js';
+import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
 import stateToHTML from './stateToHTML';
@@ -15,6 +16,7 @@ export default class RichTextEditor extends Component {
     return {
       initialHtml: PropTypes.string,
       decorators: PropTypes.arrayOf(PropTypes.instanceOf(CompositeDecorator)),
+      onChange: PropTypes.func,
       children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.element),
         PropTypes.element
@@ -50,8 +52,18 @@ export default class RichTextEditor extends Component {
 
     this.state = { editorState, checkedState, isOpenInsertLinkInput: false };
 
-    this.changeEditorState = editorState => this.setState({ editorState });
-    this.changeCheckedState = checkedState => this.setState({ checkedState });
+    var triggerLock = 0; // To reduce triggering change callbacks.
+    const triggerOnChange = () => {
+      const {onChange} = this.props;
+      if(isFunction(onChange) && triggerLock === 0) {
+        triggerLock = setTimeout(() => {
+          onChange(this);
+          triggerLock = 0;
+        }, 100);
+      }
+    }
+    this.changeEditorState = editorState => this.setState({ editorState }, triggerOnChange);
+    this.changeCheckedState = checkedState => this.setState({ checkedState }, triggerOnChange);
     this.insertImage = imageFile => this._insertImage(imageFile);
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.insertIFrame = iframeTagString => this._insertIFrame(iframeTagString);
@@ -95,7 +107,7 @@ export default class RichTextEditor extends Component {
       entityKey,
       ' '
     );
-    this.setState({ editorState: newEditorState });
+    this.changeEditorState(newEditorState);
   }
   _insertDownloadLink({ name, download_url, size }) {
     const entityKey = Entity.create(ENTITY_TYPES.DOWNLOAD_LINK, 'MUTABLE', {
@@ -109,7 +121,7 @@ export default class RichTextEditor extends Component {
       entityKey,
       name
     );
-    this.setState({ editorState: newEditorState });
+    this.changeEditorState(newEditorState);
   }
   _insertIFrame(iframeTag) {
     const attrs = getIFrameAttrs(iframeTag);
@@ -121,7 +133,7 @@ export default class RichTextEditor extends Component {
         entityKey,
         ' '
       );
-      this.setState({ editorState: newEditorState });
+      this.changeEditorState(newEditorState);
     }, 1000);
   }
 }
