@@ -18,7 +18,7 @@ npm i oneteam-rte
 
 ```sh
 git checkout master
-git version patch -m 'Version bump to %s' # (or major, minor)
+npm version patch -m 'Version bump to %s' # (or major, minor)
 git push --tags
 git push origin master # That's it
 ```
