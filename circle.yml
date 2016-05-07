@@ -1,0 +1,18 @@
+machine:
+  timezone: UTC
+  node:
+    version: 4.1.0
+general:
+  artifacts:
+    - npm-debug.log
+dependencies:
+  pre:
+    - npm install -g npm
+    - 'echo "email=${NPM_EMAIL}" > ~/.npmrc'
+    - 'echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >> ~/.npmrc'
+    - '[[ $(npm whoami) == "ngs" ]] || sh -c "echo not\\ authenticated; exit 1"'
+deployment:
+  publish:
+    branch: master
+    commands:
+      - npm run publish-if-tagged

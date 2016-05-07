@@ -18,7 +18,8 @@
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
     "cp:draft-js-css": "cp node_modules/draft-js/dist/Draft.css lib/base.css",
     "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css",
-    "prepublish": "npm test && npm run build"
+    "prepublish": "npm test && npm run build",
+    "publish-if-tagged": "/bin/bash scripts/npm-publish.sh"
   },
   "author": "Oneteam Inc.",
   "contributors": [
