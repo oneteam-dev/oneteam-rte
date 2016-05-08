@@ -15,4 +15,5 @@ deployment:
   publish:
     branch: master
     commands:
+      - git fetch --tags
       - npm run publish-if-tagged
