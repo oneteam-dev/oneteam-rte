@@ -8,7 +8,7 @@ import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, createCh
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
 import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
-import { ENTITY_TYPES } from './constants';
+import { ENTITY_TYPES, INLINE_STYLES } from './constants';
 import * as functions from './functions';
 
 export default class RichTextEditor extends Component {
@@ -77,6 +77,16 @@ export default class RichTextEditor extends Component {
         }
       })(functions[key]);
     }
+  }
+  getCurrentInlineStyles() {
+      let ret = [];
+      for(const key in INLINE_STYLES) {
+          const value = INLINE_STYLES[key];
+          if(this.hasCurrentInlineStyle(value)) {
+              ret.push(value);
+          }
+      }
+      return ret;
   }
   focus() {
     if(this._body) {
