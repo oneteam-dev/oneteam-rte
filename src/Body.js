@@ -12,7 +12,7 @@ import { isListItem, isCursorAtEnd } from './utils';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from './constants';
 
 const { navigator } = global;
-const _isSafari = navigator && navigator.userAgent && /safari/.test(navigator.userAgent.toLowerCase());
+const _isSafari = navigator && navigator.userAgent && /applewebkit|safari/i.test(navigator.userAgent);
 
 export default class Body extends Component {
   static get propTypes() {
