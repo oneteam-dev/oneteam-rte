@@ -4,7 +4,7 @@ import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
 import stateToHTML from './stateToHTML';
-import { createEditorState, createCheckedState } from './utils';
+import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, createCheckedState } from './utils';
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
 import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
@@ -67,6 +67,9 @@ export default class RichTextEditor extends Component {
     this.insertImage = imageFile => this._insertImage(imageFile);
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.insertIFrame = iframeTagString => this._insertIFrame(iframeTagString);
+    this.getCurrentBlockType = (...args) => getCurrentBlockType(this.state.editorState, ...args);
+    this.hasCurrentInlineStyle = (...args) => hasCurrentInlineStyle(this.state.editorState, ...args);
+
     for(let key in functions) {
       this[key] = ((fn) => {
         return (...args) => {
