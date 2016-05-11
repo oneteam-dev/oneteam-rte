@@ -29,6 +29,23 @@ export default class RichTextEditor extends Component {
       decorators: []
     };
   }
+  createEditorState(html) {
+    const decorator = new CompositeDecorator([
+      LinkDecorator,
+      DownloadLinkDecorator,
+      ...this.props.decorators
+    ]);
+    const cleanHTML = html.replace(/>\s+</g, '><'); // FIXME ;(
+    const editorState = createEditorState(cleanHTML, decorator);
+    const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
+    return { editorState, checkedState };
+  }
+  set html(html) {
+    this.setState(this.createEditorState(html));
+  }
+  get html() {
+    return this.serializedHTML;
+  }
   get serializedHTML() {
     return stateToHTML(this._editorState, this._checkedState);
   }
@@ -40,17 +57,9 @@ export default class RichTextEditor extends Component {
   }
   constructor(props) {
     super(props);
-
-    const decorator = new CompositeDecorator([
-      LinkDecorator,
-      DownloadLinkDecorator,
-      ...this.props.decorators
-    ]);
-    const initialHtml = this.props.initialHtml.replace(/>\s+</g, '><'); // FIXME ;(
-    const editorState = createEditorState(initialHtml, decorator);
-    const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
-
-    this.state = { editorState, checkedState, isOpenInsertLinkInput: false };
+    const state = this.createEditorState(this.props.initialHtml);
+    state.isOpenInsertLinkInput = false;
+    this.state = state;
 
     var triggerLock = 0; // To reduce triggering change callbacks.
     const triggerOnChange = () => {
