@@ -19,7 +19,8 @@
     "cp:draft-js-css": "cp node_modules/draft-js/dist/Draft.css lib/base.css",
     "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css",
     "prepublish": "npm test && npm run build",
-    "publish-if-tagged": "/bin/bash scripts/npm-publish.sh"
+    "publish-if-tagged": "/bin/bash scripts/npm-publish.sh",
+    "bump-patch-number": "(git branch | grep \\*\\ master > /dev/null) && npm version patch -m 'Version bump to %s' && git push --tags && git push origin master"
   },
   "author": "Oneteam Inc.",
   "contributors": [
