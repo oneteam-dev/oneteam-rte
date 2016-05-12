@@ -89,7 +89,7 @@ export default class Body extends Component {
     // FIXME ;(   does not respond check box in the Safari
     if (this._isSafari && target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
       this.blur();
-      this.focus();
+      setTimeout(() => this.focus(), 100);
     }
   }
   _shouldHidePlaceholder() {
