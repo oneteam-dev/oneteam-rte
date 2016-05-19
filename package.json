@@ -15,6 +15,7 @@
     "lint": "eslint src",
     "test-src": "mocha --compilers js:babel-register test/**/*.js",
     "test": "npm run lint && npm run test-src",
+    "watch": "babel -w -d lib --presets es2015 src",
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
     "cp:draft-js-css": "cp node_modules/draft-js/dist/Draft.css lib/base.css",
     "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css",

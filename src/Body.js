@@ -12,7 +12,7 @@ import { isListItem, isCursorAtEnd } from './utils';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from './constants';
 
 const { navigator } = global;
-const _isSafari = navigator && navigator.userAgent && /applewebkit|safari/i.test(navigator.userAgent);
+const userAgent = navigator ? navigator.userAgent : null;
 
 export default class Body extends Component {
   static get propTypes() {
@@ -39,9 +39,6 @@ export default class Body extends Component {
       readOnly: false,
       customStyleMap: {}
     };
-  }
-  get _isSafari() {
-    return _isSafari;
   }
   constructor(props) {
     super(props);
@@ -85,12 +82,17 @@ export default class Body extends Component {
       this.props.closeInsertLinkInput();
     }
   }
-  _handleClickWrapper({ target }) {
-    // FIXME ;(   does not respond check box in the Safari
-    if (this._isSafari && target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
+  _handleClickWrapper(ev) {
+    // FIXME ;(   does not respond check box in the Safari or Firefox
+    if (this._shouldUnfocusAfterClicking(ev)) {
       this.blur();
       setTimeout(() => this.focus(), 100);
     }
+  }
+  _shouldUnfocusAfterClicking(ev) {
+    return /applewebkit|safari|firefox/i.test(userAgent) &&
+      ev.target.nodeName.toLowerCase() === 'input' &&
+      ev.target.type === 'checkbox';
   }
   _shouldHidePlaceholder() {
     const contentState = this.props.editorState.getCurrentContent();
