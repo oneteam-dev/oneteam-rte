@@ -12,7 +12,7 @@ import { isListItem, isCursorAtEnd } from './utils';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from './constants';
 
 const { navigator } = global;
-const _isSafari = navigator && navigator.userAgent && /applewebkit|safari/i.test(navigator.userAgent);
+const _isSafariOrFirefox = navigator && navigator.userAgent && /applewebkit|safari|firefox/i.test(navigator.userAgent);
 
 export default class Body extends Component {
   static get propTypes() {
@@ -40,8 +40,8 @@ export default class Body extends Component {
       customStyleMap: {}
     };
   }
-  get _isSafari() {
-    return _isSafari;
+  get _isSafariOrFirefox() {
+    return _isSafariOrFirefox;
   }
   constructor(props) {
     super(props);
@@ -86,8 +86,8 @@ export default class Body extends Component {
     }
   }
   _handleClickWrapper({ target }) {
-    // FIXME ;(   does not respond check box in the Safari
-    if (this._isSafari && target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
+    // FIXME ;(   does not respond check box in the Safari or Firefox
+    if (this._isSafariOrFirefox && target.nodeName.toLowerCase() === 'input' && target.type === 'checkbox') {
       this.blur();
       setTimeout(() => this.focus(), 100);
     }
