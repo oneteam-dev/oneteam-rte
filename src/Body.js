@@ -90,7 +90,7 @@ export default class Body extends Component {
     }
   }
   _shouldUnfocusAfterClicking(ev) {
-    return userAgent && /applewebkit|safari|firefox/i.test(userAgent) &&
+    return /applewebkit|safari|firefox/i.test(userAgent) &&
       ev.target.nodeName.toLowerCase() === 'input' &&
       ev.target.type === 'checkbox';
   }
