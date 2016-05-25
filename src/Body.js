@@ -229,7 +229,7 @@ export default class Body extends Component {
     return false;
   }
   _handleTab(ev) {
-    if (this._insertFourSpaces(ev)) {
+    if (this._insertIndent(ev)) {
       return true;
     }
 
@@ -239,7 +239,7 @@ export default class Body extends Component {
       this._changeEditorState(newEditorState);
     }
   }
-  _insertFourSpaces(ev) {
+  _insertIndent(ev) {
     const { editorState } = this.props;
     const selection = editorState.getSelection();
     const content = editorState.getCurrentContent();
