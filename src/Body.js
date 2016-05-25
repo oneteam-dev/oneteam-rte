@@ -229,7 +229,7 @@ export default class Body extends Component {
     return false;
   }
   _handleTab(ev) {
-    if (this._handleTabInsertTabChar(ev)) {
+    if (this._insertIndent(ev)) {
       return true;
     }
 
@@ -239,7 +239,7 @@ export default class Body extends Component {
       this._changeEditorState(newEditorState);
     }
   }
-  _handleTabInsertTabChar(ev) {
+  _insertIndent(ev) {
     const { editorState } = this.props;
     const selection = editorState.getSelection();
     const content = editorState.getCurrentContent();
@@ -248,7 +248,7 @@ export default class Body extends Component {
 
     if (!isListItem(block)) {
       ev.preventDefault();
-      const newEditorState = insertText(editorState, '\t');
+      const newEditorState = insertText(editorState, '    ');
       if (newEditorState !== editorState) {
         this._changeEditorState(newEditorState);
         return true;
