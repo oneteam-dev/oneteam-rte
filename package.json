@@ -34,7 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.3",
-    "draft-js": "github:oneteam-dev/draft-js#v0.0.6-oneteam",
+    "draft-js": "github:oneteam-dev/draft-js#fb054fd3b8c61817a6ccf73f0cb0df30787b301d",
     "draft-js-export-html": "github:oneteam-dev/draft-js-export-html#v0.0.8-oneteam",
     "lodash": "^4.11.1",
     "react-bootstrap": "^0.29.0"
