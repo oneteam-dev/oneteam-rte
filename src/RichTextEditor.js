@@ -1,9 +1,9 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import { Entity, CompositeDecorator, AtomicBlockUtils } from 'draft-js';
+import stateToHTML from 'oneteam-rte-converter/lib/editorStateToHTML';
 import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
-import stateToHTML from './stateToHTML';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, createCheckedState } from './utils';
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
@@ -47,10 +47,10 @@ export default class RichTextEditor extends Component {
     return this.serializedHTML;
   }
   get serializedHTML() {
-    return stateToHTML(this._editorState, this._checkedState);
+    return stateToHTML(this._contentState, this._checkedState);
   }
-  get _editorState() {
-    return this.state.editorState;
+  get _contentState() {
+    return this.state.editorState.getCurrentContent();
   }
   get _checkedState() {
     return this.state.checkedState;
