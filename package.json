@@ -41,7 +41,7 @@
     "classnames": "^2.2.5",
     "draft-js": "github:oneteam-dev/draft-js#v0.1.0-oneteam",
     "lodash": "^4.16.2",
-    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.0.0",
+    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.0.2",
     "react-bootstrap": "^0.30.3",
     "url-regex": "^3.2.0"
   },
