@@ -2,9 +2,10 @@ import path from 'path';
 import webpack from 'webpack';
 
 const entry = [
-  './examples/index.js',
   'webpack-dev-server/client?http://localhost:8008',
-  'webpack/hot/dev-server'
+  'webpack/hot/only-dev-server',
+  'babel-polyfill',
+  './examples/index.js',
 ];
 const plugins = [
   new webpack.HotModuleReplacementPlugin()
