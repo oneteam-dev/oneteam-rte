@@ -22,7 +22,8 @@ export const ENTITY_TYPES = {
   DOWNLOAD_LINK: 'DOWNLOAD_LINK',
   LINK: 'LINK',
   IMAGE: 'IMAGE',
-  IFRAME: 'IFRAME'
+  IFRAME: 'IFRAME',
+  WEB_CARD: 'WEB_CARD'
 };
 
 export const ORDERED_BLOCK_TYPES = [
