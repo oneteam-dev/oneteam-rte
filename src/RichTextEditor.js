@@ -1,14 +1,15 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
-import { Entity, CompositeDecorator, AtomicBlockUtils } from 'draft-js';
+import { CompositeDecorator } from 'draft-js';
 import stateToHTML from 'oneteam-rte-converter/lib/editorStateToHTML';
+import { ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-utils';
 import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, createCheckedState } from './utils';
+import { removeBlock, insertAtomicBlock } from './functions';
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
 import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
-import { ENTITY_TYPES, INLINE_STYLES } from './constants';
 import * as functions from './functions';
 
 export default class RichTextEditor extends Component {
@@ -49,8 +50,11 @@ export default class RichTextEditor extends Component {
   get serializedHTML() {
     return stateToHTML(this._contentState, this._checkedState);
   }
+  get _editorState() {
+    return this.state.editorState;
+  }
   get _contentState() {
-    return this.state.editorState.getCurrentContent();
+    return this._editorState.getCurrentContent();
   }
   get _checkedState() {
     return this.state.checkedState;
@@ -107,6 +111,9 @@ export default class RichTextEditor extends Component {
       this._body.blur();
     }
   }
+  removeBlock(block) {
+    this.changeEditorState(removeBlock(this._editorState, block));
+  }
   render() {
     const { editorState, checkedState, isOpenInsertLinkInput } = this.state;
     const content = Children.map((this.props.children || []), child => {
@@ -129,44 +136,33 @@ export default class RichTextEditor extends Component {
     return <div className='rich-text-editor' id='rich-text-editor'>{content}</div>;
   }
   _insertImage({ name, original_url, preview_url }) {
-    const entityKey = Entity.create(ENTITY_TYPES.IMAGE, 'IMMUTABLE', {
+    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.IMAGE, 'IMMUTABLE', {
       src: preview_url,
       'data-original-url': original_url,
       alt: name
     });
-    const newEditorState = AtomicBlockUtils.insertAtomicBlock(
-      this.state.editorState,
-      entityKey,
-      ' '
-    );
     this.changeEditorState(newEditorState);
   }
   _insertDownloadLink({ name, download_url, size }) {
-    const entityKey = Entity.create(ENTITY_TYPES.DOWNLOAD_LINK, 'MUTABLE', {
+    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.DOWNLOAD_LINK, 'MUTABLE', {
       name,
       size,
       url: download_url,
       target: '_blank'
     });
-    const newEditorState = AtomicBlockUtils.insertAtomicBlock(
-      this.state.editorState,
-      entityKey,
-      name
-    );
     this.changeEditorState(newEditorState);
   }
   _insertIFrame(iframeTag) {
     const attrs = getIFrameAttrs(iframeTag);
 
     setTimeout(() => { // FIXME
-      const entityKey = Entity.create(ENTITY_TYPES.IFRAME, 'IMMUTABLE', attrs);
-      const newEditorState = AtomicBlockUtils.insertAtomicBlock(
-        this.state.editorState,
-        entityKey,
-        ' '
-      );
+      const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.IFRAME, 'IMMUTABLE', attrs);
       this.changeEditorState(newEditorState);
     }, 1000);
+  }
+  _insertWebCard(url) {
+    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url });
+    this.changeEditorState(newEditorState);
   }
 }
 

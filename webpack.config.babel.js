@@ -4,6 +4,7 @@ import webpack from 'webpack';
 const entry = [
   'webpack-dev-server/client?http://localhost:8008',
   'webpack/hot/only-dev-server',
+  'react-hot-loader/patch',
   'babel-polyfill',
   './examples/index.js',
 ];

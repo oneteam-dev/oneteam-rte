@@ -1,6 +1,6 @@
 import { EditorState } from 'draft-js';
 import adjustBlockDepthForContentState from 'draft-js/lib/adjustBlockDepthForContentState';
-import { MAX_LIST_DEPTH } from '../constants';
+import { MAX_LIST_DEPTH } from 'oneteam-rte-utils';
 
 export default function adjustBlockDepth(editorState, currentContent, selection, adjustment) {
   const withAdjustment = adjustBlockDepthForContentState(

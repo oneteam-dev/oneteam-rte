@@ -1,0 +1,32 @@
+web-card:empty // @stylint off
+  display: none
+
+.webcard
+  text-decoration: none
+  border: 1px solid #eee
+  border-radius: 12px
+  display: block
+  overflow: hidden
+  text-overflow: ellipsis
+  &:hover
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1)
+  p
+    margin: 0
+  .image
+    margin-right: 10px
+    width: 150px
+    min-height: 150px
+    height: 100%
+    background-position: center center;
+    background-size: auto 100%
+    background-repeat: no-repeat
+    float: left
+  .title
+    padding: 10px
+    font-weight: bold
+  .description
+    color: #444
+    font-size: 0.85em
+  .url
+    color: #999
+    font-size: 0.85em

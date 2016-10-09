@@ -6,3 +6,6 @@ export { default as removeBlockStyle } from './removeBlockStyle';
 export { default as toggleBlockType } from './toggleBlockType';
 export { default as toggleInlineStyle } from './toggleInlineStyle';
 export { default as toggleLink } from './toggleLink';
+export { default as moveSelectionTo } from './moveSelectionTo';
+export { default as removeBlock } from './removeBlock';
+export { default as insertAtomicBlock } from './insertAtomicBlock';

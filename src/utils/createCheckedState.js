@@ -1,4 +1,4 @@
-import { BLOCK_TYPES } from '../constants';
+import { BLOCK_TYPES } from 'oneteam-rte-utils';
 
 export default function createCheckedState(blocksAsArray) {
   return blocksAsArray.reduce((result, block) => {

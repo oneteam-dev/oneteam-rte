@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
+import { INLINE_STYLES } from 'oneteam-rte-utils';
 import InlineStyleButton from './InlineStyleButton';
-import { INLINE_STYLES } from '../constants';
 
 export default class Strikethrough extends Component {
   static get propTypes() {

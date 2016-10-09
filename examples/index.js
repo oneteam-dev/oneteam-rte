@@ -1,21 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
-import RichTextEditor, { Toolbar, Body } from '../src';
-import itemOptions from './itemOptions';
-import '../node_modules/draft-js/dist/Draft.css';
-import './index.styl';
+import { AppContainer } from 'react-hot-loader';
+import App from './App';
 
-let rte;
+const main = () => {
+  let rootEl;
+  render(<AppContainer><App /></AppContainer> , rootEl = document.querySelector('#app-root'));
 
-render((
-  <div>
-    <RichTextEditor
-      initialHtml='<h1>oneteam-rte</h1><div><br /></div><div>Oneteam rich text editor</div>'
-      onChange={(...args) => { console.info(...args); }}
-      ref={c => window.rte = rte = c}>
-      <Toolbar itemOptions={itemOptions} />
-      <Body />
-    </RichTextEditor>
-    <button onClick={() => console.log(rte.serializedHTML)}>Log</button>
-  </div>
-), document.querySelector('#app-root'));
+  if (module.hot) {
+    module.hot.accept('./App', () => {
+      const NextApp = require('./App').default;
+      render(<AppContainer><NextApp /></AppContainer>, rootEl);
+    });
+  }
+};
+
+main();

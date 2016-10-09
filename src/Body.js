@@ -1,15 +1,16 @@
-import assign from 'lodash/assign';
-import isFunction from 'lodash/isFunction';
 import React, { Component, PropTypes } from 'react';
-import { Editor, EditorState, Entity, RichUtils, KeyBindingUtil } from 'draft-js';
+import { Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil } from 'draft-js';
+import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from 'oneteam-rte-utils';
+import { Map } from 'immutable';
+import isFunction from 'lodash/isFunction';
+import classNames from 'classnames';
 import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
-import classnames from 'classnames';
-import { insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText } from './functions';
-import { isListItem, isCursorAtEnd } from './utils';
-import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from './constants';
+import { insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertAtomicBlock } from './functions';
+import { isListItem, isCursorAtEnd, getCurrentBlock } from './utils';
+import URL_REGEX from './helpers/urlRegex';
 
 const { navigator } = global;
 const userAgent = navigator ? navigator.userAgent : null;
@@ -30,7 +31,8 @@ export default class Body extends Component {
       blockRendererFn: PropTypes.func,
       blockStyleFn: PropTypes.func,
       onEnterKeyDownWithCommand: PropTypes.func,
-      onPastedFiles: PropTypes.func
+      onPastedFiles: PropTypes.func,
+      customAtomicBlockRendererFn: PropTypes.func
     };
   }
   static get defaultProps() {
@@ -58,7 +60,7 @@ export default class Body extends Component {
   render() {
     return (
       <div
-        className={classnames('rich-text-editor-body', {
+        className={classNames('rich-text-editor-body', {
           'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
         }, this.props.className)} onClick={this.handleClickWrapper} onMouseDown={this.handleMouseDownWrapper}>
         <Editor
@@ -149,6 +151,9 @@ export default class Body extends Component {
         editable: false
       };
     default:
+      if (isFunction(this.props.customAtomicBlockRendererFn)) {
+        return this.props.customAtomicBlockRendererFn(type, data);
+      }
       return null;
     }
   }
@@ -160,23 +165,23 @@ export default class Body extends Component {
       props: {
         checked: !!checkedState[blockKey],
         onChangeChecked: checked => {
-          const newCheckedState = assign({}, checkedState, { [blockKey]: checked });
+          const newCheckedState = { ...checkedState, [blockKey]: checked };
           this._changeCheckedState(newCheckedState);
         }
       }
     };
   }
   _blockRendererFn(block) {
-    if (isFunction(this.props.blockRendererFn)) {
-      return this.props.blockRendererFn(block);
-    }
-
     if (this._shouldRenderAtomicBlock(block)) {
       return this._atomicBlockRenderer(block.getEntityAt(0));
     }
 
     if (this._shouldRenderCheckableListItem(block)) {
       return this._checkableListItemRenderer(block);
+    }
+
+    if (isFunction(this.props.blockRendererFn)) {
+      return this.props.blockRendererFn(block);
     }
 
     return null;
@@ -276,6 +281,28 @@ export default class Body extends Component {
       return true;
     }
 
+    if (this._handleReturnInsertWebCard()) {
+      return true;
+    }
+
+    return false;
+  }
+  _handleReturnInsertWebCard() {
+    const { editorState } = this.props;
+    const block = getCurrentBlock(editorState);
+    const previewRendered = block.getData().get('previewRendered');
+    const urls = block.getText().match(URL_REGEX);
+    if (!previewRendered && urls) {
+      const content = editorState.getCurrentContent();
+      const selection = editorState.getSelection();
+      const newContent = Modifier.setBlockData(content, selection, Map({ previewRendered: true }));
+      const newEditorState = urls.reduce(
+        (state, url) => insertAtomicBlock(state, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url }),
+        EditorState.push(editorState, newContent, 'change-block-data')
+      );
+      this._changeEditorState(newEditorState);
+      return true;
+    }
     return false;
   }
   _handleReturnListItem() {
