@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
+import { BLOCK_TYPES } from 'oneteam-rte-utils';
 import BlockTypeButton from './BlockTypeButton';
-import { BLOCK_TYPES } from '../constants';
 
 export default class Blockquote extends Component {
   static get propTypes() {

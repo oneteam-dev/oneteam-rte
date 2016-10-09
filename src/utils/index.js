@@ -7,3 +7,6 @@ export { default as hasCurrentInlineStyle } from './hasCurrentInlineStyle';
 export { default as checkCurrentBlockType } from './checkCurrentBlockType';
 export { default as isCursorAtEnd } from './isCursorAtEnd';
 export { default as isListItem } from './isListItem';
+export { default as findPreviousBlock } from './findPreviousBlock';
+export { default as findNextBlock } from './findNextBlock';
+export { default as getCurrentBlock } from './getCurrentBlock';

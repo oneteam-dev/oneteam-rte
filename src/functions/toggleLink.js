@@ -1,5 +1,5 @@
 import { Entity, RichUtils } from 'draft-js';
-import { ENTITY_TYPES } from '../constants';
+import { ENTITY_TYPES } from 'oneteam-rte-utils'
 
 export default function toggleLink(editorState, url = null) {
   const selection = editorState.getSelection();

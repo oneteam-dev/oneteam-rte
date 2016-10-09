@@ -6,5 +6,4 @@ export { default as Body } from './Body';
 export * from './ui';
 export * from './utils';
 export * from './functions';
-export * from './constants';
 export * from './constants/toolbar';

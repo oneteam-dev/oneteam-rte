@@ -1,12 +1,12 @@
-import findKey from 'lodash/findKey';
 import React, { Component, PropTypes } from 'react';
+import { EditorState } from 'draft-js';
+import { BLOCK_TYPES, HEADER_BLOCK_TYPES } from 'oneteam-rte-utils';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import { EditorState } from 'draft-js';
+import findKey from 'lodash/findKey';
 import BaseButton from './BaseButton';
 import toggleBlockType from '../functions/toggleBlockType';
 import getCurrentBlockType from '../utils/getCurrentBlockType';
-import { BLOCK_TYPES, HEADER_BLOCK_TYPES } from '../constants';
 
 export default class Heading extends Component {
   static get propTypes() {

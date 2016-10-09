@@ -1,16 +1,16 @@
-import isFunction from 'lodash/isFunction';
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
+import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from 'oneteam-rte-utils';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Tooltip from 'react-bootstrap/lib/Tooltip';
+import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import {
   BaseButton, Bold, Italic, Strikethrough, Heading, Blockquote, CheckableList,
   UnorderedList, OrderedList, Divider, InsertLink, RemoveLink
 } from './ui';
 import { hasCurrentInlineStyle, getCurrentBlockType, checkCurrentBlockType } from './utils';
-import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from './constants';
-import DEFAULT_ITEM_OPTONS, * as ITEM_NAMES from './constants/toolbar';
+import DEFAULT_ITEM_OPTIONS, * as ITEM_NAMES from './constants/toolbar';
 
 export default class Toolbar extends Component {
   static get propTypes() {
@@ -40,7 +40,7 @@ export default class Toolbar extends Component {
   }
   static get defaultProps() {
     return {
-      itemOptions: DEFAULT_ITEM_OPTONS,
+      itemOptions: DEFAULT_ITEM_OPTIONS,
       isOpenInsertLinkInput: false
     };
   }

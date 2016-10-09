@@ -41,7 +41,8 @@
     "classnames": "^2.2.5",
     "draft-js": "github:oneteam-dev/draft-js#v0.1.0-oneteam",
     "lodash": "^4.16.4",
-    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.0.2",
+    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.0.4",
+    "oneteam-rte-utils": "github:oneteam-dev/oneteam-rte-utils#v0.0.1",
     "react-bootstrap": "^0.30.3",
     "url-regex": "^3.2.0"
   },
@@ -54,6 +55,7 @@
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.5",
+    "babel-plugin-transform-class-properties": "^6.16.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.16.0",
