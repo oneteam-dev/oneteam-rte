@@ -25,6 +25,23 @@ export default class App extends Component {
       this.rte.insertIFrame(tag);
     }
   }
+  customAtomicBlockRendererFn = (entity, block) => {
+    const key = entity.getType();
+    if (key === ENTITY_TYPES.WEB_CARD) {
+      const data = entity.getData()
+      return {
+        component: WebCard,
+        props: {
+          url: data.url,
+          imageRemoved: data.imageRemoved,
+          onDelete: () => this.rte.removeBlock(block),
+          onRemoveImage: () => this.rte.mergeEntityData(block.getEntityAt(0), { imageRemoved: true })
+        },
+        editable: false,
+      };
+    }
+    return null;
+  }
   render() {
     return (
       <div>
@@ -40,19 +57,7 @@ export default class App extends Component {
             onMouseDownEmbedIFrame={this.handleClickEmbedIFrame}
           />
           <Body
-            customAtomicBlockRendererFn={(entityType, data) => {
-              if (entityType === ENTITY_TYPES.WEB_CARD) {
-                return {
-                  component: WebCard,
-                  props: {
-                    url: data.url,
-                    onDelete: block => this.rte.removeBlock(block)
-                  },
-                  editable: false,
-                };
-              }
-              return null;
-            }}
+            customAtomicBlockRendererFn={this.customAtomicBlockRendererFn}
           />
         </RichTextEditor>
         <button onClick={() => console.log(this.rte.serializedHTML)}>Log</button>

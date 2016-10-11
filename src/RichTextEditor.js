@@ -6,7 +6,7 @@ import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, createCheckedState } from './utils';
-import { removeBlock, insertAtomicBlock, updateBlockMetadata } from './functions';
+import { insertAtomicBlock } from './functions';
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
 import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
@@ -110,12 +110,6 @@ export default class RichTextEditor extends Component {
     if(this._body) {
       this._body.blur();
     }
-  }
-  removeBlock(block) {
-    this.changeEditorState(removeBlock(this._editorState, block));
-  }
-  updateBlockMetadata(block, metadata) {
-    this.changeEditorState(updateBlockMetadata(this._editorState, block.getKey(), metadata));
   }
   render() {
     const { editorState, checkedState, isOpenInsertLinkInput } = this.state;

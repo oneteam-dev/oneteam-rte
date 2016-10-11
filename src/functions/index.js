@@ -9,3 +9,5 @@ export { default as toggleLink } from './toggleLink';
 export { default as moveSelectionTo } from './moveSelectionTo';
 export { default as removeBlock } from './removeBlock';
 export { default as insertAtomicBlock } from './insertAtomicBlock';
+export { default as updateBlockMetadata } from './updateBlockMetadata';
+export { default as mergeEntityData } from './mergeEntityData';

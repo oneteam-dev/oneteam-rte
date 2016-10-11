@@ -126,8 +126,8 @@ export default class Body extends Component {
   _shouldRenderCheckableListItem(block) {
     return block.getType() === BLOCK_TYPES.CHECKABLE_LIST_ITEM;
   }
-  _atomicBlockRenderer(entityKey) {
-    const entity = Entity.get(entityKey);
+  _atomicBlockRenderer(block) {
+    const entity = Entity.get(block.getEntityAt(0));
     const type = entity.getType();
     const data = entity.getData();
 
@@ -152,7 +152,7 @@ export default class Body extends Component {
       };
     default:
       if (isFunction(this.props.customAtomicBlockRendererFn)) {
-        return this.props.customAtomicBlockRendererFn(type, data);
+        return this.props.customAtomicBlockRendererFn(entity, block);
       }
       return null;
     }
@@ -173,7 +173,7 @@ export default class Body extends Component {
   }
   _blockRendererFn(block) {
     if (this._shouldRenderAtomicBlock(block)) {
-      return this._atomicBlockRenderer(block.getEntityAt(0));
+      return this._atomicBlockRenderer(block);
     }
 
     if (this._shouldRenderCheckableListItem(block)) {
