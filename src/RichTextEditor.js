@@ -6,7 +6,7 @@ import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, createCheckedState } from './utils';
-import { removeBlock, insertAtomicBlock } from './functions';
+import { removeBlock, insertAtomicBlock, updateBlockMetadata } from './functions';
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
 import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
@@ -114,6 +114,9 @@ export default class RichTextEditor extends Component {
   removeBlock(block) {
     this.changeEditorState(removeBlock(this._editorState, block));
   }
+  updateBlockMetadata(block, metadata) {
+    this.changeEditorState(updateBlockMetadata(this._editorState, block.getKey(), metadata));
+  }
   render() {
     const { editorState, checkedState, isOpenInsertLinkInput } = this.state;
     const content = Children.map((this.props.children || []), child => {
@@ -160,8 +163,8 @@ export default class RichTextEditor extends Component {
       this.changeEditorState(newEditorState);
     }, 1000);
   }
-  _insertWebCard(url) {
-    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url });
+  _insertWebCard(url, imageRemoved) {
+    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url, imageRemoved });
     this.changeEditorState(newEditorState);
   }
 }
