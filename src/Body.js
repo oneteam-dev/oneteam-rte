@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Editor, EditorState, Entity, RichUtils, KeyBindingUtil } from 'draft-js';
+import { Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil } from 'draft-js';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from 'oneteam-rte-utils';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
@@ -285,11 +285,14 @@ export default class Body extends Component {
   }
   _insertWebCardsIfNeeded() {
     const { editorState } = this.props;
+    const selection = editorState.getSelection();
     const block = getCurrentBlock(editorState);
     const webcardRendered = block.getData().get('webcardRendered');
     const urls = block.getText().match(URL_REGEX);
-    if (!webcardRendered && urls) {
-      return insertWebCards(editorState, urls);
+    if (!webcardRendered && urls && isCursorAtEnd(block, selection)) {
+      const content = editorState.getCurrentContent();
+      const newContent = Modifier.setBlockData(content, selection, { webcardRendered: true });
+      return insertWebCards(EditorState.push(editorState, newContent, 'change-block-data'), urls);
     }
     return null;
   }
