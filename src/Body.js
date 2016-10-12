@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil } from 'draft-js';
+import { Editor, EditorState, Entity, RichUtils, KeyBindingUtil } from 'draft-js';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from 'oneteam-rte-utils';
-import { Map } from 'immutable';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
-import { insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertAtomicBlock } from './functions';
+import { insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertWebCards } from './functions';
 import { isListItem, isCursorAtEnd, getCurrentBlock } from './utils';
 import URL_REGEX from './helpers/urlRegex';
 
@@ -42,6 +41,15 @@ export default class Body extends Component {
       customStyleMap: {}
     };
   }
+  handleBlur = () => {
+    // Not changed state if do not do this
+    setTimeout(() => {
+      const newEditorState = this._insertWebCardsIfNeeded();
+      if (newEditorState) {
+        this._changeEditorState(newEditorState);
+      }
+    }, 0);
+  }
   constructor(props) {
     super(props);
 
@@ -74,6 +82,7 @@ export default class Body extends Component {
           handleReturn={this.handleReturn}
           onChange={this.handleChangeEditor}
           onTab={this.handleTab}
+          onBlur={this.handleBlur}
           placeholder={this.props.placeholder}
           customStyleMap={this.props.customStyleMap} />
       </div>
@@ -186,6 +195,33 @@ export default class Body extends Component {
 
     return null;
   }
+  _insertIndent(ev) {
+    const { editorState } = this.props;
+    const selection = editorState.getSelection();
+    const content = editorState.getCurrentContent();
+    const blockKey = selection.getStartKey();
+    const block = content.getBlockForKey(blockKey);
+
+    if (!isListItem(block)) {
+      ev.preventDefault();
+      const newEditorState = insertText(editorState, '    ');
+      if (newEditorState !== editorState) {
+        this._changeEditorState(newEditorState);
+        return true;
+      }
+    }
+    return false;
+  }
+  _insertWebCardsIfNeeded() {
+    const { editorState } = this.props;
+    const block = getCurrentBlock(editorState);
+    const webcardRendered = block.getData().get('webcardRendered');
+    const urls = block.getText().match(URL_REGEX);
+    if (!webcardRendered && urls) {
+      return insertWebCards(editorState, urls);
+    }
+    return null;
+  }
   _handleKeyCommand(command) { // eslint-disable-line complexity
     const { editorState } = this.props;
     if (command === 'backspace') {
@@ -244,23 +280,6 @@ export default class Body extends Component {
       this._changeEditorState(newEditorState);
     }
   }
-  _insertIndent(ev) {
-    const { editorState } = this.props;
-    const selection = editorState.getSelection();
-    const content = editorState.getCurrentContent();
-    const blockKey = selection.getStartKey();
-    const block = content.getBlockForKey(blockKey);
-
-    if (!isListItem(block)) {
-      ev.preventDefault();
-      const newEditorState = insertText(editorState, '    ');
-      if (newEditorState !== editorState) {
-        this._changeEditorState(newEditorState);
-        return true;
-      }
-    }
-    return false;
-  }
   _handlePastedFiles(files) {
     if (isFunction(this.props.onPastedFiles)) {
       this.props.onPastedFiles(files);
@@ -288,18 +307,8 @@ export default class Body extends Component {
     return false;
   }
   _handleReturnInsertWebCard() {
-    const { editorState } = this.props;
-    const block = getCurrentBlock(editorState);
-    const previewRendered = block.getData().get('previewRendered');
-    const urls = block.getText().match(URL_REGEX);
-    if (!previewRendered && urls) {
-      const content = editorState.getCurrentContent();
-      const selection = editorState.getSelection();
-      const newContent = Modifier.setBlockData(content, selection, Map({ previewRendered: true }));
-      const newEditorState = urls.reduce(
-        (state, url) => insertAtomicBlock(state, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url }),
-        EditorState.push(editorState, newContent, 'change-block-data')
-      );
+    const newEditorState = this._insertWebCardsIfNeeded();
+    if (newEditorState) {
       this._changeEditorState(newEditorState);
       return true;
     }
