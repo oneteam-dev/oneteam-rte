@@ -15,31 +15,27 @@ const { navigator } = global;
 const userAgent = navigator ? navigator.userAgent : null;
 
 export default class Body extends Component {
-  static get propTypes() {
-    return {
-      editorState: PropTypes.instanceOf(EditorState),
-      checkedState: PropTypes.objectOf(PropTypes.bool),
-      changeEditorState: PropTypes.func,
-      changeCheckedState: PropTypes.func,
-      closeInsertLinkInput: PropTypes.func,
+  static propTypes = {
+    editorState: PropTypes.instanceOf(EditorState),
+    checkedState: PropTypes.objectOf(PropTypes.bool),
+    changeEditorState: PropTypes.func,
+    changeCheckedState: PropTypes.func,
+    closeInsertLinkInput: PropTypes.func,
 
-      placeholder: PropTypes.string,
-      readOnly: PropTypes.bool,
-      className: PropTypes.string,
-      customStyleMap: PropTypes.objectOf(PropTypes.object),
-      blockRendererFn: PropTypes.func,
-      blockStyleFn: PropTypes.func,
-      onEnterKeyDownWithCommand: PropTypes.func,
-      onPastedFiles: PropTypes.func,
-      customAtomicBlockRendererFn: PropTypes.func
-    };
+    placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
+    className: PropTypes.string,
+    customStyleMap: PropTypes.objectOf(PropTypes.object),
+    blockRendererFn: PropTypes.func,
+    blockStyleFn: PropTypes.func,
+    onEnterKeyDownWithCommand: PropTypes.func,
+    onPastedFiles: PropTypes.func,
+    customAtomicBlockRendererFn: PropTypes.func
   }
-  static get defaultProps() {
-    return {
-      placeholder: 'Contents here...',
-      readOnly: false,
-      customStyleMap: {}
-    };
+  static defaultProps = {
+    placeholder: 'Contents here...',
+    readOnly: false,
+    customStyleMap: {}
   }
   handleBlur = () => {
     // Not changed state if do not do this
@@ -50,20 +46,137 @@ export default class Body extends Component {
       }
     }, 0);
   }
+  handleClickWrapper = ev => {
+    // FIXME ;(   does not respond check box in the Safari or Firefox
+    if (this._shouldUnfocusAfterClicking(ev)) {
+      this.blur();
+      setTimeout(() => this.focus(), 100);
+    }
+  }
+  handleMouseDownWrapper = () => {
+    if (isFunction(this.props.closeInsertLinkInput)) {
+      this.props.closeInsertLinkInput();
+    }
+  }
+  handleKeyCommand = command => { // eslint-disable-line complexity
+    const { editorState } = this.props;
+    if (command === 'backspace') {
+      const contentState = editorState.getCurrentContent();
+      const selection = editorState.getSelection();
+      const currentBlock = contentState.getBlockForKey(selection.getStartKey());
+      const currentBlockType = currentBlock.getType();
+
+      if (LIST_BLOCK_TYPES.some(t => t === currentBlockType) && currentBlock.getLength() === 0) {
+        if(currentBlock.getDepth() === 0) {
+          const newEditorState = removeBlockStyle(editorState);
+          if(newEditorState) {
+            this._changeEditorState(newEditorState);
+            return true;
+          }
+        } else {
+          const newEditorState = adjustBlockDepth(
+            editorState,
+            contentState,
+            selection,
+            -1,
+            MAX_LIST_DEPTH
+          );
+          if(newEditorState) {
+            this._changeEditorState(newEditorState);
+            return true;
+          }
+        }
+      }
+
+      const firstBlockKey = contentState.getBlockMap().first().getKey();
+      if(currentBlock.getLength() === 0 && currentBlock.getKey() === firstBlockKey) {
+        const newEditorState = removeBlockStyle(editorState);
+        if(newEditorState) {
+          this._changeEditorState(newEditorState);
+          return true;
+        }
+      }
+    }
+
+    const newEditorState = RichUtils.handleKeyCommand(editorState, command);
+    if (newEditorState) {
+      this._changeEditorState(newEditorState);
+      return true;
+    }
+    return false;
+  }
+  handlePastedFiles = files => {
+    if (isFunction(this.props.onPastedFiles)) {
+      this.props.onPastedFiles(files);
+      return true;
+    }
+    return false;
+  }
+  handleReturn = ev => {
+    if (this._handleReturnSubmit(ev)) {
+      return true;
+    }
+
+    if (this._handleReturnSpecialBlock()) {
+      return true;
+    }
+
+    if (this._handleReturnListItem()) {
+      return true;
+    }
+
+    if (this._handleReturnInsertWebCard()) {
+      return true;
+    }
+
+    return false;
+  }
+  handleTab = ev => {
+    if (this._insertIndent(ev)) {
+      return true;
+    }
+    const { editorState } = this.props;
+    const newEditorState = RichUtils.onTab(ev, editorState, MAX_LIST_DEPTH);
+    if (newEditorState !== editorState) {
+      this._changeEditorState(newEditorState);
+    }
+  }
+  blockRendererFn = block => {
+    if (this._shouldRenderAtomicBlock(block)) {
+      return this._atomicBlockRenderer(block);
+    }
+
+    if (this._shouldRenderCheckableListItem(block)) {
+      return this._checkableListItemRenderer(block);
+    }
+
+    if (isFunction(this.props.blockRendererFn)) {
+      return this.props.blockRendererFn(block);
+    }
+
+    return null;
+  }
+  blockStyleFn = block => {
+    if (isFunction(this.props.blockStyleFn)) {
+      return this.props.blockStyleFn(block);
+    }
+    const type = block.getType();
+    switch (type) {
+    case BLOCK_TYPES.CHECKABLE_LIST_ITEM:
+    case OLD_BLOCK_TYPES.ALIGN_CENTER:
+    case OLD_BLOCK_TYPES.ALIGN_RIGHT:
+    case OLD_BLOCK_TYPES.ALIGN_JUSTIFY:
+      return type;
+    default:
+      return '';
+    }
+  }
+  handleChangeEditor = editorState => this._changeEditorState(editorState);
+
   constructor(props) {
     super(props);
-
     this.focus = () => this.refs.editor.focus();
     this.blur = () => this.refs.editor.blur();
-    this.handleClickWrapper = ev => this._handleClickWrapper(ev);
-    this.handleMouseDownWrapper = ev => this._handleMouseDownWrapper(ev);
-    this.handleKeyCommand = command => this._handleKeyCommand(command);
-    this.handlePastedFiles = files => this._handlePastedFiles(files);
-    this.handleReturn = ev => this._handleReturn(ev);
-    this.handleTab = ev => this._handleTab(ev);
-    this.blockRendererFn = block => this._blockRendererFn(block);
-    this.blockStyleFn = block => this._blockStyleFn(block);
-    this.handleChangeEditor = editorState => this._changeEditorState(editorState);
   }
   render() {
     return (
@@ -88,18 +201,6 @@ export default class Body extends Component {
       </div>
     );
   }
-  _handleMouseDownWrapper() {
-    if (isFunction(this.props.closeInsertLinkInput)) {
-      this.props.closeInsertLinkInput();
-    }
-  }
-  _handleClickWrapper(ev) {
-    // FIXME ;(   does not respond check box in the Safari or Firefox
-    if (this._shouldUnfocusAfterClicking(ev)) {
-      this.blur();
-      setTimeout(() => this.focus(), 100);
-    }
-  }
   _shouldUnfocusAfterClicking(ev) {
     return /applewebkit|safari|firefox/i.test(userAgent) &&
       ev.target.nodeName.toLowerCase() === 'input' &&
@@ -113,21 +214,6 @@ export default class Body extends Component {
       }
     }
     return false;
-  }
-  _blockStyleFn(block) {
-    if (isFunction(this.props.blockStyleFn)) {
-      return this.props.blockStyleFn(block);
-    }
-    const type = block.getType();
-    switch (type) {
-    case BLOCK_TYPES.CHECKABLE_LIST_ITEM:
-    case OLD_BLOCK_TYPES.ALIGN_CENTER:
-    case OLD_BLOCK_TYPES.ALIGN_RIGHT:
-    case OLD_BLOCK_TYPES.ALIGN_JUSTIFY:
-      return type;
-    default:
-      return '';
-    }
   }
   _shouldRenderAtomicBlock(block) {
     return block.getType() === BLOCK_TYPES.ATOMIC && block.getEntityAt(0);
@@ -180,21 +266,6 @@ export default class Body extends Component {
       }
     };
   }
-  _blockRendererFn(block) {
-    if (this._shouldRenderAtomicBlock(block)) {
-      return this._atomicBlockRenderer(block);
-    }
-
-    if (this._shouldRenderCheckableListItem(block)) {
-      return this._checkableListItemRenderer(block);
-    }
-
-    if (isFunction(this.props.blockRendererFn)) {
-      return this.props.blockRendererFn(block);
-    }
-
-    return null;
-  }
   _insertIndent(ev) {
     const { editorState } = this.props;
     const selection = editorState.getSelection();
@@ -221,90 +292,6 @@ export default class Body extends Component {
       return insertWebCards(editorState, urls);
     }
     return null;
-  }
-  _handleKeyCommand(command) { // eslint-disable-line complexity
-    const { editorState } = this.props;
-    if (command === 'backspace') {
-      const contentState = editorState.getCurrentContent();
-      const selection = editorState.getSelection();
-      const currentBlock = contentState.getBlockForKey(selection.getStartKey());
-      const currentBlockType = currentBlock.getType();
-
-      if (LIST_BLOCK_TYPES.some(t => t === currentBlockType) && currentBlock.getLength() === 0) {
-        if(currentBlock.getDepth() === 0) {
-          const newEditorState = removeBlockStyle(editorState);
-          if(newEditorState) {
-            this._changeEditorState(newEditorState);
-            return true;
-          }
-        } else {
-          const newEditorState = adjustBlockDepth(
-            editorState,
-            contentState,
-            selection,
-            -1,
-            MAX_LIST_DEPTH
-          );
-          if(newEditorState) {
-            this._changeEditorState(newEditorState);
-            return true;
-          }
-        }
-      }
-
-      const firstBlockKey = contentState.getBlockMap().first().getKey();
-      if(currentBlock.getLength() === 0 && currentBlock.getKey() === firstBlockKey) {
-        const newEditorState = removeBlockStyle(editorState);
-        if(newEditorState) {
-          this._changeEditorState(newEditorState);
-          return true;
-        }
-      }
-    }
-
-    const newEditorState = RichUtils.handleKeyCommand(editorState, command);
-    if (newEditorState) {
-      this._changeEditorState(newEditorState);
-      return true;
-    }
-    return false;
-  }
-  _handleTab(ev) {
-    if (this._insertIndent(ev)) {
-      return true;
-    }
-
-    const { editorState } = this.props;
-    const newEditorState = RichUtils.onTab(ev, editorState, MAX_LIST_DEPTH);
-    if (newEditorState !== editorState) {
-      this._changeEditorState(newEditorState);
-    }
-  }
-  _handlePastedFiles(files) {
-    if (isFunction(this.props.onPastedFiles)) {
-      this.props.onPastedFiles(files);
-      return true;
-    }
-    return false;
-  }
-  _handleReturn(ev) {
-    if (this._handleReturnSubmit(ev)) {
-      return true;
-    }
-
-    if (this._handleReturnSpecialBlock()) {
-      return true;
-    }
-
-    if (this._handleReturnListItem()) {
-      return true;
-    }
-
-    if (this._handleReturnInsertWebCard()) {
-      return true;
-    }
-
-    return false;
   }
   _handleReturnInsertWebCard() {
     const newEditorState = this._insertWebCardsIfNeeded();
