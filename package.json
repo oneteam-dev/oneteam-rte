@@ -38,10 +38,10 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.5",
-    "draft-js": "github:oneteam-dev/draft-js#v0.1.0-oneteam",
+    "draft-js": "github:oneteam-dev/draft-js#v0.1.1-oneteam",
     "lodash": "^4.16.4",
-    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.2.3",
-    "oneteam-rte-utils": "github:oneteam-dev/oneteam-rte-utils#v0.1.1",
+    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.2.4",
+    "oneteam-rte-utils": "github:oneteam-dev/oneteam-rte-utils#v0.1.2",
     "react-bootstrap": "^0.30.5",
     "url-regex": "^3.2.0"
   },
