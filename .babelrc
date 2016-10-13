@@ -1,13 +1,8 @@
 {
-  "presets": [
-    "es2015", "es2016", "react"
-  ],
+  "presets": ["es2015", "es2016", "react"],
   "plugins": ["transform-object-rest-spread", "transform-class-properties"],
   "env": {
     "development": {
-      "presets": [
-        "power-assert"
-      ],
       "plugins": ["react-hot-loader/babel"]
     }
   }

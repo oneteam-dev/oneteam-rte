@@ -14,10 +14,10 @@
     "start": "webpack-dev-server --port 8008 --progress --host 0.0.0.0",
     "lint": "eslint src",
     "test": "jest --config .jestrc",
-    "watch": "babel -w -d lib --presets es2015 src",
+    "watch": "babel -w -d lib src",
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
     "cp:draft-js-css": "cp node_modules/draft-js/dist/Draft.css lib/base.css",
-    "build": "npm run clean && babel -d lib --presets es2015 src && npm run cp:draft-js-css",
+    "build": "npm run clean && babel -d lib src && npm run cp:draft-js-css",
     "prepublish": "npm run lint && npm test && npm run build",
     "publish-if-tagged": "/bin/bash scripts/npm-publish.sh",
     "bump-patch-number": "(git branch | grep \\*\\ master > /dev/null) && npm version patch -m 'Version bump to %s' && git push --tags && git push origin master"
@@ -38,10 +38,10 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.5",
-    "draft-js": "github:oneteam-dev/draft-js#v0.1.0-oneteam",
+    "draft-js": "github:oneteam-dev/draft-js#v0.1.1-oneteam",
     "lodash": "^4.16.4",
-    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.2.3",
-    "oneteam-rte-utils": "github:oneteam-dev/oneteam-rte-utils#v0.1.1",
+    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.2.4",
+    "oneteam-rte-utils": "github:oneteam-dev/oneteam-rte-utils#v0.1.2",
     "react-bootstrap": "^0.30.5",
     "url-regex": "^3.2.0"
   },
