@@ -7,8 +7,11 @@ import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
-import { insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertWebCards } from './functions';
-import { isListItem, isCursorAtEnd, getCurrentBlock } from './utils';
+import {
+  insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertWebCards,
+  splitBlockInContentStateIfCursorAtStart
+} from './functions';
+import { isListItem, isCursorAtEnd, isCursorAtStart, getCurrentBlock } from './utils';
 import URL_REGEX from './helpers/urlRegex';
 
 const { navigator } = global;
@@ -45,6 +48,17 @@ export default class Body extends Component {
         this._changeEditorState(newEditorState);
       }
     }, 0);
+    return false;
+  }
+  handlePastedText = text => {
+    const urls = text.match(URL_REGEX);
+    if (urls) {
+      // Not changed state if do not do this
+      setTimeout(() => {
+        this._changeEditorState(insertWebCards(this.props.editorState, urls));
+      }, 0);
+    }
+    return false;
   }
   handleClickWrapper = ev => {
     // FIXME ;(   does not respond check box in the Safari or Firefox
@@ -129,6 +143,10 @@ export default class Body extends Component {
       return true;
     }
 
+    if (this._handleReturnSplitBlockIfCursorAtStart()) {
+      return true;
+    }
+
     return false;
   }
   handleTab = ev => {
@@ -192,6 +210,7 @@ export default class Body extends Component {
           readOnly={this.props.readOnly}
           handleKeyCommand={this.handleKeyCommand}
           handlePastedFiles={this.handlePastedFiles}
+          handlePastedText={this.handlePastedText}
           handleReturn={this.handleReturn}
           onChange={this.handleChangeEditor}
           onTab={this.handleTab}
@@ -369,6 +388,15 @@ export default class Body extends Component {
       }
     }
     return false;
+  }
+  _handleReturnSplitBlockIfCursorAtStart() {
+    const { editorState } = this.props;
+    const selectionState = editorState.getSelection();
+    if (!selectionState.isCollapsed() || !isCursorAtStart(selectionState)) {
+      return false;
+    }
+    this._changeEditorState(splitBlockInContentStateIfCursorAtStart(editorState));
+    return true;
   }
   _changeEditorState(editorState) {
     if (isFunction(this.props.changeEditorState)) {

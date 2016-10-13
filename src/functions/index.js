@@ -12,3 +12,4 @@ export { default as insertAtomicBlock } from './insertAtomicBlock';
 export { default as updateBlockMetadata } from './updateBlockMetadata';
 export { default as mergeEntityData } from './mergeEntityData';
 export { default as insertWebCards } from './insertWebCards';
+export { default as splitBlockInContentStateIfCursorAtStart } from './splitBlockInContentStateIfCursorAtStart';
