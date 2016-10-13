@@ -7,8 +7,11 @@ import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
-import { insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertWebCards } from './functions';
-import { isListItem, isCursorAtEnd, getCurrentBlock } from './utils';
+import {
+  insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertWebCards,
+  splitBlockInContentStateIfCursorAtStart
+} from './functions';
+import { isListItem, isCursorAtEnd, isCursorAtStart, getCurrentBlock } from './utils';
 import URL_REGEX from './helpers/urlRegex';
 
 const { navigator } = global;
@@ -137,6 +140,10 @@ export default class Body extends Component {
     }
 
     if (this._handleReturnInsertWebCard()) {
+      return true;
+    }
+
+    if (this._handleReturnSplitBlockIfCursorAtStart()) {
       return true;
     }
 
@@ -381,6 +388,15 @@ export default class Body extends Component {
       }
     }
     return false;
+  }
+  _handleReturnSplitBlockIfCursorAtStart() {
+    const { editorState } = this.props;
+    const selectionState = editorState.getSelection();
+    if (!selectionState.isCollapsed() || !isCursorAtStart(selectionState)) {
+      return false;
+    }
+    this._changeEditorState(splitBlockInContentStateIfCursorAtStart(editorState));
+    return true;
   }
   _changeEditorState(editorState) {
     if (isFunction(this.props.changeEditorState)) {
