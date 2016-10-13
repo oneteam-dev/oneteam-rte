@@ -79,33 +79,28 @@ export default class Body extends Component {
       const selection = editorState.getSelection();
       const currentBlock = contentState.getBlockForKey(selection.getStartKey());
       const currentBlockType = currentBlock.getType();
+      const blockLength = currentBlock.getLength();
 
-      if (LIST_BLOCK_TYPES.some(t => t === currentBlockType) && currentBlock.getLength() === 0) {
-        if(currentBlock.getDepth() === 0) {
-          const newEditorState = removeBlockStyle(editorState);
-          if(newEditorState) {
-            this._changeEditorState(newEditorState);
-            return true;
-          }
-        } else {
-          const newEditorState = adjustBlockDepth(
+      if (LIST_BLOCK_TYPES.some(t => t === currentBlockType) && blockLength === 0) {
+        const newEditorState = currentBlock.getDepth() === 0 ?
+          removeBlockStyle(editorState) :
+          adjustBlockDepth(
             editorState,
             contentState,
             selection,
             -1,
             MAX_LIST_DEPTH
           );
-          if(newEditorState) {
-            this._changeEditorState(newEditorState);
-            return true;
-          }
+        if (newEditorState) {
+          this._changeEditorState(newEditorState);
+          return true;
         }
       }
 
       const firstBlockKey = contentState.getBlockMap().first().getKey();
-      if(currentBlock.getLength() === 0 && currentBlock.getKey() === firstBlockKey) {
+      if (blockLength === 0 && currentBlock.getKey() === firstBlockKey) {
         const newEditorState = removeBlockStyle(editorState);
-        if(newEditorState) {
+        if (newEditorState) {
           this._changeEditorState(newEditorState);
           return true;
         }

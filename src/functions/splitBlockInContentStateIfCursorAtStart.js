@@ -2,6 +2,7 @@
 
 import { EditorState } from 'draft-js';
 import generateRandomKey from 'draft-js/lib/generateRandomKey';
+import { Map } from 'immutable';
 
 /**
  * @param {EditorState} editorState
@@ -21,7 +22,8 @@ export default function splitBlockInContentStateIfCursorAtStart(editorState) {
 
   const blockAbove = blockToSplit.merge({
     text: text.slice(0, offset),
-    characterList: chars.slice(0, offset)
+    characterList: chars.slice(0, offset),
+    data: Map()
   });
 
   const keyBelow = generateRandomKey();
