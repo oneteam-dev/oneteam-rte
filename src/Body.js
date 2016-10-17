@@ -60,14 +60,14 @@ export default class Body extends Component {
     }
     return false;
   }
-  handleClickWrapper = ev => {
+  handleContainerClick = ev => {
     // FIXME ;(   does not respond check box in the Safari or Firefox
     if (this._shouldUnfocusAfterClicking(ev)) {
-      this.blur();
-      setTimeout(() => this.focus(), 100);
+      this.editorRoot.blur();
+      setTimeout(() => this.editorRoot.focus(), 100);
     }
   }
-  handleMouseDownWrapper = () => {
+  handleContainerMouseDown = () => {
     if (isFunction(this.props.closeInsertLinkInput)) {
       this.props.closeInsertLinkInput();
     }
@@ -188,17 +188,17 @@ export default class Body extends Component {
 
   constructor(props) {
     super(props);
-    this.focus = () => this.refs.editor.focus();
-    this.blur = () => this.refs.editor.blur();
   }
   render() {
     return (
       <div
         className={classNames('rich-text-editor-body', {
           'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
-        }, this.props.className)} onClick={this.handleClickWrapper} onMouseDown={this.handleMouseDownWrapper}>
+        }, this.props.className)}
+        onClick={this.handleContainerClick}
+        onMouseDown={this.handleContainerMouseDown}>
         <Editor
-          ref='editor'
+          ref={c => this.editorRoot = c}
           blockRendererFn={this.blockRendererFn}
           blockStyleFn={this.blockStyleFn}
           editorState={this.props.editorState}
@@ -217,7 +217,7 @@ export default class Body extends Component {
   }
   _shouldUnfocusAfterClicking(ev) {
     return /applewebkit|safari|firefox/i.test(userAgent) &&
-      ev.target.nodeName.toLowerCase() === 'input' &&
+      ev.target.nodeName === 'INPUT' &&
       ev.target.type === 'checkbox';
   }
   _shouldHidePlaceholder() {
