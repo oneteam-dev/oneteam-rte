@@ -101,16 +101,6 @@ export default class RichTextEditor extends Component {
       }
       return ret;
   }
-  focus() {
-    if(this._body) {
-      this._body.focus();
-    }
-  }
-  blur() {
-    if(this._body) {
-      this._body.blur();
-    }
-  }
   render() {
     const { editorState, checkedState, isOpenInsertLinkInput } = this.state;
     const content = Children.map((this.props.children || []), child => {
@@ -123,9 +113,7 @@ export default class RichTextEditor extends Component {
           changeEditorState: this.changeEditorState,
           changeCheckedState: this.changeCheckedState,
           toggleInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: !isOpenInsertLinkInput }),
-          closeInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: false }),
-          ref: c => this[`_${child.type.name.toLowerCase()}`] = c,
-          onToggleHeadingAfter: () => this.focus()
+          closeInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: false })
         }
       );
     });

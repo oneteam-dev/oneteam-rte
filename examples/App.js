@@ -55,8 +55,10 @@ export default class App extends Component {
             onClickInsertImage={this.handleClickInsertImage}
             onClickUploadFile={this.handleClickUploadFile}
             onMouseDownEmbedIFrame={this.handleClickEmbedIFrame}
+            onHeadingToggled={() => this.body.focus()}
           />
           <Body
+            ref={c => this.body = c}
             customAtomicBlockRendererFn={this.customAtomicBlockRendererFn}
           />
         </RichTextEditor>
