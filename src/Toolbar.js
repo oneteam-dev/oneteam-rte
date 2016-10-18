@@ -27,7 +27,7 @@ export default class Toolbar extends Component {
       onMouseDownEmbedIFrame: PropTypes.func,
       onSubmitAddLink: PropTypes.func,
       onMouseDownRemoveLink: PropTypes.func,
-      onToggleHeadingAfter: PropTypes.func,
+      onHeadingToggled: PropTypes.func,
       itemOptions: PropTypes.objectOf(
         PropTypes.shape({
           description: PropTypes.string,
@@ -288,8 +288,8 @@ export default class Toolbar extends Component {
     }
   }
   _toggleHeadingAfter() {
-    if (isFunction(this.props.onToggleHeadingAfter)) {
-      this.props.onToggleHeadingAfter();
+    if (isFunction(this.props.onHeadingToggled)) {
+      this.props.onHeadingToggled();
     }
   }
 }
