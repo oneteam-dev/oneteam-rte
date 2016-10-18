@@ -63,8 +63,8 @@ export default class Body extends Component {
   handleContainerClick = ev => {
     // FIXME ;(   does not respond check box in the Safari or Firefox
     if (this._shouldUnfocusAfterClicking(ev)) {
-      this.editorRoot.blur();
-      setTimeout(() => this.editorRoot.focus(), 100);
+      this.blur();
+      setTimeout(() => this.focus(), 100);
     }
   }
   handleContainerMouseDown = () => {
@@ -186,6 +186,10 @@ export default class Body extends Component {
   }
   handleChangeEditor = editorState => this._changeEditorState(editorState);
 
+  // Public
+  focus = () => this.editor.focus()
+  blur = () => this.editor.blur()
+
   constructor(props) {
     super(props);
   }
@@ -198,7 +202,7 @@ export default class Body extends Component {
         onClick={this.handleContainerClick}
         onMouseDown={this.handleContainerMouseDown}>
         <Editor
-          ref={c => this.editorRoot = c}
+          ref={c => this.editor = c}
           blockRendererFn={this.blockRendererFn}
           blockStyleFn={this.blockStyleFn}
           editorState={this.props.editorState}
