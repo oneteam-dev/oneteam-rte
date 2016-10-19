@@ -129,12 +129,18 @@ export default class RichTextEditor extends Component {
     this.changeEditorState(newEditorState);
   }
   _insertDownloadLink({ name, download_url, size }) {
-    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.DOWNLOAD_LINK, 'MUTABLE', {
-      name,
-      size,
-      url: download_url,
-      target: '_blank'
-    });
+    const newEditorState = insertAtomicBlock(
+      this.state.editorState,
+      ENTITY_TYPES.DOWNLOAD_LINK,
+      'MUTABLE',
+      {
+        name,
+        size,
+        url: download_url,
+        target: '_blank'
+      },
+      name
+    );
     this.changeEditorState(newEditorState);
   }
   _insertIFrame(iframeTag) {
