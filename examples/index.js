@@ -5,7 +5,7 @@ import App from './App';
 
 const main = () => {
   let rootEl;
-  render(<AppContainer><App /></AppContainer> , rootEl = document.querySelector('#app-root'));
+  render(<AppContainer><App /></AppContainer>, rootEl = document.querySelector('#app-root'));
 
   if (module.hot) {
     module.hot.accept('./App', () => {

@@ -11,7 +11,7 @@
     "lib"
   ],
   "scripts": {
-    "start": "webpack-dev-server --port 8008 --progress --host 0.0.0.0",
+    "start": "webpack-dev-server --progress",
     "lint": "eslint src",
     "test": "jest --config .jestrc",
     "watch": "babel -w -d lib src",
