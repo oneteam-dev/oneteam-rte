@@ -1,12 +1,14 @@
 import path from 'path';
 import webpack from 'webpack';
 
+const PORT = process.env.PORT || 8008;
+
 const entry = [
-  'webpack-dev-server/client?http://localhost:8008',
+  `webpack-dev-server/client?http://localhost:${PORT}`,
   'webpack/hot/only-dev-server',
   'react-hot-loader/patch',
   'babel-polyfill',
-  './examples/index.js',
+  './examples/index.js'
 ];
 const plugins = [
   new webpack.HotModuleReplacementPlugin()
@@ -52,6 +54,8 @@ export default {
   },
   devServer: {
     contentBase: `./examples`,
-    hot: true
+    hot: true,
+    host: '0.0.0.0',
+    port: PORT
   }
 };
