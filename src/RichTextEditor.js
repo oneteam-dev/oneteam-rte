@@ -80,6 +80,7 @@ export default class RichTextEditor extends Component {
     this.insertImage = imageFile => this._insertImage(imageFile);
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.insertIFrame = iframeTagString => this._insertIFrame(iframeTagString);
+    this.insertPlaceholder = (...args) => this._insertPlaceholder(...args);
     this.getCurrentBlockType = (...args) => getCurrentBlockType(this.state.editorState, ...args);
     this.hasCurrentInlineStyle = (...args) => hasCurrentInlineStyle(this.state.editorState, ...args);
 
@@ -151,8 +152,18 @@ export default class RichTextEditor extends Component {
       this.changeEditorState(newEditorState);
     }, 1000);
   }
-  _insertWebCard(url, imageRemoved) {
-    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url, imageRemoved });
+  // NOTE: This method is unused
+  // _insertWebCard(url, imageRemoved) {
+  //   const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url, imageRemoved });
+  //   this.changeEditorState(newEditorState);
+  // }
+  _insertPlaceholder(data, name) {
+    const newEditorState = insertAtomicBlock(
+      this.state.editorState,
+      'PLACEHOLDER',
+      'IMMUTABLE',
+      { ...data, name }
+    );
     this.changeEditorState(newEditorState);
   }
 }
