@@ -1,9 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import { Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil } from 'draft-js';
+import {
+  Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil, DefaultDraftBlockRenderMap
+} from 'draft-js';
+import {
+  blockRenderMapForSameWrapperAsUnorderedListItem as blockRenderMap,
+  CheckableListItem, CheckableListItemUtils, CHECKABLE_LIST_ITEM
+} from 'draft-js-checkable-list-item';
 import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from 'oneteam-rte-utils';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
-import CheckableListItem from './blocks/CheckableListItem';
 import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
@@ -13,9 +18,6 @@ import {
 } from './functions';
 import { isListItem, isCursorAtEnd, isCursorAtStart, getCurrentBlock } from './utils';
 import URL_REGEX from './helpers/urlRegex';
-
-const { navigator } = global;
-const userAgent = navigator ? navigator.userAgent : null;
 
 export default class Body extends Component {
   static propTypes = {
@@ -59,13 +61,6 @@ export default class Body extends Component {
       }, 0);
     }
     return false;
-  }
-  handleContainerClick = ev => {
-    // FIXME ;(   does not respond check box in the Safari or Firefox
-    if (this._shouldUnfocusAfterClicking(ev)) {
-      this.blur();
-      setTimeout(() => this.focus(), 100);
-    }
   }
   handleContainerMouseDown = () => {
     if (isFunction(this.props.closeInsertLinkInput)) {
@@ -148,6 +143,9 @@ export default class Body extends Component {
     if (this._insertIndent(ev)) {
       return true;
     }
+    if (this._adjustBlockDepth(ev)) {
+      return true;
+    }
     const { editorState } = this.props;
     const newEditorState = RichUtils.onTab(ev, editorState, MAX_LIST_DEPTH);
     if (newEditorState !== editorState) {
@@ -155,14 +153,17 @@ export default class Body extends Component {
     }
   }
   blockRendererFn = block => {
-    if (this._shouldRenderAtomicBlock(block)) {
+    const type = block.getType();
+
+    if (type === BLOCK_TYPES.ATOMIC && block.getEntityAt(0)) {
       return this._atomicBlockRenderer(block);
     }
 
-    if (this._shouldRenderCheckableListItem(block)) {
+    if (type === CHECKABLE_LIST_ITEM) {
       return this._checkableListItemRenderer(block);
     }
 
+    // Unnecessary
     if (isFunction(this.props.blockRendererFn)) {
       return this.props.blockRendererFn(block);
     }
@@ -175,7 +176,7 @@ export default class Body extends Component {
     }
     const type = block.getType();
     switch (type) {
-    case BLOCK_TYPES.CHECKABLE_LIST_ITEM:
+    case CHECKABLE_LIST_ITEM:
     case OLD_BLOCK_TYPES.ALIGN_CENTER:
     case OLD_BLOCK_TYPES.ALIGN_RIGHT:
     case OLD_BLOCK_TYPES.ALIGN_JUSTIFY:
@@ -199,11 +200,11 @@ export default class Body extends Component {
         className={classNames('rich-text-editor-body', {
           'RichEditor-hidePlaceholder': this._shouldHidePlaceholder()
         }, this.props.className)}
-        onClick={this.handleContainerClick}
         onMouseDown={this.handleContainerMouseDown}>
         <Editor
           ref={c => this.editor = c}
           blockRendererFn={this.blockRendererFn}
+          blockRenderMap={DefaultDraftBlockRenderMap.merge(blockRenderMap)}
           blockStyleFn={this.blockStyleFn}
           editorState={this.props.editorState}
           readOnly={this.props.readOnly}
@@ -219,11 +220,6 @@ export default class Body extends Component {
       </div>
     );
   }
-  _shouldUnfocusAfterClicking(ev) {
-    return /applewebkit|safari|firefox/i.test(userAgent) &&
-      ev.target.nodeName === 'INPUT' &&
-      ev.target.type === 'checkbox';
-  }
   _shouldHidePlaceholder() {
     const contentState = this.props.editorState.getCurrentContent();
     if (!contentState.hasText()) {
@@ -232,12 +228,6 @@ export default class Body extends Component {
       }
     }
     return false;
-  }
-  _shouldRenderAtomicBlock(block) {
-    return block.getType() === BLOCK_TYPES.ATOMIC && block.getEntityAt(0);
-  }
-  _shouldRenderCheckableListItem(block) {
-    return block.getType() === BLOCK_TYPES.CHECKABLE_LIST_ITEM;
   }
   _atomicBlockRenderer(block) {
     const entity = Entity.get(block.getEntityAt(0));
@@ -271,16 +261,13 @@ export default class Body extends Component {
     }
   }
   _checkableListItemRenderer(block) {
-    const blockKey = block.getKey();
-    const { checkedState } = this.props;
     return {
       component: CheckableListItem,
       props: {
-        checked: !!checkedState[blockKey],
-        onChangeChecked: checked => {
-          const newCheckedState = { ...checkedState, [blockKey]: checked };
-          this._changeCheckedState(newCheckedState);
-        }
+        onChangeChecked: () => this._changeEditorState(
+          CheckableListItemUtils.toggleChecked(this.props.editorState, block)
+        ),
+        checked: !!block.getData().get('checked')
       }
     };
   }
@@ -313,6 +300,15 @@ export default class Body extends Component {
       return insertWebCards(EditorState.push(editorState, newContent, 'change-block-data'), urls);
     }
     return null;
+  }
+  _adjustBlockDepth(ev) {
+    const { editorState } = this.props;
+    const newEditorState = CheckableListItemUtils.onTab(ev, editorState, MAX_LIST_DEPTH);
+    if (newEditorState !== editorState) {
+      this._changeEditorState(newEditorState);
+      return true;
+    }
+    return false;
   }
   _handleReturnInsertWebCard() {
     const newEditorState = this._insertWebCardsIfNeeded();

@@ -39,6 +39,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "draft-js": "github:oneteam-dev/draft-js#v0.1.2-oneteam",
+    "draft-js-checkable-list-item": "^2.0.0",
     "immutable": "~3.7.4",
     "lodash": "^4.16.4",
     "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.3.4",
