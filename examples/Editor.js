@@ -1,6 +1,6 @@
 import 'draft-js/dist/Draft.css';
 import React, { Component } from 'react';
-import { ENTITY_TYPES } from 'oneteam-rte-utils';
+import { ENTITY_TYPES } from 'oneteam-rte-constants';
 import RichTextEditor, { Toolbar, Body } from '../src';
 import WebCard from './HOCWebCard';
 import itemOptions from './itemOptions';

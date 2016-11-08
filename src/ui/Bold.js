@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
-import { INLINE_STYLES } from 'oneteam-rte-utils';
+import { INLINE_STYLES } from 'oneteam-rte-constants';
 import InlineStyleButton from './InlineStyleButton';
 
 export default class Bold extends Component {

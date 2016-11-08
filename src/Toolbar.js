@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
-import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from 'oneteam-rte-utils';
+import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from 'oneteam-rte-constants';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Tooltip from 'react-bootstrap/lib/Tooltip';
 import isFunction from 'lodash/isFunction';
@@ -15,9 +15,8 @@ import DEFAULT_ITEM_OPTIONS, * as ITEM_NAMES from './constants/toolbar';
 export default class Toolbar extends Component {
   static get propTypes() {
     return {
-      editorState: PropTypes.instanceOf(EditorState),
-      checkedState: PropTypes.objectOf(PropTypes.bool),
-      changeEditorState: PropTypes.func,
+      editorState: PropTypes.instanceOf(EditorState), // Required, but inherited from parent (RichTextEditor) component
+      changeEditorState: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
       toggleInsertLinkInput: PropTypes.func,
       isOpenInsertLinkInput: PropTypes.bool,
 
@@ -283,9 +282,7 @@ export default class Toolbar extends Component {
     }
   }
   _changeEditorState(editorState) {
-    if (isFunction(this.props.changeEditorState)) {
-      this.props.changeEditorState(editorState);
-    }
+    this.props.changeEditorState(editorState);
   }
   _toggleHeadingAfter() {
     if (isFunction(this.props.onHeadingToggled)) {

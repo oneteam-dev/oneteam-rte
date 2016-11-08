@@ -1,4 +1,4 @@
-import { ENTITY_TYPES } from 'oneteam-rte-utils';
+import { ENTITY_TYPES } from 'oneteam-rte-constants';
 import insertAtomicBlock from './insertAtomicBlock';
 
 /**

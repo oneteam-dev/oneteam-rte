@@ -1,11 +1,11 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import { CompositeDecorator } from 'draft-js';
 import stateToHTML from 'oneteam-rte-converter/lib/editorStateToHTML';
-import { ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-utils';
+import { ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
 import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
-import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, createCheckedState } from './utils';
+import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState } from './utils';
 import { insertAtomicBlock } from './functions';
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
@@ -38,8 +38,7 @@ export default class RichTextEditor extends Component {
     ]);
     const cleanHTML = html.replace(/>\s+</g, '><'); // FIXME ;(
     const editorState = createEditorState(cleanHTML, decorator);
-    const checkedState = createCheckedState(editorState.getCurrentContent().getBlocksAsArray());
-    return { editorState, checkedState };
+    return { editorState };
   }
   set html(html) {
     this.setState(this.createEditorState(html));
@@ -48,16 +47,13 @@ export default class RichTextEditor extends Component {
     return this.serializedHTML;
   }
   get serializedHTML() {
-    return stateToHTML(this._contentState, this._checkedState);
+    return stateToHTML(this._contentState);
   }
   get _editorState() {
     return this.state.editorState;
   }
   get _contentState() {
     return this._editorState.getCurrentContent();
-  }
-  get _checkedState() {
-    return this.state.checkedState;
   }
   constructor(props) {
     super(props);
@@ -103,16 +99,14 @@ export default class RichTextEditor extends Component {
       return ret;
   }
   render() {
-    const { editorState, checkedState, isOpenInsertLinkInput } = this.state;
+    const { editorState, isOpenInsertLinkInput } = this.state;
     const content = Children.map((this.props.children || []), child => {
       return cloneElement(
         child,
         {
           editorState,
-          checkedState,
           isOpenInsertLinkInput,
           changeEditorState: this.changeEditorState,
-          changeCheckedState: this.changeCheckedState,
           toggleInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: !isOpenInsertLinkInput }),
           closeInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: false })
         }
@@ -152,7 +146,7 @@ export default class RichTextEditor extends Component {
       this.changeEditorState(newEditorState);
     }, 1000);
   }
-  // NOTE: This method is unused
+  // NOTE: This method is unused, delete in future
   // _insertWebCard(url, imageRemoved) {
   //   const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url, imageRemoved });
   //   this.changeEditorState(newEditorState);

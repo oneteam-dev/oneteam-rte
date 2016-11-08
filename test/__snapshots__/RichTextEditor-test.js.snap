@@ -154,7 +154,7 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
               role="presentation"
               style={undefined}>
               <a
-                href=""
+                href="#"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="menuitem"
@@ -167,7 +167,7 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
               role="presentation"
               style={undefined}>
               <a
-                href=""
+                href="#"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="menuitem"
@@ -180,7 +180,7 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
               role="presentation"
               style={undefined}>
               <a
-                href=""
+                href="#"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="menuitem"
@@ -193,7 +193,7 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
               role="presentation"
               style={undefined}>
               <a
-                href=""
+                href="#"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="menuitem"
@@ -206,7 +206,7 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
               role="presentation"
               style={undefined}>
               <a
-                href=""
+                href="#"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="menuitem"

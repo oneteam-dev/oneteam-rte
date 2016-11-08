@@ -1,4 +1,4 @@
-import { ENTITY_TYPES } from 'oneteam-rte-utils'
+import { ENTITY_TYPES } from 'oneteam-rte-constants'
 import Link from './Link';
 import createFindEntitiesBy from '../utils/createFindEntitiesBy';
 import findWithRegex from '../utils/findWithRegex';
