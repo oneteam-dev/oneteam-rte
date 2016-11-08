@@ -6,7 +6,7 @@ import {
   blockRenderMapForSameWrapperAsUnorderedListItem as blockRenderMap,
   CheckableListItem, CheckableListItemUtils, CHECKABLE_LIST_ITEM
 } from 'draft-js-checkable-list-item';
-import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from 'oneteam-rte-utils';
+import { BLOCK_TYPES, ENTITY_TYPES, LIST_BLOCK_TYPES, MAX_LIST_DEPTH, OLD_BLOCK_TYPES } from 'oneteam-rte-constants';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import AtomicImage from './blocks/AtomicImage';
@@ -21,10 +21,8 @@ import URL_REGEX from './helpers/urlRegex';
 
 export default class Body extends Component {
   static propTypes = {
-    editorState: PropTypes.instanceOf(EditorState),
-    checkedState: PropTypes.objectOf(PropTypes.bool),
-    changeEditorState: PropTypes.func,
-    changeCheckedState: PropTypes.func,
+    editorState: PropTypes.instanceOf(EditorState), // Required, but inherited from parent (RichTextEditor) component
+    changeEditorState: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
     closeInsertLinkInput: PropTypes.func,
 
     placeholder: PropTypes.string,
@@ -187,8 +185,14 @@ export default class Body extends Component {
   }
   handleChangeEditor = editorState => this._changeEditorState(editorState);
 
-  // Public
+  /**
+   * @public
+   */
   focus = () => this.editor.focus()
+
+  /**
+   * @public
+   */
   blur = () => this.editor.blur()
 
   constructor(props) {
@@ -394,13 +398,6 @@ export default class Body extends Component {
     return true;
   }
   _changeEditorState(editorState) {
-    if (isFunction(this.props.changeEditorState)) {
-      this.props.changeEditorState(editorState);
-    }
-  }
-  _changeCheckedState(checkedState) {
-    if (isFunction(this.props.changeCheckedState)) {
-      this.props.changeCheckedState(checkedState);
-    }
+    this.props.changeEditorState(editorState);
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
-import { BLOCK_TYPES } from 'oneteam-rte-utils';
+import { BLOCK_TYPES } from 'oneteam-rte-constants';
 import BlockTypeButton from './BlockTypeButton';
 
 export default class CheckableList extends Component {

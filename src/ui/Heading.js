@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
-import { BLOCK_TYPES, HEADER_BLOCK_TYPES } from 'oneteam-rte-utils';
+import { BLOCK_TYPES, HEADER_BLOCK_TYPES } from 'oneteam-rte-constants';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 import findKey from 'lodash/findKey';

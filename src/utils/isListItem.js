@@ -1,4 +1,4 @@
-import { BLOCK_TYPES } from 'oneteam-rte-utils';
+import { BLOCK_TYPES } from 'oneteam-rte-constants';
 
 export default function isListItem(block) {
   const blockType = block.getType();
