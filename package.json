@@ -41,7 +41,7 @@
     "draft-js": "github:oneteam-dev/draft-js#e4cf0f2d1743a5abbb366668f88f3c10fb3b84ba",
     "draft-js-checkable-list-item": "^2.0.0",
     "immutable": "~3.7.4",
-    "lodash": "^4.16.4",
+    "lodash": "^4.16.6",
     "oneteam-rte-constants": "github:oneteam-dev/oneteam-rte-constants#v1.0.0",
     "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.3.5",
     "react-bootstrap": "0.30.6",
@@ -53,10 +53,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.0",
-    "babel-eslint": "^7.0.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.0",
     "babel-jest": "^16.0.0",
-    "babel-loader": "^6.2.5",
+    "babel-loader": "^6.2.7",
     "babel-plugin-transform-class-properties": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "babel-polyfill": "^6.16.0",
@@ -65,9 +65,9 @@
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.25.0",
     "enzyme": "^2.5.1",
-    "eslint": "^3.8.1",
+    "eslint": "^3.9.1",
     "eslint-plugin-babel": "^3.3.0",
-    "eslint-plugin-react": "^6.4.1",
+    "eslint-plugin-react": "^6.6.0",
     "file-loader": "^0.9.0",
     "jest": "^16.0.2",
     "react": "^15.3.2",
@@ -80,7 +80,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.2",
+    "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   }
 }
