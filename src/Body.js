@@ -238,6 +238,13 @@ export default class Body extends Component {
     const type = entity.getType();
     const data = entity.getData();
 
+    if (isFunction(this.props.customAtomicBlockRendererFn)) {
+      const atomicBlock = this.props.customAtomicBlockRendererFn(entity, block);
+      if (atomicBlock) {
+        return atomicBlock;
+      }
+    }
+
     switch (type) {
     case ENTITY_TYPES.IMAGE:
       return {
@@ -257,11 +264,7 @@ export default class Body extends Component {
         props: data,
         editable: false
       };
-    default:
-      if (isFunction(this.props.customAtomicBlockRendererFn)) {
-        return this.props.customAtomicBlockRendererFn(entity, block);
-      }
-      return null;
+    default: return null;
     }
   }
   _checkableListItemRenderer(block) {
