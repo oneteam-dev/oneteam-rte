@@ -43,7 +43,7 @@
     "immutable": "~3.7.4",
     "lodash": "^4.16.6",
     "oneteam-rte-constants": "github:oneteam-dev/oneteam-rte-constants#v1.0.0",
-    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.3.5",
+    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.3.6",
     "react-bootstrap": "0.30.6",
     "url-regex": "^3.2.0"
   },
