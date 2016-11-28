@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil, DefaultDraftBlockRenderMap
+  Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil, DefaultDraftBlockRenderMap, getDefaultKeyBinding
 } from 'draft-js';
 import {
   blockRenderMapForSameWrapperAsUnorderedListItem as blockRenderMap,
@@ -14,7 +14,7 @@ import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
 import {
   insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertWebCards,
-  splitBlockInContentStateIfCursorAtStart
+  splitBlockInContentStateIfCursorAtStart, toggleBlockType, replaceTextToBlock
 } from './functions';
 import { isListItem, isCursorAtEnd, isCursorAtStart, getCurrentBlock } from './utils';
 import URL_REGEX from './helpers/urlRegex';
@@ -98,6 +98,20 @@ export default class Body extends Component {
           return true;
         }
       }
+    } else if (command === 'space') {
+      const content = editorState.getCurrentContent();
+      const selection = editorState.getSelection();
+      const block = content.getBlockForKey(selection.getStartKey());
+      const blockType = block.getType();
+      const text = block.getText();
+      if (blockType === 'unstyled' && this.isMarkdownBlockSyntax(text)) {
+        const newEditorState = EditorState.forceSelection(
+          toggleBlockType(replaceTextToBlock(editorState, ''), this.mapMdSyntaxToBlockType(text)),
+          selection
+        );
+        this._changeEditorState(newEditorState);
+        return true;
+      }
     }
 
     const newEditorState = RichUtils.handleKeyCommand(editorState, command);
@@ -106,6 +120,23 @@ export default class Body extends Component {
       return true;
     }
     return false;
+  }
+  mapMdSyntaxToBlockType(text) {
+    switch (text) {
+      case '#': return 'header-one';
+      case '##': return 'header-two';
+      case '###': return 'header-three';
+      case '####': return 'header-four';
+      case '#####': return 'header-five';
+      case '######': return 'header-six';
+      case '-': return 'unordered-list-item';
+      case '>': return 'blockquote';
+      default: 'unstyled'
+
+    }
+  }
+  isMarkdownBlockSyntax(text) {
+    return ['#', '##', '###', '####', '#####', '######', '-', '>'].includes(text);
   }
   handlePastedFiles = files => {
     if (isFunction(this.props.onPastedFiles)) {
@@ -132,6 +163,10 @@ export default class Body extends Component {
     }
 
     if (this._handleReturnSplitBlockIfCursorAtStart()) {
+      return true;
+    }
+
+    if (this._handleReturnCodeBlock()) {
       return true;
     }
 
@@ -220,9 +255,17 @@ export default class Body extends Component {
           onTab={this.handleTab}
           onBlur={this.handleBlur}
           placeholder={this.props.placeholder}
-          customStyleMap={this.props.customStyleMap} />
+          customStyleMap={this.props.customStyleMap}
+          keyBindingFn={this.keyBindingFn}
+        />
       </div>
     );
+  }
+  keyBindingFn = e => {
+    if (e.keyCode === 32) {
+      return 'space';
+    }
+    return getDefaultKeyBinding(e);
   }
   _shouldHidePlaceholder() {
     const contentState = this.props.editorState.getCurrentContent();
@@ -377,7 +420,7 @@ export default class Body extends Component {
       const contentState = editorState.getCurrentContent();
       const blockKey = selection.getStartKey();
       const block = contentState.getBlockForKey(blockKey);
-      if (!isListItem(block) && block.getType() !== BLOCK_TYPES.UNSTYLED) {
+      if (!isListItem(block) && ![BLOCK_TYPES.UNSTYLED, 'code-block'].includes(block.getType())) {
         if (isCursorAtEnd(block, selection)) {
           const newEditorState = insertBlockAfter(
             editorState,
@@ -399,6 +442,21 @@ export default class Body extends Component {
     }
     this._changeEditorState(splitBlockInContentStateIfCursorAtStart(editorState));
     return true;
+  }
+  _handleReturnCodeBlock() {
+    const { editorState } = this.props;
+    const selection = editorState.getSelection();
+    const block = getCurrentBlock(editorState);
+    const text = block.getText();
+    if (text === '```') {
+      const newEditorState = EditorState.forceSelection(
+        toggleBlockType(replaceTextToBlock(editorState, ''), 'code-block'),
+        selection
+      );
+      this._changeEditorState(newEditorState);
+      return true;
+    }
+    return false;
   }
   _changeEditorState(editorState) {
     this.props.changeEditorState(editorState);
