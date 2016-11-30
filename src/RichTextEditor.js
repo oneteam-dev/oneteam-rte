@@ -10,6 +10,7 @@ import { insertAtomicBlock } from './functions';
 import { getIFrameAttrs } from './helpers'
 import LinkDecorator from './decorators/LinkDecorator';
 import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
+import MarkdownDecorators from './decorators/MarkdownDecorators';
 import * as functions from './functions';
 
 export default class RichTextEditor extends Component {
@@ -34,6 +35,7 @@ export default class RichTextEditor extends Component {
     const decorator = new CompositeDecorator([
       LinkDecorator,
       DownloadLinkDecorator,
+      ...MarkdownDecorators,
       ...this.props.decorators
     ]);
     const cleanHTML = html.replace(/>\s+</g, '><'); // FIXME ;(
