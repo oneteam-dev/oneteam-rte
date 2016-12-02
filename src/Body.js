@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  Editor, EditorState, Entity, Modifier, RichUtils, KeyBindingUtil, DefaultDraftBlockRenderMap
-} from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
+import { EditorState, Entity, Modifier, RichUtils, KeyBindingUtil, DefaultDraftBlockRenderMap } from 'draft-js';
 import {
   blockRenderMapForSameWrapperAsUnorderedListItem as blockRenderMap,
   CheckableListItem, CheckableListItemUtils, CHECKABLE_LIST_ITEM
@@ -17,6 +16,7 @@ import {
   splitBlockInContentStateIfCursorAtStart
 } from './functions';
 import { isListItem, isCursorAtEnd, isCursorAtStart, getCurrentBlock } from './utils';
+import decorators from './decorators';
 import URL_REGEX from './helpers/urlRegex';
 
 export default class Body extends Component {
@@ -48,17 +48,14 @@ export default class Body extends Component {
         this._changeEditorState(newEditorState);
       }
     }, 0);
-    return false;
   }
   handlePastedText = text => {
     const urls = text.match(URL_REGEX);
     if (urls) {
-      // Not changed state if do not do this
-      setTimeout(() => {
-        this._changeEditorState(insertWebCards(this.props.editorState, urls));
-      }, 0);
+      this._changeEditorState(insertWebCards(this.props.editorState, urls));
+      return 'handled';
     }
-    return false;
+    return 'not-handled';
   }
   handleContainerMouseDown = () => {
     if (isFunction(this.props.closeInsertLinkInput)) {
@@ -86,7 +83,7 @@ export default class Body extends Component {
           );
         if (newEditorState) {
           this._changeEditorState(newEditorState);
-          return true;
+          return 'handled';
         }
       }
 
@@ -95,7 +92,7 @@ export default class Body extends Component {
         const newEditorState = removeBlockStyle(editorState);
         if (newEditorState) {
           this._changeEditorState(newEditorState);
-          return true;
+          return 'handled';
         }
       }
     }
@@ -103,52 +100,55 @@ export default class Body extends Component {
     const newEditorState = RichUtils.handleKeyCommand(editorState, command);
     if (newEditorState) {
       this._changeEditorState(newEditorState);
-      return true;
+      return 'handled';
     }
-    return false;
+    return 'not-handled';
   }
   handlePastedFiles = files => {
     if (isFunction(this.props.onPastedFiles)) {
       this.props.onPastedFiles(files);
-      return true;
+      return 'handled';
     }
-    return false;
+    return 'not-handled';
   }
   handleReturn = ev => {
     if (this._handleReturnSubmit(ev)) {
-      return true;
+      return 'handled';
     }
 
     if (this._handleReturnSpecialBlock()) {
-      return true;
+      return 'handled';
     }
 
     if (this._handleReturnListItem()) {
-      return true;
+      return 'handled';
     }
 
     if (this._handleReturnInsertWebCard()) {
-      return true;
+      return 'handled';
     }
 
     if (this._handleReturnSplitBlockIfCursorAtStart()) {
-      return true;
+      return 'handled';
     }
 
-    return false;
+    return 'not-handled';
   }
   handleTab = ev => {
     if (this._insertIndent(ev)) {
-      return true;
+      return 'handled';
     }
     if (this._adjustBlockDepth(ev)) {
-      return true;
+      return 'handled';
     }
     const { editorState } = this.props;
     const newEditorState = RichUtils.onTab(ev, editorState, MAX_LIST_DEPTH);
     if (newEditorState !== editorState) {
       this._changeEditorState(newEditorState);
+      return 'handled';
     }
+
+    return 'not-handled';
   }
   blockRendererFn = block => {
     const type = block.getType();
@@ -206,6 +206,7 @@ export default class Body extends Component {
         }, this.props.className)}
         onMouseDown={this.handleContainerMouseDown}>
         <Editor
+          decorators={decorators}
           ref={c => this.editor = c}
           blockRendererFn={this.blockRendererFn}
           blockRenderMap={DefaultDraftBlockRenderMap.merge(blockRenderMap)}

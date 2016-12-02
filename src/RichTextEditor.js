@@ -1,5 +1,4 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
-import { CompositeDecorator } from 'draft-js';
 import stateToHTML from 'oneteam-rte-converter/lib/editorStateToHTML';
 import { ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
 import isFunction from 'lodash/isFunction';
@@ -7,16 +6,13 @@ import Body from './Body';
 import Toolbar from './Toolbar';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState } from './utils';
 import { insertAtomicBlock } from './functions';
-import { getIFrameAttrs } from './helpers'
-import LinkDecorator from './decorators/LinkDecorator';
-import DownloadLinkDecorator from './decorators/DownloadLinkDecorator';
+import { getIFrameAttrs } from './helpers';
 import * as functions from './functions';
 
 export default class RichTextEditor extends Component {
   static get propTypes() {
     return {
       initialHtml: PropTypes.string,
-      decorators: PropTypes.arrayOf(PropTypes.instanceOf(CompositeDecorator)),
       onChange: PropTypes.func,
       children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.element),
@@ -26,18 +22,12 @@ export default class RichTextEditor extends Component {
   }
   static get defaultProps() {
     return {
-      initialHtml: '',
-      decorators: []
+      initialHtml: ''
     };
   }
   createEditorState(html) {
-    const decorator = new CompositeDecorator([
-      LinkDecorator,
-      DownloadLinkDecorator,
-      ...this.props.decorators
-    ]);
     const cleanHTML = html.replace(/>\s+</g, '><'); // FIXME ;(
-    const editorState = createEditorState(cleanHTML, decorator);
+    const editorState = createEditorState(cleanHTML);
     return { editorState };
   }
   set html(html) {
