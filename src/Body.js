@@ -12,11 +12,11 @@ import AtomicImage from './blocks/AtomicImage';
 import AtomicIFrame from './blocks/AtomicIFrame';
 import DownloadLink from './blocks/DownloadLink';
 import {
-  insertBlockAfter, removeBlockStyle, adjustBlockDepth, insertText, insertWebCards,
-  splitBlockInContentStateIfCursorAtStart
+  removeBlockStyle, adjustBlockDepth, insertText, insertWebCards, splitBlockInContentStateIfCursorAtStart
 } from './functions';
 import { isListItem, isCursorAtEnd, isCursorAtStart, getCurrentBlock } from './utils';
 import decorators from './decorators';
+import plugins from './plugins';
 import URL_REGEX from './helpers/urlRegex';
 
 export default class Body extends Component {
@@ -116,10 +116,6 @@ export default class Body extends Component {
       return 'handled';
     }
 
-    if (this._handleReturnSpecialBlock()) {
-      return 'handled';
-    }
-
     if (this._handleReturnListItem()) {
       return 'handled';
     }
@@ -206,6 +202,7 @@ export default class Body extends Component {
         }, this.props.className)}
         onMouseDown={this.handleContainerMouseDown}>
         <Editor
+          plugins={plugins}
           decorators={decorators}
           ref={c => this.editor = c}
           blockRendererFn={this.blockRendererFn}
@@ -368,27 +365,6 @@ export default class Body extends Component {
     if (isFunction(this.props.onEnterKeyDownWithCommand) && KeyBindingUtil.hasCommandModifier(ev)) {
       this.props.onEnterKeyDownWithCommand(ev);
       return true;
-    }
-    return false;
-  }
-  _handleReturnSpecialBlock() {
-    const { editorState } = this.props;
-    const selection = editorState.getSelection();
-    if (selection.isCollapsed()) {
-      const contentState = editorState.getCurrentContent();
-      const blockKey = selection.getStartKey();
-      const block = contentState.getBlockForKey(blockKey);
-      if (!isListItem(block) && block.getType() !== BLOCK_TYPES.UNSTYLED) {
-        if (isCursorAtEnd(block, selection)) {
-          const newEditorState = insertBlockAfter(
-            editorState,
-            blockKey,
-            BLOCK_TYPES.UNSTYLED
-          );
-          this._changeEditorState(newEditorState);
-          return true;
-        }
-      }
     }
     return false;
   }
