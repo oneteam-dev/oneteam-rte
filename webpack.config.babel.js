@@ -22,7 +22,6 @@ export default {
     path: path.resolve(__dirname, 'examples'),
     filename: 'bundle.js'
   },
-  devtool: '#cheap-module-inline-source-map',
   display: { errorDetails: true },
   resolve: {
     extensions: ['', '.js']
