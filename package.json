@@ -38,6 +38,7 @@
   "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.5",
+    "draft-js-block-breakout-plugin": "github:sugarshin/draft-js-block-breakout-plugin#e6cd04b3565cbad8273791e0690d0a602aa07961",
     "draft-js-checkable-list-item": "^2.0.2",
     "draft-js-plugins-editor": "^2.0.0-beta7",
     "immutable": "~3.7.4",
