@@ -40,6 +40,7 @@
     "classnames": "^2.2.5",
     "draft-js-block-breakout-plugin": "^1.0.0",
     "draft-js-checkable-list-item": "^2.0.2",
+    "draft-js-markdown-shortcuts-plugin": "0.0.3",
     "draft-js-plugins-editor": "2.0.0-beta7",
     "immutable": "~3.7.6",
     "lodash": "^4.17.2",
