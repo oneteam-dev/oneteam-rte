@@ -1,5 +1,4 @@
 export { default as createEditorState } from './createEditorState';
-export { default as createCheckedState } from './createCheckedState';
 export { default as createFindEntitiesBy } from './createFindEntitiesBy';
 export { default as getCurrentBlockType } from './getCurrentBlockType';
 export { default as getEntityAtCursor } from './getEntityAtCursor';
