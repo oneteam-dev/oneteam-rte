@@ -52,7 +52,8 @@ export default class Body extends Component {
   handlePastedText = text => {
     const urls = text.match(URL_REGEX);
     if (urls) {
-      this._changeEditorState(insertWebCards(this.props.editorState, urls));
+      const newEditorState = insertText(this.props.editorState, text);
+      this._changeEditorState(insertWebCards(newEditorState, urls));
       return 'handled';
     }
     return 'not-handled';
