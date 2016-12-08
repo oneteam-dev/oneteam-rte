@@ -62,7 +62,6 @@ export default class RichTextEditor extends Component {
       }
     }
     this.changeEditorState = editorState => this.setState({ editorState }, triggerOnChange);
-    this.changeCheckedState = checkedState => this.setState({ checkedState }, triggerOnChange);
     this.insertImage = imageFile => this._insertImage(imageFile);
     this.insertDownloadLink = file => this._insertDownloadLink(file);
     this.insertIFrame = iframeTagString => this._insertIFrame(iframeTagString);
