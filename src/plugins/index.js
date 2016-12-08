@@ -8,4 +8,7 @@ const blockBreakoutPlugin = createBlockBreakoutPlugin({
 });
 const markdownShortcutsPlugin = createMarkdownShortcutsPlugin();
 
-export default [blockBreakoutPlugin, markdownShortcutsPlugin];
+export default [
+  blockBreakoutPlugin,
+  markdownShortcutsPlugin,
+];
