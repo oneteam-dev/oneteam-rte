@@ -183,6 +183,23 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
       <span
         className="rich-text-editor-toolbar-button-inner">
         <span
+          aria-describedby="CODE"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}>
+          Inline code
+        </span>
+      </span>
+    </span>
+    <span
+      className="rich-text-editor-toolbar-button"
+      onClick={[Function]}
+      onMouseDown={[Function]}>
+      <span
+        className="rich-text-editor-toolbar-button-inner">
+        <span
           aria-describedby="BLOCKQUOTE"
           onBlur={[Function]}
           onClick={null}
