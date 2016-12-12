@@ -12,6 +12,7 @@ export const BLOCKQUOTE = 'BLOCKQUOTE';
 export const CHECKABLE_LIST = 'CHECKABLE_LIST';
 export const UNOERDERD_LIST = 'UNOERDERD_LIST';
 export const OERDERD_LIST = 'OERDERD_LIST';
+export const CODE_BLOCK = 'CODE_BLOCK';
 
 export default {
   [INSERT_IMAGE]: {
@@ -68,5 +69,9 @@ export default {
   [OERDERD_LIST]: {
     description: 'Oerderd list',
     iconNode: 'Oerderd list'
+  },
+  [CODE_BLOCK]: {
+    description: 'Code block',
+    iconNode: 'Code block'
   }
 };
