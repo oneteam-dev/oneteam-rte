@@ -269,7 +269,11 @@ export default class Toolbar extends Component {
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.CODE_BLOCK}>{itemOptions[ITEM_NAMES.CODE_BLOCK].description}</Tooltip>}>
-            <span>{itemOptions[ITEM_NAMES.CODE_BLOCK].iconNode}</span>
+            <span>
+              {(checkCurrentBlockType(editorState, BLOCK_TYPES.CODE_BLOCK) &&
+                itemOptions[ITEM_NAMES.CODE_BLOCK].activeIconNode) ||
+                itemOptions[ITEM_NAMES.CODE_BLOCK].iconNode}
+            </span>
           </OverlayTrigger>
         </BlockTypeButton>,
       ]}</div>
