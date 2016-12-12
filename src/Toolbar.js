@@ -7,7 +7,7 @@ import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import {
   BaseButton, Bold, Italic, Strikethrough, Heading, Blockquote, CheckableList,
-  UnorderedList, OrderedList, Divider, InsertLink, RemoveLink, BlockTypeButton
+  UnorderedList, OrderedList, Divider, InsertLink, RemoveLink, BlockTypeButton, InlineStyleButton
 } from './ui';
 import { hasCurrentInlineStyle, getCurrentBlockType, checkCurrentBlockType } from './utils';
 import DEFAULT_ITEM_OPTIONS, * as ITEM_NAMES from './constants/toolbar';
@@ -128,6 +128,25 @@ export default class Toolbar extends Component {
               itemOptions[ITEM_NAMES.ITALIC].activeIconNode) || itemOptions[ITEM_NAMES.ITALIC].iconNode}</span>
           </OverlayTrigger>
         </Italic>,
+
+        <InlineStyleButton
+          key={INLINE_STYLES.CODE}
+          type={INLINE_STYLES.CODE}
+          editorState={editorState}
+          onToggle={this.handleToggleInlineStyle}
+          className={classnames({
+            active: hasCurrentInlineStyle(editorState, INLINE_STYLES.CODE)
+          })}>
+          <OverlayTrigger
+            placement='bottom'
+            overlay={<Tooltip id={ITEM_NAMES.CODE}>{itemOptions[ITEM_NAMES.CODE].description}</Tooltip>}>
+            <span>
+              {(hasCurrentInlineStyle(editorState, INLINE_STYLES.CODE) &&
+                itemOptions[ITEM_NAMES.CODE].activeIconNode) ||
+                itemOptions[ITEM_NAMES.CODE].iconNode}
+            </span>
+          </OverlayTrigger>
+        </InlineStyleButton>,
 
         <Blockquote
           className={classnames({

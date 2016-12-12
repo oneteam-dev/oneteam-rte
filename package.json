@@ -44,8 +44,8 @@
     "draft-js-plugins-editor": "2.0.0-beta7",
     "immutable": "~3.7.6",
     "lodash": "^4.17.2",
-    "oneteam-rte-constants": "github:oneteam-dev/oneteam-rte-constants#v1.0.1",
-    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.5.2",
+    "oneteam-rte-constants": "github:oneteam-dev/oneteam-rte-constants#v1.0.2",
+    "oneteam-rte-converter": "github:oneteam-dev/oneteam-rte-converter#v1.5.3",
     "react-bootstrap": "0.30.7",
     "url-regex": "^3.2.0"
   },
