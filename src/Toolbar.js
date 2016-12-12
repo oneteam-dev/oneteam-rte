@@ -7,7 +7,7 @@ import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import {
   BaseButton, Bold, Italic, Strikethrough, Heading, Blockquote, CheckableList,
-  UnorderedList, OrderedList, Divider, InsertLink, RemoveLink
+  UnorderedList, OrderedList, Divider, InsertLink, RemoveLink, BlockTypeButton
 } from './ui';
 import { hasCurrentInlineStyle, getCurrentBlockType, checkCurrentBlockType } from './utils';
 import DEFAULT_ITEM_OPTIONS, * as ITEM_NAMES from './constants/toolbar';
@@ -86,43 +86,6 @@ export default class Toolbar extends Component {
           </OverlayTrigger>
         </BaseButton>,
 
-        <BaseButton
-          key={ITEM_NAMES.EMBED_IFRAME}
-          className='rich-text-editor-button rich-text-editor-button--embed-code'
-          onMouseDown={this.handleMouseDownEmbedIFrame}>
-          <OverlayTrigger
-            placement='bottom'
-            overlay={<Tooltip id={ITEM_NAMES.EMBED_IFRAME}>{itemOptions[ITEM_NAMES.EMBED_IFRAME].description}</Tooltip>}>
-            <span>{itemOptions[ITEM_NAMES.EMBED_IFRAME].iconNode}</span>
-          </OverlayTrigger>
-        </BaseButton>,
-
-        <InsertLink
-          key={ITEM_NAMES.INSERT_LINK}
-          editorState={editorState}
-          onInsertLink={this.handleInsertLink}
-          isOpen={isOpenInsertLinkInput}
-          onMouseDownToggle={this.handleMouseDownInsertLink}
-          validationErrorMessage={itemOptions[ITEM_NAMES.INSERT_LINK].validationErrorMessage}
-          placeholder={itemOptions[ITEM_NAMES.INSERT_LINK].placeholder}>
-          <OverlayTrigger
-            placement='bottom'
-            overlay={<Tooltip id={ITEM_NAMES.INSERT_LINK}>{itemOptions[ITEM_NAMES.INSERT_LINK].description}</Tooltip>}>
-            <span>{itemOptions[ITEM_NAMES.INSERT_LINK].iconNode}</span>
-          </OverlayTrigger>
-        </InsertLink>,
-
-        <RemoveLink
-          key={ITEM_NAMES.REMOVE_LINK}
-          editorState={editorState}
-          onRemoveLink={this.handleRemoveLink}>
-          <OverlayTrigger
-            placement='bottom'
-            overlay={<Tooltip id={ITEM_NAMES.REMOVE_LINK}>{itemOptions[ITEM_NAMES.REMOVE_LINK].description}</Tooltip>}>
-            <span>{itemOptions[ITEM_NAMES.REMOVE_LINK].iconNode}</span>
-          </OverlayTrigger>
-        </RemoveLink>,
-
         <Divider key={ITEM_NAMES.DIVIDER} />,
 
         <Heading
@@ -166,21 +129,6 @@ export default class Toolbar extends Component {
           </OverlayTrigger>
         </Italic>,
 
-        <Strikethrough
-          className={classnames({
-            active: hasCurrentInlineStyle(editorState, INLINE_STYLES.STRIKETHROUGH)
-          })}
-          key={ITEM_NAMES.STRIKETHROUGH}
-          editorState={editorState}
-          onToggleInlineStyle={this.handleToggleInlineStyle}>
-          <OverlayTrigger
-            placement='bottom'
-            overlay={<Tooltip id={ITEM_NAMES.STRIKETHROUGH}>{itemOptions[ITEM_NAMES.STRIKETHROUGH].description}</Tooltip>}>
-            <span>{(hasCurrentInlineStyle(editorState, INLINE_STYLES.STRIKETHROUGH) &&
-              itemOptions[ITEM_NAMES.STRIKETHROUGH].activeIconNode) || itemOptions[ITEM_NAMES.STRIKETHROUGH].iconNode}</span>
-          </OverlayTrigger>
-        </Strikethrough>,
-
         <Blockquote
           className={classnames({
             active: checkCurrentBlockType(editorState, BLOCK_TYPES.BLOCKQUOTE)
@@ -196,6 +144,21 @@ export default class Toolbar extends Component {
               itemOptions[ITEM_NAMES.BLOCKQUOTE].iconNode}</span>
           </OverlayTrigger>
         </Blockquote>,
+
+        <Strikethrough
+          className={classnames({
+            active: hasCurrentInlineStyle(editorState, INLINE_STYLES.STRIKETHROUGH)
+          })}
+          key={ITEM_NAMES.STRIKETHROUGH}
+          editorState={editorState}
+          onToggleInlineStyle={this.handleToggleInlineStyle}>
+          <OverlayTrigger
+            placement='bottom'
+            overlay={<Tooltip id={ITEM_NAMES.STRIKETHROUGH}>{itemOptions[ITEM_NAMES.STRIKETHROUGH].description}</Tooltip>}>
+            <span>{(hasCurrentInlineStyle(editorState, INLINE_STYLES.STRIKETHROUGH) &&
+              itemOptions[ITEM_NAMES.STRIKETHROUGH].activeIconNode) || itemOptions[ITEM_NAMES.STRIKETHROUGH].iconNode}</span>
+          </OverlayTrigger>
+        </Strikethrough>,
 
         <CheckableList
           className={classnames({
@@ -256,7 +219,59 @@ export default class Toolbar extends Component {
               itemOptions[ITEM_NAMES.OERDERD_LIST].activeIconNode) ||
               itemOptions[ITEM_NAMES.OERDERD_LIST].iconNode}</span>
           </OverlayTrigger>
-        </OrderedList>
+        </OrderedList>,
+
+        <InsertLink
+          key={ITEM_NAMES.INSERT_LINK}
+          editorState={editorState}
+          onInsertLink={this.handleInsertLink}
+          isOpen={isOpenInsertLinkInput}
+          onMouseDownToggle={this.handleMouseDownInsertLink}
+          validationErrorMessage={itemOptions[ITEM_NAMES.INSERT_LINK].validationErrorMessage}
+          placeholder={itemOptions[ITEM_NAMES.INSERT_LINK].placeholder}>
+          <OverlayTrigger
+            placement='bottom'
+            overlay={<Tooltip id={ITEM_NAMES.INSERT_LINK}>{itemOptions[ITEM_NAMES.INSERT_LINK].description}</Tooltip>}>
+            <span>{itemOptions[ITEM_NAMES.INSERT_LINK].iconNode}</span>
+          </OverlayTrigger>
+        </InsertLink>,
+
+        <RemoveLink
+          key={ITEM_NAMES.REMOVE_LINK}
+          editorState={editorState}
+          onRemoveLink={this.handleRemoveLink}>
+          <OverlayTrigger
+            placement='bottom'
+            overlay={<Tooltip id={ITEM_NAMES.REMOVE_LINK}>{itemOptions[ITEM_NAMES.REMOVE_LINK].description}</Tooltip>}>
+            <span>{itemOptions[ITEM_NAMES.REMOVE_LINK].iconNode}</span>
+          </OverlayTrigger>
+        </RemoveLink>,
+
+        <BaseButton
+          key={ITEM_NAMES.EMBED_IFRAME}
+          className='rich-text-editor-button rich-text-editor-button--embed-code'
+          onMouseDown={this.handleMouseDownEmbedIFrame}>
+          <OverlayTrigger
+            placement='bottom'
+            overlay={<Tooltip id={ITEM_NAMES.EMBED_IFRAME}>{itemOptions[ITEM_NAMES.EMBED_IFRAME].description}</Tooltip>}>
+            <span>{itemOptions[ITEM_NAMES.EMBED_IFRAME].iconNode}</span>
+          </OverlayTrigger>
+        </BaseButton>,
+
+        <BlockTypeButton
+          key={BLOCK_TYPES.CODE_BLOCK}
+          type={BLOCK_TYPES.CODE_BLOCK}
+          editorState={editorState}
+          onToggle={this.handleToggleBlockType}
+          className={classnames({
+            active: checkCurrentBlockType(editorState, BLOCK_TYPES.CODE_BLOCK)
+          })}>
+          <OverlayTrigger
+            placement='bottom'
+            overlay={<Tooltip id={ITEM_NAMES.CODE_BLOCK}>{itemOptions[ITEM_NAMES.CODE_BLOCK].description}</Tooltip>}>
+            <span>{itemOptions[ITEM_NAMES.CODE_BLOCK].iconNode}</span>
+          </OverlayTrigger>
+        </BlockTypeButton>,
       ]}</div>
     );
   }

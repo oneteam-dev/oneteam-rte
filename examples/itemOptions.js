@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from 'react-fa';
-import * as ITEM_NAMES from '../lib/constants/toolbar';
+import * as ITEM_NAMES from '../src/constants/toolbar';
 
 export default {
   [ITEM_NAMES.INSERT_IMAGE]: {
@@ -13,7 +13,7 @@ export default {
   },
   [ITEM_NAMES.EMBED_IFRAME]: {
     description: 'Embed iframe',
-    iconNode: <Icon name='code' />
+    iconNode: <Icon name='window-maximize' />
   },
   [ITEM_NAMES.INSERT_LINK]: {
     description: 'Insert link',
@@ -53,5 +53,9 @@ export default {
   [ITEM_NAMES.OERDERD_LIST]: {
     description: 'Oerderd list',
     iconNode: <Icon name='list-ol' />
+  },
+  [ITEM_NAMES.CODE_BLOCK]: {
+    description: 'Code block',
+    iconNode: <Icon name='code' />
   }
 };

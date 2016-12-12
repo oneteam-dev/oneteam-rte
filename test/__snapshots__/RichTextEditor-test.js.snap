@@ -45,82 +45,6 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
       </span>
     </span>
     <span
-      className="rich-text-editor-toolbar-button rich-text-editor-button rich-text-editor-button--embed-code"
-      onClick={[Function]}
-      onMouseDown={[Function]}>
-      <span
-        className="rich-text-editor-toolbar-button-inner">
-        <span
-          aria-describedby="EMBED_IFRAME"
-          onBlur={[Function]}
-          onClick={null}
-          onFocus={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}>
-          Embed iframe
-        </span>
-      </span>
-    </span>
-    <span
-      className="rich-text-editor-toolbar-button-insert-link">
-      <span
-        className="rich-text-editor-toolbar-button"
-        onClick={[Function]}
-        onMouseDown={[Function]}>
-        <span
-          className="rich-text-editor-toolbar-button-inner">
-          <span
-            aria-describedby="INSERT_LINK"
-            onBlur={[Function]}
-            onClick={null}
-            onFocus={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}>
-            Insert link
-          </span>
-        </span>
-      </span>
-      <div
-        className="rich-text-editor-toolbar-button-insert-link-input">
-        <input
-          className="form-control"
-          id={undefined}
-          onChange={[Function]}
-          pattern="^https?:\\/\\/.+"
-          placeholder="url here..."
-          type="text"
-          value="" />
-        <button
-          className="btn btn-default"
-          disabled={false}
-          onClick={[Function]}
-          type="button">
-          ✔
-        </button>
-        <span
-          className="insert-link-error-message">
-          Error
-        </span>
-      </div>
-    </span>
-    <span
-      className="rich-text-editor-toolbar-button"
-      onClick={[Function]}
-      onMouseDown={[Function]}>
-      <span
-        className="rich-text-editor-toolbar-button-inner">
-        <span
-          aria-describedby="REMOVE_LINK"
-          onBlur={[Function]}
-          onClick={null}
-          onFocus={[Function]}
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}>
-          Remove link
-        </span>
-      </span>
-    </span>
-    <span
       className="rich-text-editor-toolbar-divider" />
     <span
       className="rich-text-editor-toolbar-button rte-toolbar-button-heading"
@@ -259,13 +183,13 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
       <span
         className="rich-text-editor-toolbar-button-inner">
         <span
-          aria-describedby="STRIKETHROUGH"
+          aria-describedby="BLOCKQUOTE"
           onBlur={[Function]}
           onClick={null}
           onFocus={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}>
-          Strikethrough
+          Blockquote
         </span>
       </span>
     </span>
@@ -276,13 +200,13 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
       <span
         className="rich-text-editor-toolbar-button-inner">
         <span
-          aria-describedby="BLOCKQUOTE"
+          aria-describedby="STRIKETHROUGH"
           onBlur={[Function]}
           onClick={null}
           onFocus={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}>
-          Blockquote
+          Strikethrough
         </span>
       </span>
     </span>
@@ -334,6 +258,99 @@ exports[`RichTextEditor renders correctly with Toolbar 1`] = `
           onMouseOut={[Function]}
           onMouseOver={[Function]}>
           Oerderd list
+        </span>
+      </span>
+    </span>
+    <span
+      className="rich-text-editor-toolbar-button-insert-link">
+      <span
+        className="rich-text-editor-toolbar-button"
+        onClick={[Function]}
+        onMouseDown={[Function]}>
+        <span
+          className="rich-text-editor-toolbar-button-inner">
+          <span
+            aria-describedby="INSERT_LINK"
+            onBlur={[Function]}
+            onClick={null}
+            onFocus={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}>
+            Insert link
+          </span>
+        </span>
+      </span>
+      <div
+        className="rich-text-editor-toolbar-button-insert-link-input">
+        <input
+          className="form-control"
+          id={undefined}
+          onChange={[Function]}
+          pattern="^https?:\\/\\/.+"
+          placeholder="url here..."
+          type="text"
+          value="" />
+        <button
+          className="btn btn-default"
+          disabled={false}
+          onClick={[Function]}
+          type="button">
+          ✔
+        </button>
+        <span
+          className="insert-link-error-message">
+          Error
+        </span>
+      </div>
+    </span>
+    <span
+      className="rich-text-editor-toolbar-button"
+      onClick={[Function]}
+      onMouseDown={[Function]}>
+      <span
+        className="rich-text-editor-toolbar-button-inner">
+        <span
+          aria-describedby="REMOVE_LINK"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}>
+          Remove link
+        </span>
+      </span>
+    </span>
+    <span
+      className="rich-text-editor-toolbar-button rich-text-editor-button rich-text-editor-button--embed-code"
+      onClick={[Function]}
+      onMouseDown={[Function]}>
+      <span
+        className="rich-text-editor-toolbar-button-inner">
+        <span
+          aria-describedby="EMBED_IFRAME"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}>
+          Embed iframe
+        </span>
+      </span>
+    </span>
+    <span
+      className="rich-text-editor-toolbar-button"
+      onClick={[Function]}
+      onMouseDown={[Function]}>
+      <span
+        className="rich-text-editor-toolbar-button-inner">
+        <span
+          aria-describedby="CODE_BLOCK"
+          onBlur={[Function]}
+          onClick={null}
+          onFocus={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}>
+          Code block
         </span>
       </span>
     </span>
