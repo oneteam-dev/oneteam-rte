@@ -57,5 +57,9 @@ export default {
   [ITEM_NAMES.CODE_BLOCK]: {
     description: 'Code block',
     iconNode: <Icon name='code' />
+  },
+  [ITEM_NAMES.CODE]: {
+    description: 'Inline code',
+    iconNode: <Icon name='pencil-square' />
   }
 };
