@@ -1,4 +1,5 @@
 import 'draft-js/dist/Draft.css';
+import 'prism-github/prism-github.css';
 import React, { Component } from 'react';
 import { ENTITY_TYPES } from 'oneteam-rte-constants';
 import RichTextEditor, { Toolbar, Body } from '../src';
@@ -45,7 +46,7 @@ export default class Editor extends Component {
   render() {
     return (
       <RichTextEditor
-        initialHtml='<h1>oneteam-rte</h1><div><br /></div><div><a href="https://one-team.com/" target="_blank">https://one-team.com/</a></div><web-card url="https://one-team.com/"></web-card><div><br /></div><div>Oneteam rich text editor</div>'
+        initialHtml=''
         onChange={(...args) => { console.info(...args); }}
         ref={c => window.rte = this.rte = this.props.onMount(c)}
       >

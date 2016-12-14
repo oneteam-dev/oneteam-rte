@@ -1,5 +1,6 @@
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+import prismPlugin from './prism';
 
 const blockBreakoutPlugin = createBlockBreakoutPlugin({
   breakoutBlocks: [
@@ -11,4 +12,5 @@ const markdownShortcutsPlugin = createMarkdownShortcutsPlugin();
 export default [
   blockBreakoutPlugin,
   markdownShortcutsPlugin,
+  prismPlugin
 ];
