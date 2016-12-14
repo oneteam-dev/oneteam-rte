@@ -8,6 +8,7 @@ import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState } from '.
 import { insertAtomicBlock } from './functions';
 import { getIFrameAttrs } from './helpers';
 import * as functions from './functions';
+import { htmlToMarkdown, markdownToHTML } from './encoding';
 
 export default class RichTextEditor extends Component {
   static get propTypes() {
@@ -39,11 +40,17 @@ export default class RichTextEditor extends Component {
   get serializedHTML() {
     return stateToHTML(this._contentState);
   }
+  get markdown() {
+    return htmlToMarkdown(this.html);
+  }
   get _editorState() {
     return this.state.editorState;
   }
   get _contentState() {
     return this._editorState.getCurrentContent();
+  }
+  toHTML(text) {
+    return markdownToHTML(text);
   }
   constructor(props) {
     super(props);
