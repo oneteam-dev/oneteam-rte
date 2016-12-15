@@ -1,6 +1,6 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import stateToHTML from 'oneteam-rte-converter/lib/editorStateToHTML';
-import { ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
+import { BLOCK_TYPES, ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
 import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
@@ -39,7 +39,15 @@ export default class RichTextEditor extends Component {
     return this.serializedHTML;
   }
   get serializedHTML() {
-    return stateToHTML(this._contentState);
+    return stateToHTML(this._contentState, {
+      blockRenderers: {
+        [BLOCK_TYPES.CODE_BLOCK](block) {
+          const lang = block.getData().get('language');
+          const text = block.getText();
+          return `<pre${lang ? ` data-language="${lang}"` : ''}>${text}</pre>`;
+        }
+      }
+    });
   }
   get markdown() {
     return htmlToMarkdown(this.html);
