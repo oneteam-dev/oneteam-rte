@@ -1,5 +1,6 @@
-import path from 'path';
-import webpack from 'webpack';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const PORT = process.env.PORT || 8008;
 
@@ -11,10 +12,11 @@ const entry = [
   './examples/index.js'
 ];
 const plugins = [
-  new webpack.HotModuleReplacementPlugin()
+  new webpack.HotModuleReplacementPlugin(),
+  new HtmlWebpackPlugin()
 ];
 
-export default {
+module.exports = {
   plugins,
   entry,
   cache: true,
@@ -22,28 +24,24 @@ export default {
     path: path.resolve(__dirname, 'examples'),
     filename: 'bundle.js'
   },
-  display: { errorDetails: true },
-  resolve: {
-    extensions: ['', '.js']
-  },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
-        loaders: ['style', 'css']
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.styl$/,
-        loaders: ['style', 'css', 'stylus']
+        use: ['style-loader', 'css-loader', 'stylus-loader']
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        loader: `url-loader?${JSON.stringify({ limit: 10000, mimetype: 'application/font-woff' })}`
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -52,9 +50,9 @@ export default {
     ]
   },
   devServer: {
-    contentBase: `./examples`,
+    contentBase: './examples',
     hot: true,
     host: '0.0.0.0',
-    port: PORT
+    port: parseInt(PORT, 10)
   }
 };

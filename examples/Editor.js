@@ -1,67 +1,61 @@
-import 'draft-js/dist/Draft.css';
-import 'prism-github/prism-github.css';
 import React, { Component } from 'react';
-import { ENTITY_TYPES } from 'oneteam-rte-constants';
-import RichTextEditor, { Toolbar, Body } from '../src';
-import WebCard from './HOCWebCard';
+import OneteamRTE, { Toolbar } from '../src';
+import WebCard from './components/WebCard';
+import PDFPreview from './components/PDFPreview';
+import FilePlaceholder from './components/FilePlaceholder';
+import { WEB_CARD, PLACEHOLDER, FILE_PLACEHOLDER } from '../src/constants';
 import itemOptions from './itemOptions';
+import 'prism-github/prism-github.css';
 import './index.styl';
 
 export default class Editor extends Component {
   handleClickInsertImage = () => {
     const url = window.prompt('Enter a image URL.');
     if (url) {
-      this.rte.insertImage({ name: 'ex', original_url: url, preview_url: url });
+      this.rte.insertImageAtomicBlock({ alt: 'ex', title: 'ex', url });
     }
   }
   handleClickUploadFile = () => {
     const url = window.prompt('Enter a file URL.');
     if (url) {
-      this.rte.insertDownloadLink({ name: 'Donwload link', download_url: url, size: 0 });
+      this.rte.insertAtomicBlock('FILE_PLACEHOLDER', 'IMMUTABLE', { url });
     }
   }
   handleClickEmbedIFrame = () => {
-    const tag = window.prompt('Enter a iframe tag.');
-    if (tag) {
-      this.rte.insertIFrame(tag);
+    const html = window.prompt('Enter a iframe tag.');
+    if (html) {
+      this.rte.insertIFrameAtomicBlock(html);
     }
   }
-  customAtomicBlockRendererFn = (entity, block) => {
-    const key = entity.getType();
-    if (key === ENTITY_TYPES.WEB_CARD) {
-      const data = entity.getData()
-      return {
-        component: WebCard,
-        props: {
-          url: data.url,
-          imageRemoved: data.imageRemoved,
-          onDelete: () => this.rte.removeBlock(block),
-          onRemoveImage: () => this.rte.mergeEntityData(block.getEntityAt(0), { imageRemoved: true })
-        },
-        editable: false,
-      };
-    }
-    return null;
+  focus = () => this.rte.focus()
+  renderToolbar() {
+    return (
+      <Toolbar
+        itemOptions={itemOptions}
+        onClickInsertImage={this.handleClickInsertImage}
+        onClickUploadFile={this.handleClickUploadFile}
+        onMouseDownEmbedIFrame={this.handleClickEmbedIFrame}
+        onHeadingToggled={this.focus}
+      />
+    );
+  }
+  componentDidMount() {
+    setTimeout(() => this.rte.focus(), 100);
   }
   render() {
     return (
-      <RichTextEditor
-        initialHtml=''
-        onChange={(...args) => { console.info(...args); }}
+      <OneteamRTE
+        initialHtml='<h1>Oneteam Rich Text Editor</h1>'
         ref={c => window.rte = this.rte = this.props.onMount(c)}
+        placeholder='Write something here...'
+        atomicBlockRenderMap={{
+          [WEB_CARD]: WebCard,
+          [PLACEHOLDER]: PDFPreview,
+          [FILE_PLACEHOLDER]: FilePlaceholder
+        }}
       >
-        <Toolbar
-          itemOptions={itemOptions}
-          onClickInsertImage={this.handleClickInsertImage}
-          onClickUploadFile={this.handleClickUploadFile}
-          onMouseDownEmbedIFrame={this.handleClickEmbedIFrame}
-          onHeadingToggled={() => this.body.focus()}
-        />
-        <Body
-          ref={c => this.body = c}
-          customAtomicBlockRendererFn={this.customAtomicBlockRendererFn}
-        />
-      </RichTextEditor>
+        {this.renderToolbar()}
+      </OneteamRTE>
     );
   }
 }

@@ -1,6 +1,5 @@
 {
-  "presets": ["es2015", "es2016", "react"],
-  "plugins": ["transform-object-rest-spread", "transform-class-properties"],
+  "presets": ["es2015", "es2016", "react", "stage-2"],
   "env": {
     "development": {
       "plugins": ["react-hot-loader/babel"]

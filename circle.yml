@@ -1,19 +1,25 @@
 machine:
   timezone: UTC
   node:
-    version: 6.1.0
+    version: 6.9.4
+  post:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
 general:
   artifacts:
     - npm-debug.log
 dependencies:
   pre:
-    - npm install -g npm
+    - yarn --version
     - 'echo "email=${NPM_EMAIL}" > ~/.npmrc'
     - 'echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >> ~/.npmrc'
     - '[[ $(npm whoami) == "ngs" ]] || sh -c "echo not\\ authenticated; exit 1"'
+  override:
+    - yarn
+  cache_directories:
+    - '~/.cache/yarn'
 deployment:
   publish:
     branch: master
     commands:
       - git fetch --tags
-      - npm run publish-if-tagged
+      - yarn run publish-if-tagged
