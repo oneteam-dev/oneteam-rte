@@ -1,10 +1,10 @@
-import { EditorState, ContentState } from 'draft-js';
-import convertFromHTML from 'oneteam-rte-converter/lib/convertFromHTML';
+import { EditorState } from 'draft-js';
+import { htmlToContent } from '../encoding';
 
-export default function createEditorState(htmlString, decorator = null) {
-  return htmlString ?
+export default function createEditorState(html, decorator = null) {
+  return html ?
     EditorState.createWithContent(
-      ContentState.createFromBlockArray(convertFromHTML(htmlString)),
+      htmlToContent(html),
       decorator
     ) :
     EditorState.createEmpty(decorator);

@@ -1,5 +1,5 @@
-import getCurrentBlock from './getCurrentBlock';
+import { RichUtils } from 'draft-js';
 
 export default function getCurrentBlockType(editorState) {
-  return getCurrentBlock(editorState).getType();
+  return RichUtils.getCurrentBlockType(editorState);
 }

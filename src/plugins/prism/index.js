@@ -1,7 +1,7 @@
 import React from 'react';
 import Prism from 'prismjs';
 import PrismDecorator from 'draft-js-prism';
-import './prism-languages';
+import './languages';
 
 const prismPlugin = {
   decorators: [
