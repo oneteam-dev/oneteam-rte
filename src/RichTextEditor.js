@@ -4,7 +4,7 @@ import { ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
 import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
-import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState } from './utils';
+import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState } from './utils';
 import { insertAtomicBlock } from './functions';
 import { getIFrameAttrs } from './helpers';
 import * as functions from './functions';
@@ -32,7 +32,8 @@ export default class RichTextEditor extends Component {
     return { editorState };
   }
   set html(html) {
-    this.setState(this.createEditorState(html));
+    const editorState = updateEditorState(this.state.editorState, html);
+    this.setState({ editorState });
   }
   get html() {
     return this.serializedHTML;
