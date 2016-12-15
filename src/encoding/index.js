@@ -4,7 +4,7 @@ import marked from 'marked';
 const toMarkdownOptions = {
   converters: [
     {
-      filter: 'div',
+      filter: ['div', 'figure'],
       replacement: (content) => {
         return `\n\n${content}\n\n`;
       }
@@ -14,7 +14,7 @@ const toMarkdownOptions = {
       replacement: (content, node) => {
         // Blank line
         const { parentNode } = node;
-        if (parentNode.nodeName === 'DIV' && parentNode.children.length === 1) {
+        if (parentNode.nodeName === 'DIV' && !!parentNode.nextElementSibling && parentNode.children.length === 1) {
           return '<br />';
         }
         return '';
