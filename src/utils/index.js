@@ -10,3 +10,4 @@ export { default as findPreviousBlock } from './findPreviousBlock';
 export { default as findNextBlock } from './findNextBlock';
 export { default as getCurrentBlock } from './getCurrentBlock';
 export { default as isCursorAtStart } from './isCursorAtStart';
+export { default as updateEditorState } from './updateEditorState';

@@ -5,11 +5,27 @@ const toMarkdownOptions = {
   converters: [
     {
       filter: 'div',
-      replacement: content => `\n\n${content.trim()}\n\n`
+      replacement: (content) => {
+        return `\n\n${content}\n\n`;
+      }
+    },
+    {
+      filter: 'br',
+      replacement: (content, node) => {
+        // Blank line
+        const { parentNode } = node;
+        if (parentNode.nodeName === 'DIV' && parentNode.children.length === 1) {
+          return '<br />';
+        }
+        return '';
+      }
     },
     {
       filter: 'pre',
-      replacement: content => `\`\`\`\n${content}\n\`\`\`\n\n`
+      replacement: (content, node) => {
+        const language = node.getAttribute('data-language');
+        return `\`\`\`${language || ''}\n${content}\n\`\`\`\n\n`;
+      }
     },
     {
       filter: node => {
@@ -35,8 +51,8 @@ renderer.listitem = text => {
     return `<li>${text}<li>`;
   }
 };
-renderer.code = code => {
-  return `<pre>${code}</pre>`;
+renderer.code = (code, language) => {
+  return `<pre${language ? ` data-language="${language}"` : ''}>${code}</pre>`;
 };
 
 marked.setOptions({

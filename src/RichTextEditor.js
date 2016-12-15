@@ -1,10 +1,10 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import stateToHTML from 'oneteam-rte-converter/lib/editorStateToHTML';
-import { ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
+import { BLOCK_TYPES, ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
 import isFunction from 'lodash/isFunction';
 import Body from './Body';
 import Toolbar from './Toolbar';
-import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState } from './utils';
+import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState } from './utils';
 import { insertAtomicBlock } from './functions';
 import { getIFrameAttrs } from './helpers';
 import * as functions from './functions';
@@ -32,13 +32,22 @@ export default class RichTextEditor extends Component {
     return { editorState };
   }
   set html(html) {
-    this.setState(this.createEditorState(html));
+    const editorState = updateEditorState(this.state.editorState, html);
+    this.setState({ editorState });
   }
   get html() {
     return this.serializedHTML;
   }
   get serializedHTML() {
-    return stateToHTML(this._contentState);
+    return stateToHTML(this._contentState, {
+      blockRenderers: {
+        [BLOCK_TYPES.CODE_BLOCK](block) {
+          const lang = block.getData().get('language');
+          const text = block.getText();
+          return `<pre${lang ? ` data-language="${lang}"` : ''}>${text}</pre>`;
+        }
+      }
+    });
   }
   get markdown() {
     return htmlToMarkdown(this.html);
