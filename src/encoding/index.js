@@ -48,7 +48,7 @@ renderer.listitem = text => {
       .replace(/^\s*\[x\]\s*/, '<input type="checkbox" checked /> ');
     return `<li class="task-list-item">${text}</li>`;
   } else {
-    return `<li>${text}<li>`;
+    return `<li>${text}</li>`;
   }
 };
 renderer.code = (code, language) => {
