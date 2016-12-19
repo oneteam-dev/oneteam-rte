@@ -5,7 +5,7 @@ import htmlclean from 'htmlclean';
 const toMarkdownOptions = {
   converters: [
     {
-      filter: ['div', 'figure'],
+      filter: ['div', 'figure', 'p'],
       replacement: (content) => {
         return `\n\n${content}\n\n`;
       }
@@ -15,7 +15,11 @@ const toMarkdownOptions = {
       replacement: (content, node) => {
         // Blank line
         const { parentNode } = node;
-        if (parentNode.nodeName === 'DIV' && !!parentNode.nextElementSibling && parentNode.children.length === 1) {
+        if (
+          (parentNode.nodeName === 'DIV' || parentNode.nodeName === 'P') &&
+          !!parentNode.nextElementSibling &&
+          parentNode.children.length === 1
+        ) {
           return '<br />';
         }
         return '';
@@ -47,17 +51,21 @@ renderer.listitem = text => {
     text = text
       .replace(/^\s*\[ \]\s*/, '<input type="checkbox" /> ')
       .replace(/^\s*\[x\]\s*/, '<input type="checkbox" checked /> ');
-    return `<li class="task-list-item">${text}</li>`;
+    return `<li class="task-list-item">${text}</li>\n`;
   } else {
-    return `<li>${text}</li>`;
+    return `<li>${text}</li>\n`;
   }
 };
 renderer.code = (code, language) => {
   return `<pre${language ? ` data-language="${language}"` : ''}>${code}</pre>`;
 };
+renderer.paragraph = text => {
+  return `<div>${text}</div>\n`;
+};
 
 marked.setOptions({
   gfm: true,
+  smartLists: true,
   renderer
 });
 
