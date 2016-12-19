@@ -1,5 +1,6 @@
 import toMarkdown from 'to-markdown';
 import marked from 'marked';
+import htmlclean from 'htmlclean';
 
 const toMarkdownOptions = {
   converters: [
@@ -68,5 +69,7 @@ export const htmlToMarkdown = html => {
 };
 
 export const markdownToHTML = markdown => {
-  return marked(markdown);
+  return htmlclean(
+    marked(markdown)
+  );
 };

@@ -43,6 +43,7 @@
     "draft-js-markdown-shortcuts-plugin": "0.0.6",
     "draft-js-plugins-editor": "2.0.0-beta7",
     "draft-js-prism": "github:ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",
+    "htmlclean": "^2.7.8",
     "immutable": "~3.7.6",
     "lodash": "^4.17.2",
     "marked": "^0.3.6",
