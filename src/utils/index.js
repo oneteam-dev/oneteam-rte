@@ -1,13 +1,5 @@
-export { default as createEditorState } from './createEditorState';
-export { default as createFindEntitiesBy } from './createFindEntitiesBy';
-export { default as getCurrentBlockType } from './getCurrentBlockType';
-export { default as getEntityAtCursor } from './getEntityAtCursor';
-export { default as hasCurrentInlineStyle } from './hasCurrentInlineStyle';
 export { default as checkCurrentBlockType } from './checkCurrentBlockType';
-export { default as isCursorAtEnd } from './isCursorAtEnd';
-export { default as isListItem } from './isListItem';
-export { default as findPreviousBlock } from './findPreviousBlock';
-export { default as findNextBlock } from './findNextBlock';
-export { default as getCurrentBlock } from './getCurrentBlock';
-export { default as isCursorAtStart } from './isCursorAtStart';
+export { default as createEditorState } from './createEditorState';
+export { default as getCurrentBlockType } from './getCurrentBlockType';
+export { default as hasCurrentInlineStyle } from './hasCurrentInlineStyle';
 export { default as updateEditorState } from './updateEditorState';

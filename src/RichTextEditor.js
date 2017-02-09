@@ -1,53 +1,43 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react';
-import stateToHTML from 'oneteam-rte-converter/lib/editorStateToHTML';
-import { BLOCK_TYPES, ENTITY_TYPES, INLINE_STYLES } from 'oneteam-rte-constants';
+import Editor from 'draft-js-plugins-editor';
+import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
+import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
 import isFunction from 'lodash/isFunction';
-import Body from './Body';
-import Toolbar from './Toolbar';
+import classNames from 'classnames';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState } from './utils';
-import { insertAtomicBlock } from './functions';
-import { getIFrameAttrs } from './helpers';
-import * as functions from './functions';
-import { htmlToMarkdown } from './encoding';
+import { contentToHTML, htmlToMarkdown } from './encoding'
+import createPlugins from './plugins';
+import 'draft-js/dist/Draft.css';
+import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 
 export default class RichTextEditor extends Component {
-  static get propTypes() {
-    return {
-      initialHtml: PropTypes.string,
-      onChange: PropTypes.func,
-      children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.element),
-        PropTypes.element
-      ])
-    };
+  static propTypes = {
+    initialHtml: PropTypes.string,
+    onChange: PropTypes.func,
+    className: PropTypes.string,
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.element),
+      PropTypes.element
+    ]),
+    placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
+    onReturnWithCommand: PropTypes.func,
+    onPastedFiles: PropTypes.func,
+    customAtomicBlockRendererFn: PropTypes.func,
+    atomicBlockRenderMap: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
+    onCompleteFileUpload: PropTypes.func
   }
-  static get defaultProps() {
-    return {
-      initialHtml: ''
-    };
-  }
-  createEditorState(html) {
-    const cleanHTML = html.replace(/>\s+</g, '><'); // FIXME ;(
-    const editorState = createEditorState(cleanHTML);
-    return { editorState };
+  static defaultProps = {
+    placeholder: 'Contents here...',
+    readOnly: false,
+    initialHtml: ''
   }
   set html(html) {
     const editorState = updateEditorState(this.state.editorState, html);
     this.setState({ editorState });
   }
   get html() {
-    return this.serializedHTML;
-  }
-  get serializedHTML() {
-    return stateToHTML(this._contentState, {
-      blockRenderers: {
-        [BLOCK_TYPES.CODE_BLOCK](block) {
-          const lang = block.getData().get('language');
-          const text = block.getText();
-          return `<pre${lang ? ` data-language="${lang}"` : ''}>${text}</pre>`;
-        }
-      }
-    });
+    return contentToHTML(this._contentState);
   }
   get markdown() {
     return htmlToMarkdown(this.html);
@@ -58,111 +48,129 @@ export default class RichTextEditor extends Component {
   get _contentState() {
     return this._editorState.getCurrentContent();
   }
+  get plugins() {
+    return this._plugins;
+  }
+  get oneteamRTEPlugin() {
+    return this.plugins.oneteamRTEPlugin;
+  }
+  get firstBlockText() {
+    return this._contentState.getFirstBlock().getText();
+  }
+  get modifiers() {
+    return modifiers;
+  }
+  closeInsertLinkInput = () => this.setState({ isOpenInsertLinkInput: false })
+  toggleInsertLinkInput = () => this.setState({ isOpenInsertLinkInput: !this.state.isOpenInsertLinkInput })
+  handleContainerMouseDown = () => {
+    if (isFunction(this.state.closeInsertLinkInput)) {
+      this.closeInsertLinkInput();
+    }
+  }
+
   constructor(props) {
     super(props);
-    const state = this.createEditorState(this.props.initialHtml);
-    state.isOpenInsertLinkInput = false;
-    this.state = state;
+    this.state = {
+      editorState: createEditorState(this.props.initialHtml),
+      isOpenInsertLinkInput: false
+    };
 
-    var triggerLock = 0; // To reduce triggering change callbacks.
+    this._plugins = createPlugins({
+      oneteamRTE: {
+        customAtomicBlockRendererFn: this.props.customAtomicBlockRendererFn,
+        onReturnWithCommand: this.props.onReturnWithCommand,
+        onPastedFiles: this.props.onPastedFiles,
+        atomicBlockRenderMap: this.props.atomicBlockRenderMap,
+        onCompleteFileUpload: this.props.onCompleteFileUpload
+      }
+    });
+
+    let triggerLock = 0; // To reduce triggering change callbacks.
     const triggerOnChange = () => {
-      const {onChange} = this.props;
-      if(isFunction(onChange) && triggerLock === 0) {
+      const { onChange } = this.props;
+      if (isFunction(onChange) && triggerLock === 0) {
         triggerLock = setTimeout(() => {
           onChange(this);
           triggerLock = 0;
         }, 100);
       }
     }
+
     this.changeEditorState = editorState => this.setState({ editorState }, triggerOnChange);
-    this.insertImage = imageFile => this._insertImage(imageFile);
-    this.insertDownloadLink = file => this._insertDownloadLink(file);
-    this.insertIFrame = iframeTagString => this._insertIFrame(iframeTagString);
-    this.insertPlaceholder = (...args) => this._insertPlaceholder(...args);
     this.getCurrentBlockType = (...args) => getCurrentBlockType(this.state.editorState, ...args);
     this.hasCurrentInlineStyle = (...args) => hasCurrentInlineStyle(this.state.editorState, ...args);
 
-    for(let key in functions) {
-      this[key] = ((fn) => {
-        return (...args) => {
-          this.changeEditorState(fn(this.state.editorState, ...args));
-        }
-      })(functions[key]);
-    }
+    Object.keys(this.oneteamRTEPlugin.modifiers).forEach((k) => {
+      this[k] = this.oneteamRTEPlugin.modifiers[k];
+    });
   }
   getCurrentInlineStyles() {
-      let ret = [];
-      for(const key in INLINE_STYLES) {
-          const value = INLINE_STYLES[key];
-          if(this.hasCurrentInlineStyle(value)) {
-              ret.push(value);
-          }
+    let ret = [];
+    for (const key in INLINE_STYLES) {
+      const value = INLINE_STYLES[key];
+      if (this.hasCurrentInlineStyle(value)) {
+        ret.push(value);
       }
-      return ret;
+    }
+    return ret;
   }
-  render() {
+  renderChildren() {
     const { editorState, isOpenInsertLinkInput } = this.state;
-    const content = Children.map((this.props.children || []), child => {
+
+    const children = Children.map((this.props.children || []), child => {
       return cloneElement(
         child,
         {
           editorState,
           isOpenInsertLinkInput,
-          changeEditorState: this.changeEditorState,
-          toggleInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: !isOpenInsertLinkInput }),
-          closeInsertLinkInput: () => this.setState({ isOpenInsertLinkInput: false })
+          onChange: this.changeEditorState,
+          toggleInsertLinkInput: this.toggleInsertLinkInput,
+          closeInsertLinkInput: this.closeInsertLinkInput
         }
       );
     });
 
-    return <div className='rich-text-editor' id='rich-text-editor'>{content}</div>;
+    return children;
   }
-  _insertImage({ name, original_url, preview_url }) {
-    const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.IMAGE, 'IMMUTABLE', {
-      src: preview_url,
-      'data-original-url': original_url,
-      alt: name
-    });
-    this.changeEditorState(newEditorState);
-  }
-  _insertDownloadLink({ name, download_url, size }) {
-    const newEditorState = insertAtomicBlock(
-      this.state.editorState,
-      ENTITY_TYPES.DOWNLOAD_LINK,
-      'MUTABLE',
-      {
-        name,
-        size,
-        url: download_url,
-        target: '_blank'
-      },
-      name
+  render() {
+    const { editorState } = this.state;
+    const { className, readOnly, placeholder } = this.props;
+    const bodyClassName = classNames(
+      'rich-text-editor-body',
+      { 'RichEditor-hidePlaceholder': this._shouldHidePlaceholder() },
+      className
     );
-    this.changeEditorState(newEditorState);
-  }
-  _insertIFrame(iframeTag) {
-    const attrs = getIFrameAttrs(iframeTag);
 
-    setTimeout(() => { // FIXME
-      const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.IFRAME, 'IMMUTABLE', attrs);
-      this.changeEditorState(newEditorState);
-    }, 1000);
+    return <div className='rich-text-editor' id='rich-text-editor'>
+      {this.renderChildren()}
+      <div
+        className={bodyClassName}
+        onMouseDown={this.handleContainerMouseDown}
+      >
+        <Editor
+          plugins={this._plugins.all}
+          ref={c => this.editor = c}
+          editorState={editorState}
+          readOnly={readOnly}
+          onChange={this.changeEditorState}
+          placeholder={placeholder}
+        />
+      </div>
+    </div>;
   }
-  // NOTE: This method is unused, delete in future
-  // _insertWebCard(url, imageRemoved) {
-  //   const newEditorState = insertAtomicBlock(this.state.editorState, ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', { url, imageRemoved });
-  //   this.changeEditorState(newEditorState);
-  // }
-  _insertPlaceholder(data, name) {
-    const newEditorState = insertAtomicBlock(
-      this.state.editorState,
-      'PLACEHOLDER',
-      'IMMUTABLE',
-      { ...data, name }
-    );
-    this.changeEditorState(newEditorState);
+  _shouldHidePlaceholder() {
+    const contentState = this.state.editorState.getCurrentContent();
+    if (!contentState.hasText()) {
+      if (contentState.getFirstBlock().getType() !== 'unstyled') {
+        return true;
+      }
+    }
+    return false;
   }
+
+  /**
+   * @public
+   */
+  focus = () => this.editor.focus()
+  blur = () => this.editor.blur()
 }
-
-RichTextEditor.Toolbar = Toolbar;
-RichTextEditor.Body = Body;

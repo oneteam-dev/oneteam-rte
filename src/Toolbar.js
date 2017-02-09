@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { EditorState } from 'draft-js';
-import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from 'oneteam-rte-constants';
+import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
 import Tooltip from 'react-bootstrap/lib/Tooltip';
-import isFunction from 'lodash/isFunction';
 import classnames from 'classnames';
 import {
   BaseButton, Bold, Italic, Strikethrough, Heading, Blockquote, CheckableList,
@@ -16,17 +15,15 @@ export default class Toolbar extends Component {
   static get propTypes() {
     return {
       editorState: PropTypes.instanceOf(EditorState), // Required, but inherited from parent (RichTextEditor) component
-      changeEditorState: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
-      toggleInsertLinkInput: PropTypes.func,
-      isOpenInsertLinkInput: PropTypes.bool,
+      onChange: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
+      toggleInsertLinkInput: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
+      isOpenInsertLinkInput: PropTypes.bool.isRequired,
 
       children: PropTypes.node,
-      onClickInsertImage: PropTypes.func,
-      onClickUploadFile: PropTypes.func,
-      onMouseDownEmbedIFrame: PropTypes.func,
-      onSubmitAddLink: PropTypes.func,
-      onMouseDownRemoveLink: PropTypes.func,
-      onHeadingToggled: PropTypes.func,
+      onClickInsertImage: PropTypes.func.isRequired,
+      onClickUploadFile: PropTypes.func.isRequired,
+      onMouseDownEmbedIFrame: PropTypes.func.isRequired,
+      onHeadingToggled: PropTypes.func.isRequired,
       itemOptions: PropTypes.objectOf(
         PropTypes.shape({
           description: PropTypes.string,
@@ -43,31 +40,27 @@ export default class Toolbar extends Component {
       isOpenInsertLinkInput: false
     };
   }
+
+  handleToggleHeading = editorState => {
+    this.props.onChange(editorState);
+    this.props.onHeadingToggled();
+  }
+
   constructor(props) {
     super(props);
-
-    this.handleClickInsertImage = ev => this._handleClickInsertImage(ev);
-    this.handleClickUploadFile = ev => this._handleClickUploadFile(ev);
-    this.handleMouseDownEmbedIFrame = ev => this._handleMouseDownEmbedIFrame(ev);
-    this.handleMouseDownInsertLink = ev => this._handleMouseDownInsertLink(ev);
-    this.handleInsertLink = editorState => this._changeEditorState(editorState);
-    this.handleRemoveLink = editorState => this._changeEditorState(editorState);
-    this.handleToggleBlockType = editorState => this._changeEditorState(editorState);
-    this.handleToggleInlineStyle = editorState => this._changeEditorState(editorState);
-    this.handleToggleHeading = editorState => {
-      this._changeEditorState(editorState);
-      this._toggleHeadingAfter();
-    };
   }
   render() {
-    const { editorState, children, itemOptions, isOpenInsertLinkInput } = this.props;
+    const {
+      editorState, children, itemOptions, isOpenInsertLinkInput, onChange, onClickInsertImage, onClickUploadFile, toggleInsertLinkInput,
+      onMouseDownEmbedIFrame
+    } = this.props;
 
     return (
       <div className='rich-text-editor-toolbar'>{children ? children : [
         <BaseButton
           key={ITEM_NAMES.INSERT_IMAGE}
           className='rich-text-editor-button rich-text-editor-button--insert-image'
-          onClick={this.handleClickInsertImage}>
+          onClick={onClickInsertImage}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.INSERT_IMAGE}>{itemOptions[ITEM_NAMES.INSERT_IMAGE].description}</Tooltip>}>
@@ -78,7 +71,7 @@ export default class Toolbar extends Component {
         <BaseButton
           key={ITEM_NAMES.UPLOAD_FILE}
           className='rich-text-editor-button rich-text-editor-button--upload-file'
-          onClick={this.handleClickUploadFile}>
+          onClick={onClickUploadFile}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.UPLOAD_FILE}>{itemOptions[ITEM_NAMES.UPLOAD_FILE].description}</Tooltip>}>
@@ -100,12 +93,9 @@ export default class Toolbar extends Component {
         />,
 
         <Bold
-          className={classnames({
-            active: hasCurrentInlineStyle(editorState, INLINE_STYLES.BOLD)
-          })}
           key={ITEM_NAMES.BOLD}
           editorState={editorState}
-          onToggleInlineStyle={this.handleToggleInlineStyle}>
+          onToggleInlineStyle={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.BOLD}>{itemOptions[ITEM_NAMES.BOLD].description}</Tooltip>}>
@@ -115,12 +105,9 @@ export default class Toolbar extends Component {
         </Bold>,
 
         <Italic
-          className={classnames({
-            active: hasCurrentInlineStyle(editorState, INLINE_STYLES.ITALIC)
-          })}
           key={ITEM_NAMES.ITALIC}
           editorState={editorState}
-          onToggleInlineStyle={this.handleToggleInlineStyle}>
+          onToggleInlineStyle={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.ITALIC}>{itemOptions[ITEM_NAMES.ITALIC].description}</Tooltip>}>
@@ -133,10 +120,7 @@ export default class Toolbar extends Component {
           key={INLINE_STYLES.CODE}
           type={INLINE_STYLES.CODE}
           editorState={editorState}
-          onToggle={this.handleToggleInlineStyle}
-          className={classnames({
-            active: hasCurrentInlineStyle(editorState, INLINE_STYLES.CODE)
-          })}>
+          onToggle={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.CODE}>{itemOptions[ITEM_NAMES.CODE].description}</Tooltip>}>
@@ -149,12 +133,9 @@ export default class Toolbar extends Component {
         </InlineStyleButton>,
 
         <Blockquote
-          className={classnames({
-            active: checkCurrentBlockType(editorState, BLOCK_TYPES.BLOCKQUOTE)
-          })}
           key={ITEM_NAMES.BLOCKQUOTE}
           editorState={editorState}
-          onToggleBlockType={this.handleToggleBlockType}>
+          onToggleBlockType={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.BLOCKQUOTE}>{itemOptions[ITEM_NAMES.BLOCKQUOTE].description}</Tooltip>}>
@@ -165,12 +146,9 @@ export default class Toolbar extends Component {
         </Blockquote>,
 
         <Strikethrough
-          className={classnames({
-            active: hasCurrentInlineStyle(editorState, INLINE_STYLES.STRIKETHROUGH)
-          })}
           key={ITEM_NAMES.STRIKETHROUGH}
           editorState={editorState}
-          onToggleInlineStyle={this.handleToggleInlineStyle}>
+          onToggleInlineStyle={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.STRIKETHROUGH}>{itemOptions[ITEM_NAMES.STRIKETHROUGH].description}</Tooltip>}>
@@ -180,12 +158,9 @@ export default class Toolbar extends Component {
         </Strikethrough>,
 
         <CheckableList
-          className={classnames({
-            active: checkCurrentBlockType(editorState, BLOCK_TYPES.CHECKABLE_LIST_ITEM)
-          })}
           key={ITEM_NAMES.CHECKABLE_LIST}
           editorState={editorState}
-          onToggleBlockType={this.handleToggleBlockType}>
+          onToggleBlockType={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={
@@ -200,12 +175,9 @@ export default class Toolbar extends Component {
         </CheckableList>,
 
         <UnorderedList
-          className={classnames({
-            active: checkCurrentBlockType(editorState, BLOCK_TYPES.UNORDERED_LIST_ITEM)
-          })}
           key={ITEM_NAMES.UNOERDERD_LIST}
           editorState={editorState}
-          onToggleBlockType={this.handleToggleBlockType}>
+          onToggleBlockType={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={
@@ -220,12 +192,9 @@ export default class Toolbar extends Component {
         </UnorderedList>,
 
         <OrderedList
-          className={classnames({
-            active: checkCurrentBlockType(editorState, BLOCK_TYPES.ORDERED_LIST_ITEM)
-          })}
           key={ITEM_NAMES.OERDERD_LIST}
           editorState={editorState}
-          onToggleBlockType={this.handleToggleBlockType}>
+          onToggleBlockType={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={
@@ -243,9 +212,9 @@ export default class Toolbar extends Component {
         <InsertLink
           key={ITEM_NAMES.INSERT_LINK}
           editorState={editorState}
-          onInsertLink={this.handleInsertLink}
+          onInsertLink={onChange}
           isOpen={isOpenInsertLinkInput}
-          onMouseDownToggle={this.handleMouseDownInsertLink}
+          onMouseDownToggle={toggleInsertLinkInput}
           validationErrorMessage={itemOptions[ITEM_NAMES.INSERT_LINK].validationErrorMessage}
           placeholder={itemOptions[ITEM_NAMES.INSERT_LINK].placeholder}>
           <OverlayTrigger
@@ -258,7 +227,7 @@ export default class Toolbar extends Component {
         <RemoveLink
           key={ITEM_NAMES.REMOVE_LINK}
           editorState={editorState}
-          onRemoveLink={this.handleRemoveLink}>
+          onRemoveLink={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.REMOVE_LINK}>{itemOptions[ITEM_NAMES.REMOVE_LINK].description}</Tooltip>}>
@@ -269,7 +238,7 @@ export default class Toolbar extends Component {
         <BaseButton
           key={ITEM_NAMES.EMBED_IFRAME}
           className='rich-text-editor-button rich-text-editor-button--embed-code'
-          onMouseDown={this.handleMouseDownEmbedIFrame}>
+          onMouseDown={onMouseDownEmbedIFrame}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.EMBED_IFRAME}>{itemOptions[ITEM_NAMES.EMBED_IFRAME].description}</Tooltip>}>
@@ -281,10 +250,7 @@ export default class Toolbar extends Component {
           key={BLOCK_TYPES.CODE_BLOCK}
           type={BLOCK_TYPES.CODE_BLOCK}
           editorState={editorState}
-          onToggle={this.handleToggleBlockType}
-          className={classnames({
-            active: checkCurrentBlockType(editorState, BLOCK_TYPES.CODE_BLOCK)
-          })}>
+          onToggle={onChange}>
           <OverlayTrigger
             placement='bottom'
             overlay={<Tooltip id={ITEM_NAMES.CODE_BLOCK}>{itemOptions[ITEM_NAMES.CODE_BLOCK].description}</Tooltip>}>
@@ -297,34 +263,5 @@ export default class Toolbar extends Component {
         </BlockTypeButton>,
       ]}</div>
     );
-  }
-  _handleClickInsertImage(ev) {
-    if (isFunction(this.props.onClickInsertImage)) {
-      this.props.onClickInsertImage(ev);
-    }
-  }
-  _handleClickUploadFile(ev) {
-    if (isFunction(this.props.onClickUploadFile)) {
-      this.props.onClickUploadFile(ev);
-    }
-  }
-  _handleMouseDownEmbedIFrame(ev) {
-    if (isFunction(this.props.onMouseDownEmbedIFrame)) {
-      this.props.onMouseDownEmbedIFrame(ev);
-    }
-  }
-  _handleMouseDownInsertLink(ev) {
-    if (isFunction(this.props.toggleInsertLinkInput)) {
-      ev.preventDefault();
-      this.props.toggleInsertLinkInput();
-    }
-  }
-  _changeEditorState(editorState) {
-    this.props.changeEditorState(editorState);
-  }
-  _toggleHeadingAfter() {
-    if (isFunction(this.props.onHeadingToggled)) {
-      this.props.onHeadingToggled();
-    }
   }
 }

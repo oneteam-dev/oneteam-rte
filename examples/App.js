@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { htmlToMarkdown, markdownToHTML } from '../src/encoding';
 import Editor from './Editor';
 
 export default class App extends Component {
@@ -6,7 +7,15 @@ export default class App extends Component {
     return (
       <div>
         <Editor onMount={c => this.rte = c} />
-        <button onClick={() => console.log(this.rte.serializedHTML)}>Log</button>
+        <button onClick={() => console.info(this.rte.html)}>HTML</button>
+        <button onClick={() => console.info(this.rte.markdown)}>Markdown</button>
+        <div style={{ marginTop: '2em' }}>
+          <textarea ref={c => this.textarea = c} rows={6} cols={40}></textarea>
+          <div>
+            <button onClick={() => console.info(htmlToMarkdown(this.textarea.value))}>htmlToMarkdown</button>
+            <button onClick={() => console.info(markdownToHTML(this.textarea.value))}>markdownToHTML</button>
+          </div>
+        </div>
       </div>
     );
   }

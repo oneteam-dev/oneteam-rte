@@ -1,15 +1,3 @@
-export { default as adjustBlockDepth } from './adjustBlockDepth';
-export { default as insertBlockAfter } from './insertBlockAfter';
-export { default as insertText } from './insertText';
-export { default as moveSelectionToEnd } from './moveSelectionToEnd';
-export { default as removeBlockStyle } from './removeBlockStyle';
 export { default as toggleBlockType } from './toggleBlockType';
 export { default as toggleInlineStyle } from './toggleInlineStyle';
 export { default as toggleLink } from './toggleLink';
-export { default as moveSelectionTo } from './moveSelectionTo';
-export { default as removeBlock } from './removeBlock';
-export { default as insertAtomicBlock } from './insertAtomicBlock';
-export { default as updateBlockMetadata } from './updateBlockMetadata';
-export { default as mergeEntityData } from './mergeEntityData';
-export { default as insertWebCards } from './insertWebCards';
-export { default as splitBlockInContentStateIfCursorAtStart } from './splitBlockInContentStateIfCursorAtStart';
