@@ -41,11 +41,11 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "draft-js-block-breakout-plugin": "^1.0.1",
+    "draft-js-block-breakout-plugin": "^1.0.2",
     "draft-js-checkable-list-plugin": "^1.1.0",
     "draft-js-linkify-plugin": "2.0.0-beta9",
     "draft-js-markdown-shortcuts-plugin": "0.0.6",
-    "draft-js-oneteam-rte-plugin": "0.0.1",
+    "draft-js-oneteam-rte-plugin": "0.1.0",
     "draft-js-plugins-editor": "2.0.0-beta9",
     "draft-js-prism": "github:ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",
     "lodash": "^4.17.4",

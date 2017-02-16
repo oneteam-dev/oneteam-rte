@@ -1,5 +1,5 @@
-import { RichUtils } from 'draft-js';
+import toggleBlockType from 'draft-js-oneteam-rte-plugin/lib/modifiers/toggleBlockType';
 
-export default function toggleBlockType(editorState, blockType) {
-  return RichUtils.toggleBlockType(editorState, blockType);
+export default function wrappedToggleBlockType(editorState, blockType) {
+  return toggleBlockType(editorState, blockType);
 }
