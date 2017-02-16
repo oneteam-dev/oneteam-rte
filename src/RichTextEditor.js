@@ -23,6 +23,7 @@ export default class RichTextEditor extends Component {
     readOnly: PropTypes.bool,
     onReturnWithCommand: PropTypes.func,
     onPastedFiles: PropTypes.func,
+    onKeyDown: PropTypes.func,
     customAtomicBlockRendererFn: PropTypes.func,
     atomicBlockRenderMap: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
     onCompleteFileUpload: PropTypes.func
@@ -152,6 +153,7 @@ export default class RichTextEditor extends Component {
           editorState={editorState}
           readOnly={readOnly}
           onChange={this.changeEditorState}
+          onKeyDown={this.props.onKeyDown}
           placeholder={placeholder}
         />
       </div>
