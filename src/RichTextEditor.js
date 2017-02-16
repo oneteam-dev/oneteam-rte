@@ -63,7 +63,7 @@ export default class RichTextEditor extends Component {
   closeInsertLinkInput = () => this.setState({ isOpenInsertLinkInput: false })
   toggleInsertLinkInput = () => this.setState({ isOpenInsertLinkInput: !this.state.isOpenInsertLinkInput })
   handleContainerMouseDown = () => {
-    if (isFunction(this.state.closeInsertLinkInput)) {
+    if (this.state.isOpenInsertLinkInput) {
       this.closeInsertLinkInput();
     }
   }
@@ -124,8 +124,7 @@ export default class RichTextEditor extends Component {
           editorState,
           isOpenInsertLinkInput,
           onChange: this.changeEditorState,
-          toggleInsertLinkInput: this.toggleInsertLinkInput,
-          closeInsertLinkInput: this.closeInsertLinkInput
+          toggleInsertLinkInput: this.toggleInsertLinkInput
         }
       );
     });

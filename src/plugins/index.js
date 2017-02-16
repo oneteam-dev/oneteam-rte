@@ -26,6 +26,12 @@ const createPlugins = (configs) => {
   const checkableListPlugin = createCheckableListPlugin(config.checkableList);
   const linkifyPlugin = createLinkifyPlugin(config.linkifyPlugin);
 
+  // TODO: It becomes a block when pasting html containing `<code>`
+  // https://github.com/ngs/draft-js-markdown-shortcuts-plugin/blob/28c6479ec137146a1bf8dedac6fae42c651fcf43/src/index.js#L24
+  // I think that should be corrected like this
+  // `blockRenderMap: checkboxBlockRenderMap`
+  delete markdownShortcutsPlugin.blockRenderMap;
+
   return {
     all: [
       oneteamRTEPlugin,

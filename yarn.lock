@@ -1663,11 +1663,11 @@ domutils@1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-draft-js-block-breakout-plugin@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/draft-js-block-breakout-plugin/-/draft-js-block-breakout-plugin-1.0.1.tgz#eb2d59a3ce007a267332a3b4f3d7a07d76337833"
+draft-js-block-breakout-plugin@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/draft-js-block-breakout-plugin/-/draft-js-block-breakout-plugin-1.0.2.tgz#5541038a34a19c6493b02ce64ca47c0876a39ca3"
   dependencies:
-    immutable "^3.8.1"
+    immutable "~3.7.4"
 
 draft-js-checkable-list-item@^2.0.2:
   version "2.0.2"
@@ -1706,9 +1706,9 @@ draft-js-markdown-shortcuts-plugin@0.0.6:
     react "^15.4.1"
     react-dom "^15.4.1"
 
-draft-js-oneteam-rte-plugin@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.0.1.tgz#79b0a4e42a88e122ccf33d1ed8511a2351844f88"
+draft-js-oneteam-rte-plugin@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.1.0.tgz#ee91ebdf101e55093702f0611b530e7ce3929125"
   dependencies:
     decorate-component-with-props "^1.0.2"
     draft-js "~0.9.1"
@@ -1750,15 +1750,7 @@ draft-js-utils@~0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-0.1.7.tgz#e2b6927ca620edf1855a4bfc1cf1d21080a70f16"
 
-draft-js@>=0.9.1:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.10.0.tgz#29d16191012b932fdab28a9b37ec1538f421abf6"
-  dependencies:
-    fbjs "^0.8.7"
-    immutable "~3.7.4"
-    object-assign "^4.1.0"
-
-draft-js@^0.9.1, draft-js@~0.9.1:
+draft-js@>=0.9.1, draft-js@^0.9.1, draft-js@~0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.9.1.tgz#940a51a0ad1fede0411676b6404f4050495f54f9"
   dependencies:
@@ -2132,7 +2124,7 @@ faye-websocket@~0.11.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.8.1, fbjs@^0.8.3, fbjs@^0.8.4, fbjs@^0.8.7:
+fbjs@^0.8.1, fbjs@^0.8.3, fbjs@^0.8.4:
   version "0.8.9"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.9.tgz#180247fbd347dcc9004517b904f865400a0c8f14"
   dependencies:
