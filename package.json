@@ -50,7 +50,8 @@
     "draft-js-prism": "github:ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",
     "lodash": "^4.17.4",
     "prismjs": "^1.6.0",
-    "react-bootstrap": "0.30.7"
+    "react-bootstrap": "0.30.7",
+    "draft-js": "github:keito5656/draft-js#61199f079a894f763c36c4f18cec769b8c91f6cc"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
