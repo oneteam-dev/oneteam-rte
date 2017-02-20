@@ -53,7 +53,8 @@
     "emojione": "^2.2.7",
     "lodash": "^4.17.4",
     "prismjs": "^1.6.0",
-    "react-bootstrap": "0.30.7"
+    "react-bootstrap": "0.30.7",
+    "draft-js": "github:keito5656/draft-js#61199f079a894f763c36c4f18cec769b8c91f6cc"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
