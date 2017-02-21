@@ -51,7 +51,7 @@
     "lodash": "^4.17.4",
     "prismjs": "^1.6.0",
     "react-bootstrap": "0.30.7",
-    "draft-js": "github:keito5656/draft-js#f8fcb37f93ddb3de2cfffe3f4f2c816639e3e920"
+    "draft-js": "github:keito5656/draft-js#3a6e8a9a655a813b56f0e67ff293d2612fe33bdf"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
