@@ -60,40 +60,6 @@ $toolbar-hover-background-color = rgba(#333, 0.04)
       font-size: 18px
       border-left: 2px solid $blockquote-border-left-color
       line-height: 1.5
-    .checkable-list-item
-      list-style: none
-      transform: translateX(-1.5em)
-    .checkable-list-item-block
-      position: relative
-      z-index: 1
-      &__checkbox
-        position: absolute
-        input
-          width: 20px
-          height: 20px
-          border: 1px solid #d5cdcd
-          background-color: white
-          border-radius: 50%
-          vertical-align: middle
-          cursor: pointer
-          &:checked
-            border-color: #009cd6
-            background-color: rgba(0, 174, 239, 0.8)
-            &::before
-              content: ''
-              width: 6px
-              height: 10px
-              border-bottom: 2px solid #fff
-              border-right: 2px solid #fff
-              transform: rotate(45deg)
-              top: 3px
-              left: 6px
-      &__text
-        padding-left: 28px
-      &.is-checked
-        .checkable-list-item-block__text
-          text-decoration: line-through
-          color: #d6d6d6
     .iframe-placeholder
       -webkit-user-select: none
       user-select: none
