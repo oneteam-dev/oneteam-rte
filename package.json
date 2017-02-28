@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "draft-js": "~0.9.1",
     "draft-js-block-breakout-plugin": "^1.0.2",
     "draft-js-checkable-list-plugin": "^1.1.0",
     "draft-js-linkify-plugin": "2.0.0-beta9",
