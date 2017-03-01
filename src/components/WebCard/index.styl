@@ -1,0 +1,100 @@
+$max-width = 555px
+$max-height = 130px
+$image-margin-right = 10px
+$border-width = 1px
+$background-color = rgba(255, 255, 255, 1)
+$border-radius = 5px
+$white-color = #fff
+$base-container
+  width: auto
+  height: $max-height
+  max-width: $max-width
+  border: $border-width solid #eee
+  border-radius: $border-radius
+  display: block
+  overflow: hidden
+  background-color: $white-color
+
+web-card:empty // @stylint off
+  display: none
+
+.webcard
+  @extend $base-container
+  text-decoration: none
+  text-overflow: ellipsis
+  max-height: $max-height
+  position: relative
+  z-index: 1
+  height: auto
+  box-shadow: 0 1px 3px rgba(1, 1, 1, .1)
+  p
+    margin: 0
+  .image
+    margin-right: $image-margin-right
+    width: $max-height - ($border-width * 2)
+    min-height: $max-height - ($border-width * 2)
+    height: 100%
+    background-position: center center
+    background-size: auto 100%
+    background-repeat: no-repeat
+    float: left
+    position: relative
+    z-index: 1
+    &:hover
+      .remove, .overlay
+        display: block
+    .remove
+      display: none
+      position: absolute
+      z-index: 2
+      top: 5px
+      right: 5px
+      cursor: pointer
+      line-height: 1
+      .icon
+        max-width: 8px
+        max-height: 8px
+        margin: 0
+        vertical-align: top
+    .overlay
+      display: none
+      position: absolute
+      z-index: 1
+      width: 100%
+      height: 100%
+      top: 0
+      left: 0
+      background-color: rgba(0, 0, 0, .5)
+    & + .text .url
+      padding-left: $max-height + $image-margin-right
+  .text
+    padding: 10px 45px 10px 10px
+    word-break: break-word
+    min-height: 80px
+  .title
+    line-height: 1.46
+    font-weight: bold
+    font-size: 1.1em
+    margin-bottom: 5px
+  .description
+    color: rgba(0, 0, 0, .6)
+    font-size: .95em
+    line-height: 1.38
+    min-height: 80px
+  .url
+    font-size: .95em
+    color: rgba(0, 0, 0, .2)
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    position: absolute
+    padding-right: 1em
+    right: 0
+    bottom: 0
+    width: 100%
+    background-color: $background-color
+    padding-left: $image-margin-right
+    height: 35px
+    vertical-align: top
+    line-height: 1
+    padding-top: 5px
