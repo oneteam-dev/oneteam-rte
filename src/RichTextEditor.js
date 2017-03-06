@@ -62,6 +62,9 @@ export default class RichTextEditor extends Component {
   get modifiers() {
     return modifiers;
   }
+  get plainText() {
+    return this._contentState.getPlainText();
+  }
   closeInsertLinkInput = () => this.setState({ isOpenInsertLinkInput: false })
   toggleInsertLinkInput = () => this.setState({ isOpenInsertLinkInput: !this.state.isOpenInsertLinkInput })
   handleContainerMouseDown = () => {
