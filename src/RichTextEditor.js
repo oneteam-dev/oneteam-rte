@@ -10,6 +10,7 @@ import createPlugins from './plugins';
 import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 import 'draft-js-checkable-list-plugin/lib/plugin.css';
+import 'draft-js-emoji-plugin/lib/plugin.css';
 
 export default class RichTextEditor extends Component {
   static propTypes = {
@@ -160,6 +161,7 @@ export default class RichTextEditor extends Component {
           onKeyDown={this.props.onKeyDown}
           placeholder={placeholder}
         />
+        <this.plugins.emojiPlugin.EmojiSuggestions />
       </div>
     </div>;
   }
