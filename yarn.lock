@@ -1688,6 +1688,20 @@ draft-js-checkable-list-plugin@^1.1.0:
     immutable "~3.7.4"
     union-class-names "^1.0.0"
 
+draft-js-emoji-plugin@2.0.0-beta9:
+  version "2.0.0-beta9"
+  resolved "https://registry.yarnpkg.com/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.0-beta9.tgz#142d348240fee5bb4a1c11d4eeade0789c220126"
+  dependencies:
+    decorate-component-with-props "^1.0.2"
+    draft-js ">=0.9.1"
+    emojione "^2.2.6"
+    find-with-regex "^1.0.2"
+    immutable ">=3.8.1"
+    lodash.keys "^4.2.0"
+    react ">=15.3.1"
+    react-dom ">=15.3.1"
+    union-class-names "^1.0.0"
+
 draft-js-linkify-plugin@2.0.0-beta9:
   version "2.0.0-beta9"
   resolved "https://registry.yarnpkg.com/draft-js-linkify-plugin/-/draft-js-linkify-plugin-2.0.0-beta9.tgz#02d60aff8b21c726a23df09389a9da0d9086d015"
@@ -1701,7 +1715,7 @@ draft-js-linkify-plugin@2.0.0-beta9:
     tlds "1.159.0"
     union-class-names "^1.0.0"
 
-draft-js-markdown-shortcuts-plugin@^0.0.6:
+draft-js-markdown-shortcuts-plugin@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/draft-js-markdown-shortcuts-plugin/-/draft-js-markdown-shortcuts-plugin-0.0.6.tgz#6baa2a063f04a477ceec2596aeed322d07a60f46"
   dependencies:
@@ -1712,9 +1726,9 @@ draft-js-markdown-shortcuts-plugin@^0.0.6:
     react "^15.4.1"
     react-dom "^15.4.1"
 
-draft-js-oneteam-rte-plugin@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.1.2.tgz#94e750aef06d14fdee6f0ad80bbab20a1e0c9881"
+draft-js-oneteam-rte-plugin@0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.1.3.tgz#6146cffbb18cd66957d592a33f3c4533cf12ce62"
   dependencies:
     decorate-component-with-props "^1.0.2"
     draft-js "~0.9.1"
@@ -1722,7 +1736,7 @@ draft-js-oneteam-rte-plugin@^0.1.2:
     draft-js-utils "~0.1.7"
     extend "^3.0.0"
     he "^1.1.1"
-    htmlclean "^2.7.9"
+    htmlclean "^2.7.10"
     immutable "~3.7.4"
     invariant "^2.2.2"
     lodash "^4.17.4"
@@ -1789,6 +1803,10 @@ elliptic@^6.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
+
+emojione@^2.2.6, emojione@^2.2.7:
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/emojione/-/emojione-2.2.7.tgz#46457cf6b9b2f8da13ae8a2e4e547de06ee15e96"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -2529,7 +2547,7 @@ html-webpack-plugin@^2.28.0:
     pretty-error "^2.0.2"
     toposort "^1.0.0"
 
-htmlclean@^2.7.9:
+htmlclean@^2.7.10:
   version "2.7.10"
   resolved "https://registry.yarnpkg.com/htmlclean/-/htmlclean-2.7.10.tgz#60b19c413a348b3d1a448ab8a572edb9dbdeb61d"
   dependencies:
@@ -2594,13 +2612,9 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-iconv-lite@0.4.13:
+iconv-lite@0.4.13, iconv-lite@~0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
-
-iconv-lite@~0.4.13:
-  version "0.4.15"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
 icss-replace-symbols@^1.0.2:
   version "1.0.2"
@@ -3060,6 +3074,10 @@ loader-utils@^1.0.2:
 lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
+
+lodash.keys@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.keys/-/lodash.keys-4.2.0.tgz#a08602ac12e4fb83f91fc1fb7a360a4d9ba35205"
 
 lodash.memoize@^4.1.0:
   version "4.1.2"
@@ -3942,7 +3960,7 @@ rc@~1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-bootstrap@^0.30.7:
+react-bootstrap@0.30.7:
   version "0.30.7"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.30.7.tgz#39da80088693ecb71e8e63b5bdc313571fd993d1"
   dependencies:
