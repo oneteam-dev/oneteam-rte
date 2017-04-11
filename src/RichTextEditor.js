@@ -10,6 +10,7 @@ import createPlugins from './plugins';
 import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 import 'draft-js-checkable-list-plugin/lib/plugin.css';
+import 'draft-js-emoji-plugin/lib/plugin.css';
 
 export default class RichTextEditor extends Component {
   static propTypes = {
@@ -27,7 +28,8 @@ export default class RichTextEditor extends Component {
     onKeyDown: PropTypes.func,
     customAtomicBlockRendererFn: PropTypes.func,
     atomicBlockRenderMap: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
-    onCompleteFileUpload: PropTypes.func
+    onCompleteFileUpload: PropTypes.func,
+    highPriorityEmojiShortnames: PropTypes.arrayOf(PropTypes.string)
   }
   static defaultProps = {
     placeholder: 'Contents here...',
@@ -87,6 +89,9 @@ export default class RichTextEditor extends Component {
         onPastedFiles: this.props.onPastedFiles,
         atomicBlockRenderMap: this.props.atomicBlockRenderMap,
         onCompleteFileUpload: this.props.onCompleteFileUpload
+      },
+      emoji: {
+        highPriorityShortnames: this.props.highPriorityEmojiShortnames
       }
     });
 
@@ -160,6 +165,7 @@ export default class RichTextEditor extends Component {
           onKeyDown={this.props.onKeyDown}
           placeholder={placeholder}
         />
+        <this.plugins.emojiPlugin.EmojiSuggestions />
       </div>
     </div>;
   }
