@@ -2,6 +2,20 @@
 # yarn lockfile v1
 
 
+"@sugarshin/draft-js-emoji-plugin@2.0.0-beta.9":
+  version "2.0.0-beta.9"
+  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.0-beta.9.tgz#2528a423dc8b1fba391267bda17d18bb27651346"
+  dependencies:
+    decorate-component-with-props "^1.0.2"
+    draft-js ">=0.9.1"
+    emojione "^2.2.6"
+    find-with-regex "^1.0.2"
+    immutable ">=3.8.1"
+    lodash.keys "^4.2.0"
+    react ">=15.3.1"
+    react-dom ">=15.3.1"
+    union-class-names "^1.0.0"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -1686,20 +1700,6 @@ draft-js-checkable-list-plugin@^1.1.0:
     decorate-component-with-props "^1.0.2"
     draft-js "~0.9.1"
     immutable "~3.7.4"
-    union-class-names "^1.0.0"
-
-draft-js-emoji-plugin@2.0.0-beta9:
-  version "2.0.0-beta9"
-  resolved "https://registry.yarnpkg.com/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.0-beta9.tgz#142d348240fee5bb4a1c11d4eeade0789c220126"
-  dependencies:
-    decorate-component-with-props "^1.0.2"
-    draft-js ">=0.9.1"
-    emojione "^2.2.6"
-    find-with-regex "^1.0.2"
-    immutable ">=3.8.1"
-    lodash.keys "^4.2.0"
-    react ">=15.3.1"
-    react-dom ">=15.3.1"
     union-class-names "^1.0.0"
 
 draft-js-linkify-plugin@2.0.0-beta9:

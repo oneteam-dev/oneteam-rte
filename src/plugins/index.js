@@ -1,5 +1,4 @@
 import merge from 'lodash/merge';
-import { emojioneList } from 'emojione';
 import createOneteamRTEPlugin from 'draft-js-oneteam-rte-plugin';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
@@ -7,7 +6,6 @@ import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createCheckableListPlugin from 'draft-js-checkable-list-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import prismPlugin from './prism';
-import createEmojiListWithOutHighPriorityList from './helpers/createEmojiListWithOutHighPriorityList';
 
 const defaultConfig = {
   oneteamRTE: {},
@@ -19,20 +17,11 @@ const defaultConfig = {
   markdownShortcuts: {},
   checkableList: { sameWrapperAsUnorderedListItem: true },
   linkify: {},
-  emoji: {
-    highPriorityShortnames: [],
-    priorityList: Object.keys(emojioneList)
-      .filter(key => !/_tone[0-9]$/.test(key)) // without tones
-      .reduce((ret, key) => ({ ...ret, [key]: emojioneList[key].unicode }), {})
-  }
+  emoji: { ignoreEmojiRegex: /_?tone[0-9]:$/ }
 };
 
 const createPlugins = (configs) => {
   const config = merge({}, defaultConfig, configs);
-  config.emoji.priorityList = createEmojiListWithOutHighPriorityList(
-    config.emoji.highPriorityShortnames,
-    config.emoji.priorityList
-  );
   const oneteamRTEPlugin = createOneteamRTEPlugin(config.oneteamRTE);
   const blockBreakoutPlugin = createBlockBreakoutPlugin(config.blockBreakout);
   const markdownShortcutsPlugin = createMarkdownShortcutsPlugin(config.markdownShortcuts);

@@ -2,6 +2,7 @@ import React, { Component, PropTypes, Children, cloneElement } from 'react';
 import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
+import { emojioneList } from 'emojione';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState } from './utils';
@@ -29,7 +30,7 @@ export default class RichTextEditor extends Component {
     customAtomicBlockRendererFn: PropTypes.func,
     atomicBlockRenderMap: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
     onCompleteFileUpload: PropTypes.func,
-    highPriorityEmojiShortnames: PropTypes.arrayOf(PropTypes.string)
+    priorityEmojiShortnames: PropTypes.arrayOf(PropTypes.string)
   }
   static defaultProps = {
     placeholder: 'Contents here...',
@@ -57,6 +58,9 @@ export default class RichTextEditor extends Component {
   }
   get oneteamRTEPlugin() {
     return this.plugins.oneteamRTEPlugin;
+  }
+  get emojiPlugin() {
+    return this.plugins.emojiPlugin;
   }
   get firstBlockText() {
     return this._contentState.getFirstBlock().getText();
@@ -91,7 +95,10 @@ export default class RichTextEditor extends Component {
         onCompleteFileUpload: this.props.onCompleteFileUpload
       },
       emoji: {
-        highPriorityShortnames: this.props.highPriorityEmojiShortnames
+        priorityList: this.props.priorityEmojiShortnames.reduce((ret, shortname) => ({
+          ...ret,
+          [shortname]: emojioneList[shortname].unicode
+        }), {})
       }
     });
 
@@ -165,7 +172,7 @@ export default class RichTextEditor extends Component {
           onKeyDown={this.props.onKeyDown}
           placeholder={placeholder}
         />
-        <this.plugins.emojiPlugin.EmojiSuggestions />
+        <this.emojiPlugin.EmojiSuggestions />
       </div>
     </div>;
   }
