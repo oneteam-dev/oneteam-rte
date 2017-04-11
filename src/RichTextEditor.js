@@ -30,7 +30,8 @@ export default class RichTextEditor extends Component {
     customAtomicBlockRendererFn: PropTypes.func,
     atomicBlockRenderMap: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
     onCompleteFileUpload: PropTypes.func,
-    priorityEmojiShortnames: PropTypes.arrayOf(PropTypes.string)
+    priorityEmojiShortnames: PropTypes.arrayOf(PropTypes.string),
+    emojiImagePath: PropTypes.string
   }
   static defaultProps = {
     placeholder: 'Contents here...',
@@ -98,7 +99,8 @@ export default class RichTextEditor extends Component {
         priorityList: this.props.priorityEmojiShortnames.reduce((ret, shortname) => ({
           ...ret,
           [shortname]: emojioneList[shortname].unicode
-        }), {})
+        }), {}),
+        imagePath: this.props.emojiImagePath
       }
     });
 
