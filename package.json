@@ -40,11 +40,11 @@
     "react-dom": "^15.0.0"
   },
   "dependencies": {
+    "@sugarshin/draft-js-emoji-plugin": "2.0.0-beta.9",
     "classnames": "^2.2.5",
     "draft-js": "~0.9.1",
     "draft-js-block-breakout-plugin": "^1.0.2",
     "draft-js-checkable-list-plugin": "^1.1.0",
-    "draft-js-emoji-plugin": "2.0.0-beta9",
     "draft-js-linkify-plugin": "2.0.0-beta9",
     "draft-js-markdown-shortcuts-plugin": "0.0.6",
     "draft-js-oneteam-rte-plugin": "0.1.3",
