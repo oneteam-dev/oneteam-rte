@@ -9,14 +9,16 @@ const htmlToMarkdown = html => convertHTMLToMarkdown(html);
 const markdownToHTML = md => convertMarkdownToHTML(md);
 
 const contentToHTML = (content, options) => {
-  return convertContentStateToHTML(content, options);
+  return emojione.toShort(
+    convertContentStateToHTML(content, options)
+  );
 };
 
-const htmlToContent = (html, DOMBuilder) => (
-  convertHTMLToContentState(
+const htmlToContent = (html, DOMBuilder) => {
+  return convertHTMLToContentState(
     emojione.shortnameToUnicode(html),
     DOMBuilder
-  )
-);
+  );
+};
 
 export { htmlToMarkdown, markdownToHTML, contentToHTML, htmlToContent };
