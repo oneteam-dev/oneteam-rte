@@ -4,7 +4,7 @@ import createLinkifyPlugin from 'draft-js-linkify-plugin';
 import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createCheckableListPlugin from 'draft-js-checkable-list-plugin';
-import createEmojiPlugin from '@sugarshin/draft-js-emoji-plugin';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
 import prismPlugin from './prism';
 
 const defaultConfig = {

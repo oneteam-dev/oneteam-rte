@@ -1,5 +1,6 @@
 import isFunction from 'lodash/isFunction';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 export default class BaseButton extends Component {
