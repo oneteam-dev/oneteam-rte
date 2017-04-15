@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
@@ -11,7 +12,7 @@ import createPlugins from './plugins';
 import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 import 'draft-js-checkable-list-plugin/lib/plugin.css';
-import '@sugarshin/draft-js-emoji-plugin/lib/plugin.css';
+import 'draft-js-emoji-plugin/lib/plugin.css';
 
 export default class RichTextEditor extends Component {
   static propTypes = {
@@ -39,8 +40,7 @@ export default class RichTextEditor extends Component {
     initialHtml: ''
   }
   set html(html) {
-    const editorState = updateEditorState(this.state.editorState, html);
-    this.setState({ editorState });
+    this.setState({ editorStatae: updateEditorState(this.state.editorState, html) });
   }
   get html() {
     return contentToHTML(this._contentState);

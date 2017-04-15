@@ -2,20 +2,6 @@
 # yarn lockfile v1
 
 
-"@sugarshin/draft-js-emoji-plugin@2.0.0-beta.9-2":
-  version "2.0.0-beta.9-2"
-  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.0-beta.9-2.tgz#5940dfc13b96c7b66e963339f90ac3779b5a194f"
-  dependencies:
-    decorate-component-with-props "^1.0.2"
-    draft-js ">=0.9.1"
-    emojione "^2.2.6"
-    find-with-regex "^1.0.2"
-    immutable ">=3.8.1"
-    lodash.keys "^4.2.0"
-    react ">=15.3.1"
-    react-dom ">=15.3.1"
-    union-class-names "^1.0.0"
-
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -1261,7 +1247,7 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@2.9.x, commander@^2.8.1, commander@^2.9.0:
+commander@2.9.x, commander@^2.8.1:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.9.0.tgz#9c99094176e12240cb22d6c5146098400fe0f7d4"
   dependencies:
@@ -1644,10 +1630,6 @@ dom-converter@~0.1:
   dependencies:
     utila "~0.3"
 
-dom-helpers@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-2.4.0.tgz#9bb4b245f637367b1fa670274272aa28fe06c367"
-
 dom-helpers@^3.2.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
@@ -1700,73 +1682,80 @@ draft-js-block-breakout-plugin@^1.0.2:
   dependencies:
     immutable "~3.7.4"
 
-draft-js-checkable-list-item@^2.0.2:
+draft-js-checkable-list-item@^2.0.3, draft-js-checkable-list-item@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/draft-js-checkable-list-item/-/draft-js-checkable-list-item-2.0.4.tgz#45ed267ca156c19dc7a2ff4f8533072b0d885ca7"
 
-draft-js-checkable-list-plugin@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-plugin/-/draft-js-checkable-list-plugin-1.1.0.tgz#1dbfe5b4efc57717ae11b620acc5f895488e3100"
+draft-js-checkable-list-plugin@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-plugin/-/draft-js-checkable-list-plugin-2.0.0.tgz#9108919f610231b06d21c65ee2c84bd9321cf806"
   dependencies:
     decorate-component-with-props "^1.0.2"
-    draft-js "~0.9.1"
+    draft-js "~0.10.0"
+    draft-js-checkable-list-item "^2.0.3"
     immutable "~3.7.4"
     union-class-names "^1.0.0"
 
-draft-js-linkify-plugin@2.0.0-beta9:
-  version "2.0.0-beta9"
-  resolved "https://registry.yarnpkg.com/draft-js-linkify-plugin/-/draft-js-linkify-plugin-2.0.0-beta9.tgz#02d60aff8b21c726a23df09389a9da0d9086d015"
+draft-js-emoji-plugin@2.0.0-beta10:
+  version "2.0.0-beta10"
+  resolved "https://registry.yarnpkg.com/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.0-beta10.tgz#5c2aa93d5fcd359fcd9cf623615685e4a8dd91f4"
   dependencies:
     decorate-component-with-props "^1.0.2"
     draft-js ">=0.9.1"
-    immutable ">=3.8.1"
+    emojione "^2.2.6"
+    find-with-regex "^1.0.2"
+    immutable "~3.7.4"
+    lodash.keys "^4.2.0"
+    union-class-names "^1.0.0"
+
+draft-js-linkify-plugin@2.0.0-beta10:
+  version "2.0.0-beta10"
+  resolved "https://registry.yarnpkg.com/draft-js-linkify-plugin/-/draft-js-linkify-plugin-2.0.0-beta10.tgz#c73216007b250e1609c8be64d51f98c0bc3eee17"
+  dependencies:
+    decorate-component-with-props "^1.0.2"
+    draft-js ">=0.9.1"
+    immutable "~3.7.4"
     linkify-it "2.0.0"
-    react ">=15.3.1"
-    react-dom ">=15.3.1"
     tlds "1.159.0"
     union-class-names "^1.0.0"
 
-draft-js-markdown-shortcuts-plugin@0.0.6:
+draft-js-markdown-shortcuts-plugin@ngs/draft-js-markdown-shortcuts-plugin#63f463ef4880040f4ffbb72f3cd1aca1944df413:
   version "0.0.6"
-  resolved "https://registry.yarnpkg.com/draft-js-markdown-shortcuts-plugin/-/draft-js-markdown-shortcuts-plugin-0.0.6.tgz#6baa2a063f04a477ceec2596aeed322d07a60f46"
+  resolved "https://codeload.github.com/ngs/draft-js-markdown-shortcuts-plugin/tar.gz/63f463ef4880040f4ffbb72f3cd1aca1944df413"
   dependencies:
     decorate-component-with-props "^1.0.2"
-    draft-js "^0.9.1"
-    draft-js-checkable-list-item "^2.0.2"
-    immutable "^3.8.1"
-    react "^15.4.1"
-    react-dom "^15.4.1"
+    draft-js "~0.10.0"
+    draft-js-checkable-list-item "^2.0.4"
+    immutable "~3.7.4"
 
-draft-js-oneteam-rte-plugin@0.1.3:
+draft-js-oneteam-rte-plugin@oneteam-dev/draft-js-oneteam-rte-plugin#eb5a1664412d58c848a7c9acdc858f80ed9d78ab:
   version "0.1.3"
-  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.1.3.tgz#6146cffbb18cd66957d592a33f3c4533cf12ce62"
+  resolved "https://codeload.github.com/oneteam-dev/draft-js-oneteam-rte-plugin/tar.gz/eb5a1664412d58c848a7c9acdc858f80ed9d78ab"
   dependencies:
     decorate-component-with-props "^1.0.2"
-    draft-js "~0.9.1"
-    draft-js-checkable-list-item "^2.0.2"
+    draft-js "~0.10.0"
+    draft-js-checkable-list-item "^2.0.4"
     draft-js-utils "~0.1.7"
     extend "^3.0.0"
     he "^1.1.1"
-    htmlclean "^2.7.10"
+    htmlclean "^3.0.2"
     immutable "~3.7.4"
     invariant "^2.2.2"
     lodash "^4.17.4"
     marked "~0.3.6"
     nullthrows "^1.0.0"
-    to-markdown "^3.0.3"
+    to-markdown "^3.0.4"
     union-class-names "^1.0.0"
     url-regex "^3.2.0"
 
-draft-js-plugins-editor@2.0.0-beta9:
-  version "2.0.0-beta9"
-  resolved "https://registry.yarnpkg.com/draft-js-plugins-editor/-/draft-js-plugins-editor-2.0.0-beta9.tgz#9793b46c4765c205366055e1c7c566d955561a72"
+draft-js-plugins-editor@2.0.0-beta10:
+  version "2.0.0-beta10"
+  resolved "https://registry.yarnpkg.com/draft-js-plugins-editor/-/draft-js-plugins-editor-2.0.0-beta10.tgz#d8f84199186a651b603e13328dda90d2f800d5ef"
   dependencies:
     decorate-component-with-props "^1.0.2"
     draft-js ">=0.9.1"
     find-with-regex "^1.0.2"
-    immutable ">=3.8.1"
-    react ">=15.3.1"
-    react-dom ">=15.3.1"
+    immutable "~3.7.4"
     union-class-names "^1.0.0"
 
 draft-js-prism@ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb:
@@ -1781,11 +1770,11 @@ draft-js-utils@~0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-0.1.7.tgz#e2b6927ca620edf1855a4bfc1cf1d21080a70f16"
 
-draft-js@>=0.9.1, draft-js@^0.9.1, draft-js@~0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.9.1.tgz#940a51a0ad1fede0411676b6404f4050495f54f9"
+draft-js@>=0.9.1, draft-js@~0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.10.0.tgz#29d16191012b932fdab28a9b37ec1538f421abf6"
   dependencies:
-    fbjs "^0.8.3"
+    fbjs "^0.8.7"
     immutable "~3.7.4"
     object-assign "^4.1.0"
 
@@ -2173,7 +2162,7 @@ faye-websocket@~0.11.0:
   dependencies:
     websocket-driver ">=0.5.1"
 
-fbjs@^0.8.3, fbjs@^0.8.9:
+fbjs@^0.8.7, fbjs@^0.8.9:
   version "0.8.12"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.12.tgz#10b5d92f76d45575fd63a217d4ea02bea2f8ed04"
   dependencies:
@@ -2394,7 +2383,7 @@ glob@7.0.x:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1:
+glob@^7.0.0, glob@^7.0.3, glob@^7.0.5:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.1.tgz#805211df04faaf1c63a3600306cdf5ade50b2ec8"
   dependencies:
@@ -2565,12 +2554,9 @@ html-webpack-plugin@^2.28.0:
     pretty-error "^2.0.2"
     toposort "^1.0.0"
 
-htmlclean@^2.7.10:
-  version "2.7.10"
-  resolved "https://registry.yarnpkg.com/htmlclean/-/htmlclean-2.7.10.tgz#60b19c413a348b3d1a448ab8a572edb9dbdeb61d"
-  dependencies:
-    commander "^2.9.0"
-    glob "^7.1.1"
+htmlclean@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/htmlclean/-/htmlclean-3.0.2.tgz#50cb4ce679170ca769f390f3bb83d96e6ff39d97"
 
 htmlparser2@~3.3.0:
   version "3.3.0"
@@ -2630,9 +2616,13 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-iconv-lite@0.4.13, iconv-lite@~0.4.13:
+iconv-lite@0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
+
+iconv-lite@~0.4.13:
+  version "0.4.15"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
 icss-replace-symbols@^1.0.2:
   version "1.0.2"
@@ -2646,11 +2636,7 @@ ignore@^3.2.0:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.2.7.tgz#4810ca5f1d8eca5595213a34b94f2eb4ed926bbd"
 
-immutable@*, immutable@>=3.8.1, immutable@^3.8.1:
-  version "3.8.1"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.1.tgz#200807f11ab0f72710ea485542de088075f68cd2"
-
-immutable@~3.7.4:
+immutable@*, immutable@~3.7.4:
   version "3.7.6"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.7.6.tgz#13b4d3cb12befa15482a26fe1b2ebae640071e4b"
 
@@ -3903,7 +3889,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.4, prop-types@^15.5.7, prop-types@~15.5.7:
+prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
   version "15.5.8"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
@@ -3947,8 +3933,8 @@ qs@6.4.0, qs@~6.4.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
 query-string@^4.1.0:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.2.tgz#ec0fd765f58a50031a3968c2431386f8947a5cdd"
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.3.tgz#91c90ff7173d9acd9e088b3cc223f9b437865692"
   dependencies:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
@@ -3989,16 +3975,16 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-bootstrap@0.30.7:
-  version "0.30.7"
-  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.30.7.tgz#39da80088693ecb71e8e63b5bdc313571fd993d1"
+react-bootstrap@0.30.8:
+  version "0.30.8"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.30.8.tgz#4ceca8e138ce2351228c4a58d59db00c003ca9c0"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.5"
-    dom-helpers "^2.4.0"
+    dom-helpers "^3.2.0"
     invariant "^2.2.1"
     keycode "^2.1.2"
-    react-overlays "^0.6.10"
+    react-overlays "^0.6.12"
     react-prop-types "^0.4.0"
     uncontrollable "^4.0.1"
     warning "^3.0.0"
@@ -4007,7 +3993,7 @@ react-deep-force-update@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
 
-react-dom@>=15.3.1, react-dom@^15.4.1, react-dom@^15.4.2:
+react-dom@^15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.4.tgz#ba0c28786fd52ed7e4f2135fe0288d462aef93da"
   dependencies:
@@ -4033,7 +4019,7 @@ react-hot-loader@3.0.0-beta.6:
     redbox-react "^1.2.5"
     source-map "^0.4.4"
 
-react-overlays@^0.6.10:
+react-overlays@^0.6.12:
   version "0.6.12"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.6.12.tgz#a079c750cc429d7db4c7474a95b4b54033e255c3"
   dependencies:
@@ -4054,7 +4040,7 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-react@>=15.3.1, react@^15.4.1, react@^15.4.2:
+react@^15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:
@@ -4737,7 +4723,7 @@ to-fast-properties@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.2.tgz#f3f5c0c3ba7299a7ef99427e44633257ade43320"
 
-to-markdown@^3.0.3:
+to-markdown@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/to-markdown/-/to-markdown-3.0.4.tgz#3c7822f9286bc294ff37f9e0e5e23154c122ce69"
   dependencies:
