@@ -11,7 +11,7 @@
     "lib"
   ],
   "scripts": {
-    "start": "webpack-dev-server --progress",
+    "start": "webpack-dev-server --progress --open",
     "lint": "eslint src",
     "test": "true",
     "watch": "babel -w -d lib src",
