@@ -96,10 +96,12 @@ export default class RichTextEditor extends Component {
         onCompleteFileUpload: this.props.onCompleteFileUpload
       },
       emoji: {
-        priorityList: this.props.priorityEmojiShortnames.reduce((ret, shortname) => ({
-          ...ret,
-          [shortname]: emojioneList[shortname].unicode
-        }), {}),
+        priorityList: this.props.priorityEmojiShortnames ?
+          this.props.priorityEmojiShortnames.reduce((ret, shortname) => ({
+            ...ret,
+            [shortname]: emojioneList[shortname].unicode
+          }), {}) :
+          undefined,
         imagePath: this.props.emojiImagePath
       }
     });
