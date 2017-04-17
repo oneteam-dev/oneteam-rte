@@ -17,7 +17,10 @@ const defaultConfig = {
   markdownShortcuts: {},
   checkableList: { sameWrapperAsUnorderedListItem: true },
   linkify: {},
-  emoji: { ignoreEmojiRegex: /_?tone[0-9]:$/ }
+  // TODO: this is maybe draft-js-emoji-plugin or draft-js issue
+  // https://github.com/draft-js-plugins/draft-js-plugins/issues/717
+  //                                          \
+  emoji: { ignoreEmojiRegex: /(_?tone[0-9]:$|^:(one|two|three|four|five|six|seven|eight|nine|zero):$)/ }
 };
 
 const createPlugins = (configs) => {
