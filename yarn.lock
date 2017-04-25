@@ -1748,9 +1748,9 @@ draft-js-oneteam-rte-plugin@oneteam-dev/draft-js-oneteam-rte-plugin#eb5a1664412d
     union-class-names "^1.0.0"
     url-regex "^3.2.0"
 
-draft-js-plugins-editor@2.0.0-beta10:
+"draft-js-plugins-editor@git://github.com/ngs/draft-js-plugins.git#prebuilt-250f1c4":
   version "2.0.0-beta10"
-  resolved "https://registry.yarnpkg.com/draft-js-plugins-editor/-/draft-js-plugins-editor-2.0.0-beta10.tgz#d8f84199186a651b603e13328dda90d2f800d5ef"
+  resolved "git://github.com/ngs/draft-js-plugins.git#5f6553e1c9847c3b3f25036a83d46ed9627dd1b7"
   dependencies:
     decorate-component-with-props "^1.0.2"
     draft-js ">=0.9.1"

@@ -48,7 +48,7 @@
     "draft-js-linkify-plugin": "2.0.0-beta10",
     "draft-js-markdown-shortcuts-plugin": "ngs/draft-js-markdown-shortcuts-plugin#63f463ef4880040f4ffbb72f3cd1aca1944df413",
     "draft-js-oneteam-rte-plugin": "oneteam-dev/draft-js-oneteam-rte-plugin#eb5a1664412d58c848a7c9acdc858f80ed9d78ab",
-    "draft-js-plugins-editor": "2.0.0-beta10",
+    "draft-js-plugins-editor": "git://github.com/ngs/draft-js-plugins.git#prebuilt-250f1c4",
     "draft-js-prism": "ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",
     "emojione": "^2.2.7",
     "lodash": "^4.17.4",
