@@ -11,7 +11,7 @@ import createPlugins from './plugins';
 import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 import 'draft-js-checkable-list-plugin/lib/plugin.css';
-import '@sugarshin/draft-js-emoji-plugin/lib/plugin.css';
+import 'draft-js-emoji-plugin/lib/plugin.css';
 
 export default class RichTextEditor extends Component {
   static propTypes = {
