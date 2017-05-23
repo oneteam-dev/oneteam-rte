@@ -13,7 +13,7 @@
   "scripts": {
     "start": "webpack-dev-server --progress",
     "lint": "eslint src",
-    "test": "true",
+    "test": "npm run lint",
     "watch": "babel -w -d lib src",
     "clean": "if [ -d lib ]; then rm -rf lib; fi",
     "build": "npm run clean && NODE_ENV=production BABEL_ENV=production babel -d lib src",
