@@ -5,7 +5,7 @@ import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createCheckableListPlugin from 'draft-js-checkable-list-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
-import prismPlugin from './prism';
+import createPrismPlugin from './prism';
 
 const defaultConfig = {
   oneteamRTE: {},
@@ -20,7 +20,8 @@ const defaultConfig = {
   // TODO: this is maybe draft-js-emoji-plugin or draft-js issue
   // https://github.com/draft-js-plugins/draft-js-plugins/issues/717
   //                                          \
-  emoji: { ignoreEmojiRegex: /(_?tone[0-9]:$|^:(one|two|three|four|five|six|seven|eight|nine|zero):$)/ }
+  emoji: { ignoreEmojiRegex: /(_?tone[0-9]:$|^:(one|two|three|four|five|six|seven|eight|nine|zero):$)/ },
+  prism: {}
 };
 
 const createPlugins = (configs) => {
@@ -31,6 +32,7 @@ const createPlugins = (configs) => {
   const checkableListPlugin = createCheckableListPlugin(config.checkableList);
   const linkifyPlugin = createLinkifyPlugin(config.linkify);
   const emojiPlugin = createEmojiPlugin(config.emoji);
+  const prismPlugin = createPrismPlugin(config.prism);
 
   // TODO: It becomes a block when pasting html containing `<code>`
   // https://github.com/ngs/draft-js-markdown-shortcuts-plugin/blob/28c6479ec137146a1bf8dedac6fae42c651fcf43/src/index.js#L24
