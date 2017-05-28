@@ -49,7 +49,7 @@
     "draft-js-markdown-shortcuts-plugin": "0.2.0",
     "draft-js-oneteam-rte-plugin": "0.2.0",
     "draft-js-plugins-editor": "2.0.0-beta11",
-    "draft-js-prism": "^1.0.3",
+    "draft-js-prism": "ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",
     "emojione": "^2.2.7",
     "lodash": "^4.17.4",
     "prismjs": "^1.6.0",
@@ -65,7 +65,7 @@
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "css-loader": "^0.28.2",
+    "css-loader": "^0.28.3",
     "eslint": "^3.19.0",
     "eslint-plugin-babel": "^4.1.1",
     "eslint-plugin-react": "^7.0.1",
@@ -76,11 +76,11 @@
     "react-dom": "^15.5.4",
     "react-fa": "^4.2.0",
     "react-hot-loader": "3.0.0-beta.7",
-    "style-loader": "^0.18.0",
+    "style-loader": "^0.18.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "url-loader": "^0.5.8",
-    "webpack": "^2.6.0",
+    "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   }
 }
