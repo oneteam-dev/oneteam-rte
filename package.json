@@ -46,7 +46,7 @@
     "draft-js-checkable-list-plugin": "^2.0.1",
     "draft-js-emoji-plugin": "sugarshin/draft-js-plugins#prebuilt-6745df8",
     "draft-js-linkify-plugin": "2.0.0-beta11",
-    "draft-js-markdown-shortcuts-plugin": "0.2.0",
+    "draft-js-markdown-shortcuts-plugin": "ngs/draft-js-markdown-shortcuts-plugin#prebuilt-2fa7df1",
     "draft-js-oneteam-rte-plugin": "0.2.0",
     "draft-js-plugins-editor": "2.0.0-beta11",
     "draft-js-prism": "ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",

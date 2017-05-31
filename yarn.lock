@@ -1712,9 +1712,9 @@ draft-js-linkify-plugin@2.0.0-beta11:
     tlds "1.159.0"
     union-class-names "^1.0.0"
 
-draft-js-markdown-shortcuts-plugin@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/draft-js-markdown-shortcuts-plugin/-/draft-js-markdown-shortcuts-plugin-0.2.0.tgz#8d5097e0ac241b18098d7fbdd64e1cb351739ec0"
+draft-js-markdown-shortcuts-plugin@ngs/draft-js-markdown-shortcuts-plugin#prebuilt-2fa7df1:
+  version "0.2.1"
+  resolved "https://codeload.github.com/ngs/draft-js-markdown-shortcuts-plugin/tar.gz/3c630ead381d4a07184b574b4ec74176ca289ce0"
   dependencies:
     decorate-component-with-props "^1.0.2"
     draft-js "~0.10.0"
