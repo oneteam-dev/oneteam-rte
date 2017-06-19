@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
 import { BLOCK_TYPES, INLINE_STYLES, HEADER_BLOCK_TYPES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';

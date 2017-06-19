@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
 import BaseButton from './BaseButton';
 import toggleInlineStyle from '../functions/toggleInlineStyle';

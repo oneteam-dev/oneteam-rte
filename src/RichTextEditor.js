@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, Children, cloneElement } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
