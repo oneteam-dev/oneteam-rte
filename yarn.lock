@@ -1691,12 +1691,12 @@ draft-js-checkable-list-item@^2.0.5:
   dependencies:
     draft-js-modifiers "^0.1.2"
 
-draft-js-checkable-list-plugin@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-plugin/-/draft-js-checkable-list-plugin-2.0.1.tgz#e6ff78daa04f3f4c626e51f5b4367ddb2651b2fe"
+draft-js-checkable-list-plugin@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-plugin/-/draft-js-checkable-list-plugin-3.0.0.tgz#29352ba6ef7159f62b05091dfcd254133e0d4923"
   dependencies:
     decorate-component-with-props "^1.0.2"
-    draft-js "~0.10.0"
+    draft-js "~0.10.1"
     draft-js-checkable-list-item "^2.0.5"
     immutable "~3.7.4"
     union-class-names "^1.0.0"
@@ -1743,9 +1743,9 @@ draft-js-modifiers@^0.1.2:
     draft-js "~0.10.0"
     immutable "~3.7.4"
 
-draft-js-oneteam-rte-plugin@oneteam-dev/draft-js-oneteam-rte-plugin#prebuilt-c7dbb6a:
-  version "0.2.0"
-  resolved "https://codeload.github.com/oneteam-dev/draft-js-oneteam-rte-plugin/tar.gz/c60e91cc307da5ec98b9ae9cfef7dfec51d21509"
+draft-js-oneteam-rte-plugin@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.3.0.tgz#bd12fc46c3c63c771613f79af3bb890bc20dc6e0"
   dependencies:
     decorate-component-with-props "^1.0.2"
     draft-js "~0.10.1"
