@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
 import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item';
 import BlockTypeButton from './BlockTypeButton';
