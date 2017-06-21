@@ -39,6 +39,8 @@ const createPlugins = (configs) => {
   // I think that should be corrected like this
   // `blockRenderMap: checkboxBlockRenderMap`
   delete markdownShortcutsPlugin.blockRenderMap;
+  // TODO: Temporarily disable it, because there has a bug.
+  delete markdownShortcutsPlugin.handlePastedText;
 
   return {
     all: [
