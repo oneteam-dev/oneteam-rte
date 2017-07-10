@@ -7,16 +7,23 @@
     "url": "git@github.com:oneteam-dev/oneteam-rte.git"
   },
   "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
   "files": [
-    "lib"
+    "lib",
+    "es"
   ],
   "scripts": {
     "start": "webpack-dev-server --progress",
     "lint": "eslint src",
     "test": "npm run lint",
     "watch": "babel -w -d lib src",
-    "clean": "if [ -d lib ]; then rm -rf lib; fi",
-    "build": "npm run clean && NODE_ENV=production BABEL_ENV=production babel -d lib src",
+    "clean:lib": "if [ -d lib ]; then rm -rf lib; fi",
+    "clean:es": "if [ -d es ]; then rm -rf es; fi",
+    "prebuild": "npm run clean:lib && npm run clean:es",
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:es": "BABEL_ENV=es babel -d es src",
+    "build:commonjs": "BABEL_ENV=commonjs babel -d lib src",
     "prepublish": "npm run lint && npm run build",
     "publish-if-tagged": "/bin/bash scripts/npm-publish.sh",
     "bump-patch-number": "(git branch | grep \\*\\ master > /dev/null) && npm version patch -m 'Version bump to %s' && git push --tags && git push origin master"
@@ -47,14 +54,17 @@
     "draft-js-emoji-plugin": "sugarshin/draft-js-plugins#prebuilt-c1911c34",
     "draft-js-linkify-plugin": "2.0.0-rc2",
     "draft-js-markdown-shortcuts-plugin": "0.3.0",
+    "draft-js-mention-plugin": "2.0.0-rc2",
     "draft-js-oneteam-rte-plugin": "0.3.2",
     "draft-js-plugins-editor": "2.0.0-rc2",
     "draft-js-prism": "ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",
     "emojione": "^2.2.7",
+    "immutable": "~3.7.4",
     "lodash": "^4.17.4",
     "prismjs": "^1.6.0",
     "prop-types": "^15.5.10",
-    "react-bootstrap": "^0.31.0"
+    "react-bootstrap": "^0.31.0",
+    "react-oneteam": "^0.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -67,7 +77,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.4",
-    "eslint": "^4.1.1",
+    "eslint": "^4.2.0",
     "eslint-plugin-babel": "^4.1.1",
     "eslint-plugin-react": "^7.1.0",
     "file-loader": "^0.11.2",
@@ -82,6 +92,6 @@
     "stylus-loader": "^3.0.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.1.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.5.1"
   }
 }

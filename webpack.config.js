@@ -37,7 +37,13 @@ module.exports = {
       },
       {
         test: /\.styl$/,
-        use: ['style-loader', 'css-loader', 'stylus-loader']
+        use: ['style-loader', { loader: 'css-loader', options: { modules: true, importLoaders: 1 } }, 'stylus-loader'],
+        exclude: path.resolve(__dirname, 'examples', 'index.styl')
+      },
+      {
+        test: /\.styl$/,
+        use: ['style-loader', 'css-loader', 'stylus-loader'],
+        include: path.resolve(__dirname, 'examples', 'index.styl')
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

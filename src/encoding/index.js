@@ -1,24 +1,39 @@
+import emojione from 'emojione';
 import convertHTMLToContentState from 'draft-js-oneteam-rte-plugin/lib/encoding/convertHTMLToContentState';
 import convertContentStateToHTML from 'draft-js-oneteam-rte-plugin/lib/encoding/convertContentStateToHTML';
 import convertHTMLToMarkdown from 'draft-js-oneteam-rte-plugin/lib/encoding/htmlToMarkdown';
 import convertMarkdownToHTML from 'draft-js-oneteam-rte-plugin/lib/encoding/markdownToHTML';
-import emojione from 'emojione';
+import createToContentOptions from './helpers/createToContentOptions';
+import normalizeContentState from './helpers/normalizeContentState';
+import { entityType as mentionEntityType } from '../plugins/mention';
 
 const htmlToMarkdown = html => convertHTMLToMarkdown(html);
 
 const markdownToHTML = md => convertMarkdownToHTML(md);
 
+const defaultToHTMLOptions = {
+  entityRenderers: {
+    [mentionEntityType](entity) {
+      const { mention } = entity.getData();
+      const name = mention.get('userName') || mention.get('groupName');
+      return `@${name}`;
+    }
+  }
+};
+
 const contentToHTML = (content, options) => {
   return emojione.toShort(
-    convertContentStateToHTML(content, options)
+    convertContentStateToHTML(content, { ...defaultToHTMLOptions, ...options })
   );
 };
 
-const htmlToContent = (html, DOMBuilder) => {
-  return convertHTMLToContentState(
+const htmlToContent = (html, DOMBuilder, options) => {
+  const content = convertHTMLToContentState(
     emojione.shortnameToUnicode(html),
-    DOMBuilder
+    DOMBuilder,
+    createToContentOptions(options)
   );
+  return normalizeContentState(content);
 };
 
 export { htmlToMarkdown, markdownToHTML, contentToHTML, htmlToContent };
