@@ -7,8 +7,7 @@
   "plugins": ["babel", "react"],
   "env": {
     "browser": true,
-    "node": true,
-    "jest": true
+    "node": true
   },
   "rules": {
     "react/no-deprecated": 1

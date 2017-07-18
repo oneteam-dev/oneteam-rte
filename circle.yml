@@ -1,7 +1,7 @@
 machine:
   timezone: UTC
   node:
-    version: 6.9.4
+    version: 6.11.1
   post:
     - curl -o- -L https://yarnpkg.com/install.sh | bash
 general:
@@ -22,4 +22,4 @@ deployment:
     branch: master
     commands:
       - git fetch --tags
-      - yarn run publish-if-tagged
+      - npm run publish-if-tagged

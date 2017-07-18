@@ -1,8 +1,12 @@
 {
-  "presets": ["es2015", "es2016", "react", "stage-2"],
+  "presets": [["es2015", { "modules": false }], "es2016", "react", "stage-2"],
   "env": {
     "development": {
       "plugins": ["react-hot-loader/babel"]
-    }
+    },
+    "commonjs": {
+      "presets": ["es2015", "es2016", "react", "stage-2"]
+    },
+    "es": {}
   }
 }

@@ -1,18 +1,23 @@
 import React, { Component, Children, cloneElement } from 'react';
+import { userMentionType, groupMentionType } from 'react-oneteam/lib/Mention';
 import PropTypes from 'prop-types';
+import { fromJS } from 'immutable';
 import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
 import { emojioneList } from 'emojione';
 import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
-import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState } from './utils';
+import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState, mentionSuggestionsFilter } from './utils';
 import { contentToHTML, htmlToMarkdown } from './encoding'
 import createPlugins from './plugins';
+import MentionSuggestionsEntry from './plugins/mention/components/MentionSuggestionsEntry';
 import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 import 'draft-js-checkable-list-plugin/lib/plugin.css';
 import 'draft-js-emoji-plugin/lib/plugin.css';
+import 'draft-js-mention-plugin/lib/plugin.css';
+import 'react-oneteam/lib/react-oneteam.css';
 
 export default class RichTextEditor extends Component {
   static propTypes = {
@@ -32,7 +37,11 @@ export default class RichTextEditor extends Component {
     atomicBlockRenderMap: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
     onCompleteFileUpload: PropTypes.func,
     priorityEmojiShortnames: PropTypes.arrayOf(PropTypes.string),
-    emojiImagePath: PropTypes.string
+    emojiImagePath: PropTypes.string,
+    rawMentions: PropTypes.arrayOf(
+      PropTypes.oneOfType([userMentionType, groupMentionType])
+    ),
+    AvatarComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
   }
   static defaultProps = {
     placeholder: 'Contents here...',
@@ -40,8 +49,9 @@ export default class RichTextEditor extends Component {
     initialHtml: ''
   }
   set html(html) {
-    const editorState = updateEditorState(this.state.editorState, html);
-    this.setState({ editorState });
+    const { editorState, mentionSuggestions } = this.state;
+    const newEditorState = updateEditorState(editorState, html, mentionSuggestions);
+    this.setState({ editorState: newEditorState });
   }
   get html() {
     return contentToHTML(this._contentState);
@@ -64,6 +74,9 @@ export default class RichTextEditor extends Component {
   get emojiPlugin() {
     return this.plugins.emojiPlugin;
   }
+  get mentionPlugin() {
+    return this.plugins.mentionPlugin;
+  }
   get firstBlockText() {
     return this._contentState.getFirstBlock().getText();
   }
@@ -80,12 +93,24 @@ export default class RichTextEditor extends Component {
       this.closeInsertLinkInput();
     }
   }
+  handleMentionSearchChange = ({ value }) => {
+    this.setState({
+      mentionSuggestions: mentionSuggestionsFilter(value, fromJS(this.props.rawMentions))
+    });
+  }
 
   constructor(props) {
     super(props);
+    const mentionSuggestions = fromJS(this.props.rawMentions);
+    const editorState = createEditorState(
+      this.props.initialHtml,
+      null,
+      { mentions: mentionSuggestions }
+    );
     this.state = {
-      editorState: createEditorState(this.props.initialHtml),
-      isOpenInsertLinkInput: false
+      editorState,
+      isOpenInsertLinkInput: false,
+      mentionSuggestions
     };
 
     this._plugins = createPlugins({
@@ -178,6 +203,11 @@ export default class RichTextEditor extends Component {
           placeholder={placeholder}
         />
         <this.emojiPlugin.EmojiSuggestions />
+        <this.mentionPlugin.MentionSuggestions
+          suggestions={this.state.mentionSuggestions}
+          onSearchChange={this.handleMentionSearchChange}
+          entryComponent={MentionSuggestionsEntry}
+        />
       </div>
     </div>;
   }

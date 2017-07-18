@@ -5,6 +5,7 @@ import createBlockBreakoutPlugin from 'draft-js-block-breakout-plugin';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createCheckableListPlugin from 'draft-js-checkable-list-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
+import createMentionPlugin from './mention';
 import createPrismPlugin from './prism';
 
 const defaultConfig = {
@@ -21,7 +22,8 @@ const defaultConfig = {
   // https://github.com/draft-js-plugins/draft-js-plugins/issues/717
   //                                          \
   emoji: { ignoreEmojiRegex: /(_?tone[0-9]:$|^:(one|two|three|four|five|six|seven|eight|nine|zero):$)/ },
-  prism: {}
+  prism: {},
+  mention: {}
 };
 
 const createPlugins = (configs) => {
@@ -33,6 +35,7 @@ const createPlugins = (configs) => {
   const linkifyPlugin = createLinkifyPlugin(config.linkify);
   const emojiPlugin = createEmojiPlugin(config.emoji);
   const prismPlugin = createPrismPlugin(config.prism);
+  const mentionPlugin = createMentionPlugin(config.mention);
 
   // TODO: It becomes a block when pasting html containing `<code>`
   // https://github.com/ngs/draft-js-markdown-shortcuts-plugin/blob/28c6479ec137146a1bf8dedac6fae42c651fcf43/src/index.js#L24
@@ -50,10 +53,12 @@ const createPlugins = (configs) => {
       checkableListPlugin,
       linkifyPlugin,
       prismPlugin,
-      emojiPlugin
+      emojiPlugin,
+      mentionPlugin
     ],
     oneteamRTEPlugin,
-    emojiPlugin
+    emojiPlugin,
+    mentionPlugin
   };
 }
 

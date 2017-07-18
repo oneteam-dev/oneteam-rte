@@ -53,9 +53,23 @@ export default class Editor extends Component {
           [PLACEHOLDER]: PDFPreview,
           [FILE_PLACEHOLDER]: FilePlaceholder
         }}
+        rawMentions={mentions}
       >
         {this.renderToolbar()}
       </OneteamRTE>
     );
   }
 }
+
+const mentions = [
+  {
+    userName: 'sugarshin',
+    name: 'Shingo Sato',
+    email: 'shinsugar@gmail.com',
+  },
+  {
+    userName: 'ngs',
+    name: 'Atsushi Nagase',
+    email: 'a@ngs.io',
+  }
+]
