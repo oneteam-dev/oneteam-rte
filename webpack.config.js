@@ -47,11 +47,16 @@ module.exports = {
       },
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: `url-loader?${JSON.stringify({ limit: 10000, mimetype: 'application/font-woff' })}`
+        loader: 'url-loader',
+        options: { limit: 10000, mimetype: 'application/font-woff' }
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.png$/,
+        loader: 'url-loader'
       }
     ]
   },
@@ -59,6 +64,6 @@ module.exports = {
     contentBase: './examples',
     hot: true,
     host: '0.0.0.0',
-    port: parseInt(PORT, 10)
+    port: PORT
   }
 };
