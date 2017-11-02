@@ -55,7 +55,7 @@
     "draft-js-linkify-plugin": "2.0.0-rc2",
     "draft-js-markdown-shortcuts-plugin": "0.3.0",
     "draft-js-mention-plugin": "2.0.0-rc2",
-    "draft-js-oneteam-rte-plugin": "0.3.2",
+    "draft-js-oneteam-rte-plugin": "0.3.3",
     "draft-js-plugins-editor": "2.0.0-rc2",
     "draft-js-prism": "ngs/draft-js-prism#6edb31c3805dd1de3fb897cc27fced6bac1bafbb",
     "emojione": "^2.2.7",
