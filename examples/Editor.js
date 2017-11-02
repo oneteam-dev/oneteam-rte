@@ -63,11 +63,13 @@ export default class Editor extends Component {
 
 const mentions = [
   {
+    id: 'sugarshin',
     userName: 'sugarshin',
     name: 'Shingo Sato',
     email: 'shinsugar@gmail.com',
   },
   {
+    id: 'ngs',
     userName: 'ngs',
     name: 'Atsushi Nagase',
     email: 'a@ngs.io',

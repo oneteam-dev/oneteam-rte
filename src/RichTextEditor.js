@@ -41,7 +41,8 @@ export default class RichTextEditor extends Component {
     rawMentions: PropTypes.arrayOf(
       PropTypes.oneOfType([userMentionType, groupMentionType])
     ),
-    AvatarComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+    AvatarComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    disableWebCardCreation: PropTypes.bool
   }
   static defaultProps = {
     placeholder: 'Contents here...',
@@ -119,7 +120,8 @@ export default class RichTextEditor extends Component {
         onReturnWithCommand: this.props.onReturnWithCommand,
         onPastedFiles: this.props.onPastedFiles,
         atomicBlockRenderMap: this.props.atomicBlockRenderMap,
-        onCompleteFileUpload: this.props.onCompleteFileUpload
+        onCompleteFileUpload: this.props.onCompleteFileUpload,
+        disableWebCardCreation: this.props.disableWebCardCreation
       },
       emoji: {
         priorityList: this.props.priorityEmojiShortnames ?
