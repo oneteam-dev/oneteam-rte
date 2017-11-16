@@ -6,7 +6,7 @@ import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
 import { emojioneList } from 'emojione';
-import isFunction from 'lodash/isFunction';
+import { isFunction, omit } from 'lodash';
 import classNames from 'classnames';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState, mentionSuggestionsFilter } from './utils';
 import { contentToHTML, htmlToMarkdown } from './encoding'
@@ -196,6 +196,7 @@ export default class RichTextEditor extends Component {
         onMouseDown={this.handleContainerMouseDown}
       >
         <Editor
+          {...omit(this.props, Object.keys(RichTextEditor.propTypes))}
           plugins={this._plugins.all}
           ref={c => this.editor = c}
           editorState={editorState}
