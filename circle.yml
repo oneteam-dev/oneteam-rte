@@ -10,9 +10,8 @@ general:
 dependencies:
   pre:
     - yarn --version
-    - 'echo "email=${NPM_EMAIL}" > ~/.npmrc'
-    - 'echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >> ~/.npmrc'
-    - '[[ $(npm whoami) == "ngs" ]] || sh -c "echo not\\ authenticated; exit 1"'
+    - 'echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > ~/.npmrc'
+    - '[[ $(npm whoami) == "sugarshin" ]] || sh -c "echo not\\ authenticated; exit 1"'
   override:
     - yarn
   cache_directories:
