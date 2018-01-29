@@ -15,7 +15,7 @@ import MentionSuggestionsEntry from './plugins/mention/components/MentionSuggest
 import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 import 'draft-js-checkable-list-plugin/lib/plugin.css';
-import 'draft-js-emoji-plugin/lib/plugin.css';
+import '@sugarshin/draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-mention-plugin/lib/plugin.css';
 import 'react-oneteam/lib/react-oneteam.css';
 

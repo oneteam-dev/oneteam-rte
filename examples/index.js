@@ -1,22 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
 import App from './App';
 
 const rootEl = document.body.appendChild(document.createElement('div'));
 
-const render = Component => {
-  ReactDOM.render(<AppContainer><Component /></AppContainer>, rootEl);
-};
-
 const runApp = () => {
-  render(App)
-
-  if (module.hot) {
-    module.hot.accept('./App', () => {
-      render(App)
-    });
-  }
+  ReactDOM.render(<App />, rootEl);
 };
 
 const prependChild = (parentNode, newNode, referenceNode) => {
