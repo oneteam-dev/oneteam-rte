@@ -1,11 +1,23 @@
 {
-  "presets": [["es2015", { "modules": false }], "es2016", "react", "stage-2"],
+  "presets": [
+    ["@babel/preset-es2015", { "modules": false }],
+    "@babel/preset-es2016",
+    "@babel/preset-es2017",
+    "@babel/preset-react",
+    "@babel/preset-stage-2"
+  ],
   "env": {
     "development": {
       "plugins": ["react-hot-loader/babel"]
     },
     "commonjs": {
-      "presets": ["es2015", "es2016", "react", "stage-2"]
+      "presets": [
+        "@babel/preset-es2015",
+        "@babel/preset-es2016",
+        "@babel/preset-es2017",
+        "@babel/preset-react",
+        "@babel/preset-stage-2"
+      ]
     },
     "es": {}
   }

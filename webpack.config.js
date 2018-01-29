@@ -5,15 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PORT = process.env.PORT || 8008;
 
 const entry = [
-  `webpack-dev-server/client?http://localhost:${PORT}`,
-  'webpack/hot/only-dev-server',
-  'react-hot-loader/patch',
-  'babel-polyfill',
+  '@babel/polyfill',
   './examples/index.js'
 ];
 const plugins = [
-  new webpack.HotModuleReplacementPlugin(),
-  new HtmlWebpackPlugin()
+  new HtmlWebpackPlugin(),
+  new webpack.NamedModulesPlugin(),
+  new webpack.HotModuleReplacementPlugin()
 ];
 
 module.exports = {
