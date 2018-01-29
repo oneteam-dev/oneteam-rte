@@ -1,16 +1,20 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './App';
 
+const rootEl = document.body.appendChild(document.createElement('div'));
+
+const render = Component => {
+  ReactDOM.render(<AppContainer><Component /></AppContainer>, rootEl);
+};
+
 const runApp = () => {
-  const rootEl = document.body.appendChild(document.createElement('div'));
-  render(<AppContainer><App /></AppContainer>, rootEl);
+  render(App)
 
   if (module.hot) {
     module.hot.accept('./App', () => {
-      const NextApp = require('./App').default;
-      render(<AppContainer><NextApp /></AppContainer>, rootEl);
+      render(App)
     });
   }
 };
