@@ -24,7 +24,7 @@
     "build": "npm run build:commonjs && npm run build:es",
     "build:es": "BABEL_ENV=es babel -d es src",
     "build:commonjs": "BABEL_ENV=commonjs babel -d lib src",
-    "prepublish": "npm run lint && npm run build",
+    "prepublishOnly": "npm run lint && npm run build",
     "publish-if-tagged": "/bin/bash scripts/npm-publish.sh",
     "bump-patch-number": "(git branch | grep \\*\\ master > /dev/null) && npm version patch -m 'Version bump to %s' && git push --tags && git push origin master"
   },
