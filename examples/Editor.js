@@ -5,6 +5,7 @@ import PDFPreview from './components/PDFPreview';
 import FilePlaceholder from './components/FilePlaceholder';
 import { WEB_CARD, PLACEHOLDER, FILE_PLACEHOLDER } from '../src/constants';
 import itemOptions from './itemOptions';
+import 'prismjs/themes/prism.css';
 import 'prism-github/prism-github.css';
 import './index.styl';
 
