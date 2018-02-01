@@ -41,7 +41,6 @@ export default class RichTextEditor extends Component {
     rawMentions: PropTypes.arrayOf(
       PropTypes.oneOfType([userMentionType, groupMentionType])
     ),
-    AvatarComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
     disableWebCardCreation: PropTypes.bool
   }
   static defaultProps = {
