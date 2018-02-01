@@ -6,7 +6,6 @@ import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
 import { emojioneList } from 'emojione';
-import isFunction from 'lodash/isFunction';
 import classNames from 'classnames';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState, mentionSuggestionsFilter } from './utils';
 import { contentToHTML, htmlToMarkdown } from './encoding'
@@ -133,18 +132,7 @@ export default class RichTextEditor extends Component {
       }
     });
 
-    let triggerLock = 0; // To reduce triggering change callbacks.
-    const triggerOnChange = () => {
-      const { onChange } = this.props;
-      if (isFunction(onChange) && triggerLock === 0) {
-        triggerLock = setTimeout(() => {
-          onChange(this);
-          triggerLock = 0;
-        }, 100);
-      }
-    }
-
-    this.changeEditorState = editorState => this.setState({ editorState }, triggerOnChange);
+    this.changeEditorState = editorState => this.setState({ editorState }, this.props.onChange);
     this.getCurrentBlockType = (...args) => getCurrentBlockType(this.state.editorState, ...args);
     this.hasCurrentInlineStyle = (...args) => hasCurrentInlineStyle(this.state.editorState, ...args);
 
