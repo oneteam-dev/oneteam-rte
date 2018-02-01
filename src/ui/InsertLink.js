@@ -8,29 +8,25 @@ import toggleLink from '../functions/toggleLink';
 import classnames from 'classnames';
 
 export default class InsertLink extends Component {
-  static get propTypes() {
-    return {
-      editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onInsertLink: PropTypes.func.isRequired,
-      className: PropTypes.string,
-      iconClassName: PropTypes.string,
-      placeholder: PropTypes.string,
-      validationErrorMessage: PropTypes.string,
-      children: PropTypes.node,
-      buttonText: PropTypes.string,
-      isOpen: PropTypes.bool,
-      onMouseDownToggle: PropTypes.func.isRequired
-    };
+  static propTypes = {
+    editorState: PropTypes.instanceOf(EditorState).isRequired,
+    onInsertLink: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    iconClassName: PropTypes.string,
+    placeholder: PropTypes.string,
+    validationErrorMessage: PropTypes.string,
+    children: PropTypes.node,
+    buttonText: PropTypes.string,
+    isOpen: PropTypes.bool,
+    onMouseDownToggle: PropTypes.func.isRequired
   }
-  static get defaultProps() {
-    return {
-      className: '',
-      iconClassName: '',
-      placeholder: 'Enter a URL...',
-      validationErrorMessage: 'Please enter a valid URL.',
-      buttonText: '✔',
-      isOpen: false
-    };
+  static defaultProps = {
+    className: '',
+    iconClassName: '',
+    placeholder: 'Enter a URL...',
+    validationErrorMessage: 'Please enter a valid URL.',
+    buttonText: '✔',
+    isOpen: false
   }
   constructor(props) {
     super(props);

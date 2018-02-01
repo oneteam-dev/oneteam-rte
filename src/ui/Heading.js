@@ -10,18 +10,14 @@ import toggleBlockType from '../functions/toggleBlockType';
 import getCurrentBlockType from '../utils/getCurrentBlockType';
 
 export default class Heading extends Component {
-  static get propTypes() {
-    return {
-      editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onToggleBlockType: PropTypes.func.isRequired,
-      className: PropTypes.string,
-      name: PropTypes.string,
-      closeButtonNode: PropTypes.node
-    };
+  static propTypes = {
+    editorState: PropTypes.instanceOf(EditorState).isRequired,
+    onToggleBlockType: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    name: PropTypes.string,
+    closeButtonNode: PropTypes.node
   }
-  static get defaultProps() {
-    return { className: '', name: 'Heading' };
-  }
+  static defaultProps = { className: '', name: 'Heading' }
   constructor(props) {
     super(props);
     this.handleSelect = eventKey => this._handleSelect(eventKey);

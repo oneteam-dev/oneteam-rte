@@ -6,19 +6,15 @@ import toggleInlineStyle from '../functions/toggleInlineStyle';
 import hasCurrentInlineStyle from '../utils/hasCurrentInlineStyle';
 
 export default class InlineStyleButton extends Component {
-  static get propTypes() {
-    return {
-      type: PropTypes.string.isRequired,
-      editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onToggle: PropTypes.func.isRequired,
-      className: PropTypes.string,
-      children: PropTypes.node,
-      active: PropTypes.bool
-    };
+  static propTypes = {
+    type: PropTypes.string.isRequired,
+    editorState: PropTypes.instanceOf(EditorState).isRequired,
+    onToggle: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node,
+    active: PropTypes.bool
   }
-  static get defaultProps() {
-    return { className: '' };
-  }
+  static defaultProps = { className: '' }
   constructor(props) {
     super(props);
     this.handleMouseDown = ev => this._handleMouseDown(ev);
@@ -34,7 +30,8 @@ export default class InlineStyleButton extends Component {
       <BaseButton
         className={this.props.className}
         onMouseDown={this.handleMouseDown}
-        active={hasCurrentInlineStyle(this.props.editorState, this.props.type)}>
+        active={hasCurrentInlineStyle(this.props.editorState, this.props.type)}
+      >
         {this.props.children}
       </BaseButton>
     );
