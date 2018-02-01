@@ -2047,9 +2047,9 @@ draft-js-modifiers@^0.2.0, draft-js-modifiers@~0.2.0:
     draft-js "~0.10.4"
     immutable "~3.7.4"
 
-draft-js-oneteam-rte-plugin@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.4.0.tgz#617c3604931037d9a78620f4618d95c9b57a0dd0"
+draft-js-oneteam-rte-plugin@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.4.1.tgz#e28622dd4e627994952438e966fdfcb70904e543"
   dependencies:
     autolinker "^1.6.0"
     decorate-component-with-props "^1.1.0"
