@@ -1994,12 +1994,6 @@ draft-js-block-breakout-plugin@^2.0.1:
   dependencies:
     immutable "~3.7.4"
 
-draft-js-checkable-list-item@^2.0.5:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-item/-/draft-js-checkable-list-item-2.0.6.tgz#19dfb99421e07ac1a93736f4a5d04e222de2a647"
-  dependencies:
-    draft-js-modifiers "^0.1.5"
-
 draft-js-checkable-list-item@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/draft-js-checkable-list-item/-/draft-js-checkable-list-item-3.0.0.tgz#cb81e7dc76913959bb55aa3af33443f6634a3518"
@@ -2026,13 +2020,13 @@ draft-js-linkify-plugin@^2.0.1:
     tlds "^1.189.0"
     union-class-names "^1.0.0"
 
-draft-js-markdown-shortcuts-plugin@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/draft-js-markdown-shortcuts-plugin/-/draft-js-markdown-shortcuts-plugin-0.3.0.tgz#f928cdff941d89a93e5ec2dd8f23df053c8f7ceb"
+draft-js-markdown-shortcuts-plugin@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/draft-js-markdown-shortcuts-plugin/-/draft-js-markdown-shortcuts-plugin-0.4.0.tgz#6923247486ae3070ea3b6bc57002e134a00b948f"
   dependencies:
-    decorate-component-with-props "^1.0.2"
-    draft-js "~0.10.1"
-    draft-js-checkable-list-item "^2.0.5"
+    decorate-component-with-props "^1.1.0"
+    draft-js "~0.10.5"
+    draft-js-checkable-list-item "^3.0.0"
     immutable "~3.7.4"
 
 draft-js-mention-plugin@^2.0.1:
@@ -2045,13 +2039,6 @@ draft-js-mention-plugin@^2.0.1:
     lodash.escaperegexp "^4.1.2"
     prop-types "^15.5.8"
     union-class-names "^1.0.0"
-
-draft-js-modifiers@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/draft-js-modifiers/-/draft-js-modifiers-0.1.5.tgz#5134a6dbf3fa5b76b74dc269e1877b93f29336b0"
-  dependencies:
-    draft-js "~0.10.0"
-    immutable "~3.7.4"
 
 draft-js-modifiers@^0.2.0, draft-js-modifiers@~0.2.0:
   version "0.2.0"
@@ -2102,7 +2089,7 @@ draft-js-utils@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-1.2.0.tgz#f5cb23eb167325ffed3d79882fdc317721d2fd12"
 
-draft-js@^0.10.5, draft-js@~0.10.0, draft-js@~0.10.1, draft-js@~0.10.4:
+draft-js@^0.10.5, draft-js@~0.10.4, draft-js@~0.10.5:
   version "0.10.5"
   resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.10.5.tgz#bfa9beb018fe0533dbb08d6675c371a6b08fa742"
   dependencies:
