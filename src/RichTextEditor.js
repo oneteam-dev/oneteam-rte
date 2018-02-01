@@ -213,6 +213,14 @@ export default class RichTextEditor extends Component {
   /**
    * @public
    */
-  focus = () => this.editor.focus()
-  blur = () => this.editor.blur()
+  focus = () => {
+    if (this.editor) {
+      this.editor.focus();
+    }
+  }
+  blur = () => {
+    if (this.editor) {
+      this.editor.blur();
+    }
+  }
 }
