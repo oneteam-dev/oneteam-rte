@@ -1,33 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import InlineStyleButton from './InlineStyleButton';
 
-export default class Strikethrough extends Component {
-  static get propTypes() {
-    return {
-      editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onToggleInlineStyle: PropTypes.func.isRequired,
-      children: PropTypes.node,
-      className: PropTypes.string
-    };
-  }
-  static get defaultProps() {
-    return { className: '' };
-  }
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <InlineStyleButton
-        type={INLINE_STYLES.STRIKETHROUGH}
-        editorState={this.props.editorState}
-        onToggle={this.props.onToggleInlineStyle}
-        className={this.props.className}>
-        {this.props.children}
-      </InlineStyleButton>
-    );
-  }
-}
+const Strikethrough = ({ editorState, onToggleInlineStyle, className, children }) => {
+  return (
+    <InlineStyleButton
+      type={INLINE_STYLES.STRIKETHROUGH}
+      editorState={editorState}
+      onToggle={onToggleInlineStyle}
+      className={className}
+    >
+      {children}
+    </InlineStyleButton>
+  );
+};
+
+Strikethrough.propTypes = {
+  editorState: PropTypes.instanceOf(EditorState).isRequired,
+  onToggleInlineStyle: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  className: PropTypes.string
+};
+
+Strikethrough.defaultProps = { className: '' };
+
+export default Strikethrough;

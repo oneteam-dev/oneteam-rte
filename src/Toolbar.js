@@ -13,33 +13,29 @@ import { hasCurrentInlineStyle, getCurrentBlockType, checkCurrentBlockType } fro
 import DEFAULT_ITEM_OPTIONS, * as ITEM_NAMES from './constants/toolbar';
 
 export default class Toolbar extends Component {
-  static get propTypes() {
-    return {
-      editorState: PropTypes.instanceOf(EditorState), // Required, but inherited from parent (RichTextEditor) component
-      onChange: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
-      toggleInsertLinkInput: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
-      isOpenInsertLinkInput: PropTypes.bool.isRequired,
+  static propTypes = {
+    editorState: PropTypes.instanceOf(EditorState), // Required, but inherited from parent (RichTextEditor) component
+    onChange: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
+    toggleInsertLinkInput: PropTypes.func, // Required, but inherited from parent (RichTextEditor) component
+    isOpenInsertLinkInput: PropTypes.bool.isRequired,
 
-      children: PropTypes.node,
-      onClickInsertImage: PropTypes.func.isRequired,
-      onClickUploadFile: PropTypes.func.isRequired,
-      onMouseDownEmbedIFrame: PropTypes.func.isRequired,
-      onHeadingToggled: PropTypes.func.isRequired,
-      itemOptions: PropTypes.objectOf(
-        PropTypes.shape({
-          description: PropTypes.string,
-          name: PropTypes.string,
-          iconNode: PropTypes.node,
-          activeIconNode: PropTypes.node
-        })
-      )
-    };
+    children: PropTypes.node,
+    onClickInsertImage: PropTypes.func.isRequired,
+    onClickUploadFile: PropTypes.func.isRequired,
+    onMouseDownEmbedIFrame: PropTypes.func.isRequired,
+    onHeadingToggled: PropTypes.func.isRequired,
+    itemOptions: PropTypes.objectOf(
+      PropTypes.shape({
+        description: PropTypes.string,
+        name: PropTypes.string,
+        iconNode: PropTypes.node,
+        activeIconNode: PropTypes.node
+      })
+    )
   }
-  static get defaultProps() {
-    return {
-      itemOptions: DEFAULT_ITEM_OPTIONS,
-      isOpenInsertLinkInput: false
-    };
+  static defaultProps = {
+    itemOptions: DEFAULT_ITEM_OPTIONS,
+    isOpenInsertLinkInput: false
   }
 
   handleToggleHeading = editorState => {
@@ -47,9 +43,6 @@ export default class Toolbar extends Component {
     this.props.onHeadingToggled();
   }
 
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {
       editorState, children, itemOptions, isOpenInsertLinkInput, onChange, onClickInsertImage, onClickUploadFile, toggleInsertLinkInput,

@@ -6,18 +6,14 @@ import BaseButton from './BaseButton';
 import toggleLink from '../functions/toggleLink';
 
 export default class RemoveLink extends Component {
-  static get propTypes() {
-    return {
-      editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onRemoveLink: PropTypes.func.isRequired,
-      children: PropTypes.node,
-      className: PropTypes.string
-    };
+  static propTypes = {
+    editorState: PropTypes.instanceOf(EditorState).isRequired,
+    onRemoveLink: PropTypes.func.isRequired,
+    children: PropTypes.node,
+    className: PropTypes.string
   }
-  static get defaultProps() {
-    return {
-      className: ''
-    };
+  static defaultProps = {
+    className: ''
   }
   constructor(props) {
     super(props);

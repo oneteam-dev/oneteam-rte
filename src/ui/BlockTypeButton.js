@@ -6,19 +6,15 @@ import toggleBlockType from '../functions/toggleBlockType';
 import checkCurrentBlockType from '../utils/checkCurrentBlockType';
 
 export default class BlockTypeButton extends Component {
-  static get propTypes() {
-    return {
-      type: PropTypes.string.isRequired,
-      editorState: PropTypes.instanceOf(EditorState).isRequired,
-      onToggle: PropTypes.func.isRequired,
-      className: PropTypes.string,
-      children: PropTypes.node,
-      active: PropTypes.bool
-    };
+  static propTypes = {
+    type: PropTypes.string.isRequired,
+    editorState: PropTypes.instanceOf(EditorState).isRequired,
+    onToggle: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node,
+    active: PropTypes.bool
   }
-  static get defaultProps() {
-    return { className: '' };
-  }
+  static defaultProps = { className: '' }
   constructor(props) {
     super(props);
     this.handleMouseDown = ev => this._handleMouseDown(ev);
