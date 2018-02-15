@@ -7,6 +7,7 @@ import createCheckableListPlugin from 'draft-js-checkable-list-plugin';
 import createEmojiPlugin from '@sugarshin/draft-js-emoji-plugin';
 import createMentionPlugin from './mention';
 import createPrismPlugin from './prism';
+import Link from '../components/Link';
 
 const defaultConfig = {
   oneteamRTE: {},
@@ -17,7 +18,7 @@ const defaultConfig = {
   },
   markdownShortcuts: {},
   checkableList: { sameWrapperAsUnorderedListItem: true },
-  linkify: {},
+  linkify: { component: Link },
   // TODO: this is maybe draft-js-emoji-plugin or draft-js issue
   // https://github.com/draft-js-plugins/draft-js-plugins/issues/717
   //                                          \
