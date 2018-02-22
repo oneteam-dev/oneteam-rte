@@ -64,6 +64,7 @@
     "prismjs": "^1.11.0",
     "prop-types": "^15.6.0",
     "react-bootstrap": "^0.32.1",
+    "react-minimal-error-boundary": "^1.0.1",
     "react-oneteam": "^0.4.0"
   },
   "devDependencies": {
