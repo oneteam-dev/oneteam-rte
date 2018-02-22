@@ -47,14 +47,14 @@
     "react-dom": "^16.0.0 || ^15.0.0"
   },
   "dependencies": {
-    "@sugarshin/draft-js-emoji-plugin": "^2.0.1-oneteam.0",
+    "@sugarshin/draft-js-emoji-plugin": "^2.0.1-oneteam.1",
+    "@sugarshin/draft-js-mention-plugin": "^2.0.1-oneteam.1",
     "classnames": "^2.2.5",
     "draft-js": "^0.10.5",
     "draft-js-block-breakout-plugin": "^2.0.1",
     "draft-js-checkable-list-plugin": "^4.0.1",
     "draft-js-linkify-plugin": "^2.0.1",
     "draft-js-markdown-shortcuts-plugin": "^0.4.1",
-    "draft-js-mention-plugin": "^2.0.1",
     "draft-js-oneteam-rte-plugin": "^0.4.2",
     "draft-js-plugins-editor": "^2.0.4",
     "draft-js-prism": "^1.0.6",
