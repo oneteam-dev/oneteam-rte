@@ -3712,6 +3712,10 @@ lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
 
+lodash.noop@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.noop/-/lodash.noop-3.0.1.tgz#38188f4d650a3a474258439b96ec45b32617133c"
+
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
@@ -4910,6 +4914,10 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-error-boundary@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-1.2.1.tgz#60600750bf2ec03ca22a1e933ea371f38aa20fa3"
+
 react-fa@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-fa/-/react-fa-5.0.0.tgz#d571732856c6cb2c155c46daef018ba67a75b973"
@@ -4936,6 +4944,14 @@ react-icons@^2.2.7:
   resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-2.2.7.tgz#d7860826b258557510dac10680abea5ca23cf650"
   dependencies:
     react-icon-base "2.1.0"
+
+react-minimal-error-boundary@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-minimal-error-boundary/-/react-minimal-error-boundary-1.0.1.tgz#ed1750c87267a6cc4273938536a1ff63f383d6be"
+  dependencies:
+    lodash.noop "^3.0.1"
+    prop-types "^15.6.0"
+    react-error-boundary "^1.2.1"
 
 react-oneteam@^0.4.0:
   version "0.4.0"

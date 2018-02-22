@@ -48,6 +48,7 @@ export default class Editor extends Component {
       <OneteamRTE
         initialHtml='<h1>Oneteam Rich Text Editor</h1>'
         ref={c => window.rte = this.rte = this.props.onMount(c)}
+        onError={() => alert('Error')}
         placeholder='Write something here...'
         atomicBlockRenderMap={{
           [WEB_CARD]: WebCard,

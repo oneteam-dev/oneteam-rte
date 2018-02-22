@@ -1,5 +1,6 @@
 import React, { Component, Children, cloneElement } from 'react';
 import { userMentionType, groupMentionType } from 'react-oneteam/lib/Mention';
+import ErrorBoundary from 'react-minimal-error-boundary';
 import PropTypes from 'prop-types';
 import { fromJS } from 'immutable';
 import Editor from 'draft-js-plugins-editor';
@@ -32,6 +33,8 @@ export default class RichTextEditor extends Component {
     onReturnWithCommand: PropTypes.func,
     onPastedFiles: PropTypes.func,
     onKeyDown: PropTypes.func,
+    onError: PropTypes.func,
+    onRerenderedAfterError: PropTypes.func,
     customAtomicBlockRendererFn: PropTypes.func,
     atomicBlockRenderMap: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element, PropTypes.func])),
     onCompleteFileUpload: PropTypes.func,
@@ -169,36 +172,40 @@ export default class RichTextEditor extends Component {
   }
   render() {
     const { editorState } = this.state;
-    const { className, readOnly, placeholder } = this.props;
+    const { className, readOnly, placeholder, onError, onRerenderedAfterError } = this.props;
     const bodyClassName = classNames(
       'rich-text-editor-body',
       { 'RichEditor-hidePlaceholder': this._shouldHidePlaceholder() },
       className
     );
 
-    return <div className='rich-text-editor' id='rich-text-editor'>
-      {this.renderChildren()}
-      <div
-        className={bodyClassName}
-        onMouseDown={this.handleContainerMouseDown}
-      >
-        <Editor
-          plugins={this._plugins.all}
-          ref={c => this.editor = c}
-          editorState={editorState}
-          readOnly={readOnly}
-          onChange={this.changeEditorState}
-          onKeyDown={this.props.onKeyDown}
-          placeholder={placeholder}
-        />
-        <this.emojiPlugin.EmojiSuggestions />
-        <this.mentionPlugin.MentionSuggestions
-          suggestions={this.state.mentionSuggestions}
-          onSearchChange={this.handleMentionSearchChange}
-          entryComponent={MentionSuggestionsEntry}
-        />
-      </div>
-    </div>;
+    return (
+      <ErrorBoundary rerender onError={onError} onRerendered={onRerenderedAfterError}>
+        <div className='rich-text-editor' id='rich-text-editor'>
+          {this.renderChildren()}
+          <div
+            className={bodyClassName}
+            onMouseDown={this.handleContainerMouseDown}
+          >
+            <Editor
+              plugins={this._plugins.all}
+              ref={c => this.editor = c}
+              editorState={editorState}
+              readOnly={readOnly}
+              onChange={this.changeEditorState}
+              onKeyDown={this.props.onKeyDown}
+              placeholder={placeholder}
+            />
+            <this.emojiPlugin.EmojiSuggestions />
+            <this.mentionPlugin.MentionSuggestions
+              suggestions={this.state.mentionSuggestions}
+              onSearchChange={this.handleMentionSearchChange}
+              entryComponent={MentionSuggestionsEntry}
+            />
+          </div>
+        </div>
+      </ErrorBoundary>
+    );
   }
   _shouldHidePlaceholder() {
     const contentState = this.state.editorState.getCurrentContent();
