@@ -575,9 +575,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@sugarshin/draft-js-emoji-plugin@^2.0.1-oneteam.1":
-  version "2.0.1-oneteam.1"
-  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.1-oneteam.1.tgz#c1849aaf167bfdd9b071996f7def879567d91f23"
+"@sugarshin/draft-js-emoji-plugin@^2.0.1-oneteam.2":
+  version "2.0.1-oneteam.2"
+  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.1-oneteam.2.tgz#ce05347a799eb653bd3b957195ba408aa2f52a0a"
   dependencies:
     decorate-component-with-props "^1.1.0"
     emojione "^2.2.7"
@@ -590,9 +590,9 @@
     to-style "^1.3.3"
     union-class-names "^1.0.0"
 
-"@sugarshin/draft-js-mention-plugin@^2.0.1-oneteam.1":
-  version "2.0.1-oneteam.1"
-  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-mention-plugin/-/draft-js-mention-plugin-2.0.1-oneteam.1.tgz#a2a550219bc093280a706968af583273ac23fbda"
+"@sugarshin/draft-js-mention-plugin@^2.0.1-oneteam.2":
+  version "2.0.1-oneteam.2"
+  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-mention-plugin/-/draft-js-mention-plugin-2.0.1-oneteam.2.tgz#a1d4d0ad0d900177f36c096ab92bdd0b7c7fa095"
   dependencies:
     decorate-component-with-props "^1.1.0"
     find-with-regex "^1.0.2"

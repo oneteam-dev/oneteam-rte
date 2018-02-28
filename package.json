@@ -47,8 +47,8 @@
     "react-dom": "^16.0.0 || ^15.0.0"
   },
   "dependencies": {
-    "@sugarshin/draft-js-emoji-plugin": "^2.0.1-oneteam.1",
-    "@sugarshin/draft-js-mention-plugin": "^2.0.1-oneteam.1",
+    "@sugarshin/draft-js-emoji-plugin": "^2.0.1-oneteam.2",
+    "@sugarshin/draft-js-mention-plugin": "^2.0.1-oneteam.2",
     "classnames": "^2.2.5",
     "draft-js": "^0.10.5",
     "draft-js-block-breakout-plugin": "^2.0.1",
