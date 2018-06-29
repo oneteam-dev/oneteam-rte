@@ -43,12 +43,14 @@ export default class RichTextEditor extends Component {
     rawMentions: PropTypes.arrayOf(
       PropTypes.oneOfType([userMentionType, groupMentionType])
     ),
-    disableWebCardCreation: PropTypes.bool
+    disableWebCardCreation: PropTypes.bool,
+    stripPastedStyles: PropTypes.bool,
   }
   static defaultProps = {
     placeholder: 'Contents here...',
     readOnly: false,
-    initialHtml: ''
+    initialHtml: '',
+    stripPastedStyles: false,
   }
   set html(html) {
     const { editorState, mentionSuggestions } = this.state;
@@ -172,7 +174,7 @@ export default class RichTextEditor extends Component {
   }
   render() {
     const { editorState } = this.state;
-    const { className, readOnly, placeholder, onError, onRerenderedAfterError } = this.props;
+    const { className, readOnly, placeholder, onError, onRerenderedAfterError, stripPastedStyles } = this.props;
     const bodyClassName = classNames(
       'rich-text-editor-body',
       { 'RichEditor-hidePlaceholder': this._shouldHidePlaceholder() },
@@ -195,6 +197,7 @@ export default class RichTextEditor extends Component {
               onChange={this.changeEditorState}
               onKeyDown={this.props.onKeyDown}
               placeholder={placeholder}
+              stripPastedStyles={stripPastedStyles}
             />
             <this.emojiPlugin.EmojiSuggestions />
             <this.mentionPlugin.MentionSuggestions
