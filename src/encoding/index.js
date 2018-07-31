@@ -15,7 +15,7 @@ const defaultToHTMLOptions = {
   entityRenderers: {
     [mentionEntityType](entity) {
       const { mention } = entity.getData();
-      const name = mention.get('userName') || mention.get('groupName');
+      const name = mention.userName || mention.groupName;
       return `@${name}`;
     }
   }

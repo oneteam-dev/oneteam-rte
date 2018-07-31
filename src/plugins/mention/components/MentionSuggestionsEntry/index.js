@@ -1,23 +1,26 @@
 import React from 'react';
 import { MentionSelectCell } from 'react-oneteam';
+import { userMentionType, groupMentionType } from 'react-oneteam/lib/Mention';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
 import { mentionTrigger } from '../..';
 
 const MentionSuggestionsEntry = props => {
   const {
-    mention,
+    mention: {
+      name,
+      email,
+      userName,
+      groupName,
+      avatarURL,
+    },
     className,
     theme, // eslint-disable-line no-unused-vars
     searchValue, // eslint-disable-line no-unused-vars
     ...rest
   } = props;
-
-  const name = mention.get('name');
-  const email = mention.get('email');
-  const username = `${mentionTrigger}${mention.get('userName') || mention.get('groupName') || ''}`;
+  const username = `${mentionTrigger}${userName || groupName || ''}`;
   const user = {
-    profile_photo: { thumbnail_url: mention.get('avatarURL') },
+    profile_photo: { thumbnail_url: avatarURL },
     name,
   };
 
@@ -34,7 +37,7 @@ const MentionSuggestionsEntry = props => {
 };
 
 MentionSuggestionsEntry.propTypes = {
-  mention: PropTypes.instanceOf(Map),
+  mention: PropTypes.oneOfType([userMentionType, groupMentionType]),
   className: PropTypes.string,
   theme: PropTypes.object,
   searchValue: PropTypes.string,

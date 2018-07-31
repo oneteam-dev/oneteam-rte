@@ -2,7 +2,6 @@ import React, { Component, Children, cloneElement } from 'react';
 import { userMentionType, groupMentionType } from 'react-oneteam/lib/Mention';
 import ErrorBoundary from 'react-minimal-error-boundary';
 import PropTypes from 'prop-types';
-import { fromJS } from 'immutable';
 import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
@@ -16,7 +15,7 @@ import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
 import 'draft-js-checkable-list-plugin/lib/plugin.css';
 import '@sugarshin/draft-js-emoji-plugin/lib/plugin.css';
-import '@sugarshin/draft-js-mention-plugin/lib/plugin.css';
+import 'draft-js-mention-plugin/lib/plugin.css';
 import 'react-oneteam/lib/react-oneteam.css';
 
 export default class RichTextEditor extends Component {
@@ -97,13 +96,13 @@ export default class RichTextEditor extends Component {
   }
   handleMentionSearchChange = ({ value }) => {
     this.setState({
-      mentionSuggestions: mentionSuggestionsFilter(value, fromJS(this.props.rawMentions))
+      mentionSuggestions: mentionSuggestionsFilter(value, this.props.rawMentions)
     });
   }
 
   constructor(props) {
     super(props);
-    const mentionSuggestions = fromJS(this.props.rawMentions);
+    const mentionSuggestions = this.props.rawMentions;
     const editorState = createEditorState(
       this.props.initialHtml,
       null,

@@ -1,6 +1,6 @@
 import merge from 'lodash/merge';
-import draftJsMentionPlugin from '@sugarshin/draft-js-mention-plugin';
-import getTypeByTrigger from '@sugarshin/draft-js-mention-plugin/lib/utils/getTypeByTrigger';
+import draftJsMentionPlugin from 'draft-js-mention-plugin';
+import getTypeByTrigger from 'draft-js-mention-plugin/lib/utils/getTypeByTrigger';
 import createPositionSuggestions from '../helpers/createPositionSuggestions';
 import Mention from './components/Mention';
 
@@ -15,7 +15,7 @@ export const defaultConfig = {
   entityMutability,
   positionSuggestions: createPositionSuggestions(
     'bottom',
-    ({ state, props }) => state.isActive && props.suggestions.size > 0
+    ({ state, props }) => state.isActive && props.suggestions.length > 0
   ),
   mentionRegExp,
   mentionComponent: Mention

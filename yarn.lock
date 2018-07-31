@@ -575,30 +575,19 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@sugarshin/draft-js-emoji-plugin@^2.0.1-oneteam.2":
-  version "2.0.1-oneteam.2"
-  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.1-oneteam.2.tgz#ce05347a799eb653bd3b957195ba408aa2f52a0a"
+"@sugarshin/draft-js-emoji-plugin@^2.0.1-oneteam.3":
+  version "2.0.1-oneteam.3"
+  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-emoji-plugin/-/draft-js-emoji-plugin-2.0.1-oneteam.3.tgz#1772a681481e99481cb6a3690f0ecef671b5a445"
   dependencies:
     decorate-component-with-props "^1.1.0"
     emojione "^2.2.7"
-    find-with-regex "^1.0.2"
+    find-with-regex "^1.1.3"
     immutable "~3.7.4"
     lodash.keys "^4.2.0"
     prop-types "^15.6.0"
     react-custom-scrollbars "^4.2.1"
     react-icons "^2.2.7"
     to-style "^1.3.3"
-    union-class-names "^1.0.0"
-
-"@sugarshin/draft-js-mention-plugin@^2.0.1-oneteam.2":
-  version "2.0.1-oneteam.2"
-  resolved "https://registry.yarnpkg.com/@sugarshin/draft-js-mention-plugin/-/draft-js-mention-plugin-2.0.1-oneteam.2.tgz#a1d4d0ad0d900177f36c096ab92bdd0b7c7fa095"
-  dependencies:
-    decorate-component-with-props "^1.1.0"
-    find-with-regex "^1.0.2"
-    immutable "~3.7.4"
-    lodash.escaperegexp "^4.1.2"
-    prop-types "^15.6.0"
     union-class-names "^1.0.0"
 
 abab@^1.0.3:
@@ -1335,6 +1324,10 @@ classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
+classnames@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+
 clean-css@4.1.x:
   version "4.1.9"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.9.tgz#35cee8ae7687a49b98034f70de00c4edd3826301"
@@ -1351,9 +1344,9 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
-clipboard@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-1.7.1.tgz#360d6d6946e99a7a1fef395e42ba92b5e9b5a16b"
+clipboard@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.1.tgz#a12481e1c13d8a50f5f036b0560fe5d16d74e46a"
   dependencies:
     good-listener "^1.2.2"
     select "^1.1.2"
@@ -1973,12 +1966,19 @@ draft-js-checkable-list-item@^3.0.1:
     draft-js-modifiers "~0.2.1"
     immutable "~3.7.4"
 
-draft-js-checkable-list-plugin@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-plugin/-/draft-js-checkable-list-plugin-4.0.1.tgz#a0a8b7734edaac0bdba574c02112efc8da0df5b7"
+draft-js-checkable-list-item@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-item/-/draft-js-checkable-list-item-3.0.3.tgz#3c4aaaf1ad6281a49e45e8085fdbe912d43f2aca"
+  dependencies:
+    draft-js-modifiers "~0.2.2"
+    immutable "~3.7.4"
+
+draft-js-checkable-list-plugin@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-plugin/-/draft-js-checkable-list-plugin-4.0.2.tgz#6c6a1f11e96c0f68cf1d983fe3a33d96a7b1cb74"
   dependencies:
     decorate-component-with-props "^1.1.0"
-    draft-js-checkable-list-item "^3.0.1"
+    draft-js-checkable-list-item "^3.0.3"
     immutable "~3.7.4"
     union-class-names "^1.0.0"
 
@@ -1993,49 +1993,67 @@ draft-js-linkify-plugin@^2.0.1:
     tlds "^1.189.0"
     union-class-names "^1.0.0"
 
-draft-js-markdown-shortcuts-plugin@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/draft-js-markdown-shortcuts-plugin/-/draft-js-markdown-shortcuts-plugin-0.4.1.tgz#a539bbb530b09863e1cdb707ac4cf9f4576518c0"
+draft-js-markdown-shortcuts-plugin@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/draft-js-markdown-shortcuts-plugin/-/draft-js-markdown-shortcuts-plugin-0.5.0.tgz#f90ef984c8ac11f7a4e3092263ca2e81f49d6553"
   dependencies:
     decorate-component-with-props "^1.1.0"
     draft-js "~0.10.5"
     draft-js-checkable-list-item "^3.0.1"
     immutable "~3.7.4"
 
-draft-js-modifiers@^0.2.1, draft-js-modifiers@~0.2.1:
+draft-js-mention-plugin@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/draft-js-mention-plugin/-/draft-js-mention-plugin-3.0.4.tgz#e8530b7c16f23ce5b980515458418b5e24376f4a"
+  dependencies:
+    decorate-component-with-props "^1.0.2"
+    find-with-regex "^1.1.3"
+    immutable "~3.7.4"
+    lodash.escaperegexp "^4.1.2"
+    prop-types "^15.5.8"
+    union-class-names "^1.0.0"
+
+draft-js-modifiers@^0.2.2, draft-js-modifiers@~0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/draft-js-modifiers/-/draft-js-modifiers-0.2.2.tgz#ff715450a04aea86b84993b0e51eea7c25a2591d"
+  dependencies:
+    draft-js "~0.10.5"
+    immutable "~3.7.4"
+
+draft-js-modifiers@~0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/draft-js-modifiers/-/draft-js-modifiers-0.2.1.tgz#18f48e8ad59c0ae66b14847db42e5d595e5c038e"
   dependencies:
     draft-js "~0.10.5"
     immutable "~3.7.4"
 
-draft-js-oneteam-rte-plugin@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.4.2.tgz#1ee30199dc1d927b87cd081de07e65c32d9d2856"
+draft-js-oneteam-rte-plugin@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.4.3.tgz#de068e429a7378f358efb5fdaa60615d75ea3606"
   dependencies:
     autolinker "^1.6.2"
     decorate-component-with-props "^1.1.0"
-    draft-js-checkable-list-item "^3.0.1"
-    draft-js-modifiers "^0.2.1"
+    draft-js-checkable-list-item "^3.0.3"
+    draft-js-modifiers "^0.2.2"
     draft-js-utils "^1.2.0"
     extend "^3.0.1"
     he "^1.1.1"
     htmlclean "^3.0.8"
     immutable "~3.7.4"
-    invariant "^2.2.3"
-    lodash "^4.17.5"
-    marked "~0.3.16"
+    invariant "^2.2.4"
+    lodash "^4.17.10"
+    marked "~0.4.0"
     nullthrows "^1.0.1"
     to-markdown "^3.1.0"
     union-class-names "^1.0.0"
     url-regex "^3.2.0"
 
-draft-js-plugins-editor@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/draft-js-plugins-editor/-/draft-js-plugins-editor-2.0.4.tgz#ab7178de886d6d11f9f43a448c844da6266053e0"
+draft-js-plugins-editor@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/draft-js-plugins-editor/-/draft-js-plugins-editor-2.1.1.tgz#7c9aedd696737c6ddf45d47c978bd764ef33f688"
   dependencies:
     decorate-component-with-props "^1.0.2"
-    find-with-regex "^1.0.2"
+    find-with-regex "^1.1.3"
     immutable "~3.7.4"
     prop-types "^15.5.8"
     union-class-names "^1.0.0"
@@ -2603,9 +2621,9 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-find-with-regex@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/find-with-regex/-/find-with-regex-1.0.2.tgz#d3b36286539f14c527e31f194159c6d251651a45"
+find-with-regex@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/find-with-regex/-/find-with-regex-1.1.3.tgz#d6c6f2debee898d36b6a77e05709b13dd5dc8a26"
 
 flat-cache@^1.2.1:
   version "1.3.0"
@@ -3196,9 +3214,9 @@ invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.1:
   dependencies:
     loose-envify "^1.0.0"
 
-invariant@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.3.tgz#1a827dfde7dcbd7c323f0ca826be8fa7c5e9d688"
+invariant@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
     loose-envify "^1.0.0"
 
@@ -3724,9 +3742,9 @@ lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.0, l
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-lodash@^4.17.5:
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
+lodash@^4.17.10:
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
 loglevel@^1.4.1:
   version "1.6.1"
@@ -3784,9 +3802,9 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@~0.3.16:
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.16.tgz#2f188b7dfcfa6540fe9940adaf0f3b791c9a5cba"
+marked@~0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.4.0.tgz#9ad2c2a7a1791f10a852e0112f77b571dce10c66"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
@@ -4718,11 +4736,11 @@ prism-github@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/prism-github/-/prism-github-1.1.0.tgz#301bf05d4f58ff6fad63f3a4d26c9b3581c9fec8"
 
-prismjs@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.11.0.tgz#297aef33eb79421bfdb19273a5092ca515970d29"
+prismjs@^1.15.0:
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.15.0.tgz#8801d332e472091ba8def94976c8877ad60398d9"
   optionalDependencies:
-    clipboard "^1.7.1"
+    clipboard "^2.0.0"
 
 private@^0.1.6:
   version "0.1.8"
@@ -4761,6 +4779,13 @@ prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
     fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
+prop-types@^15.6.2:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  dependencies:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
@@ -4953,9 +4978,9 @@ react-minimal-error-boundary@^1.0.1:
     prop-types "^15.6.0"
     react-error-boundary "^1.2.1"
 
-react-oneteam@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/react-oneteam/-/react-oneteam-0.4.1.tgz#15cdf81ee90dfd4a9096cd186e653c3bddfb7f7b"
+react-oneteam@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/react-oneteam/-/react-oneteam-0.4.2.tgz#2746206ae5c07fdcd86ac2bcb9196d5d6b3a99a0"
   dependencies:
     classnames "^2.2.5"
     color-hash "^1.0.3"

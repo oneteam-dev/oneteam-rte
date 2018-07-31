@@ -1,11 +1,11 @@
 import React from 'react';
 import { Mention as MentionComponent } from 'react-oneteam';
+import { userMentionType, groupMentionType } from 'react-oneteam/lib/Mention';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
 
 const Mention = props => {
   return (
-    <MentionComponent isGroup={!!props.mention.get('groupName')}>
+    <MentionComponent isGroup={!!props.mention.groupName}>
       {props.children}
     </MentionComponent>
   );
@@ -13,6 +13,6 @@ const Mention = props => {
 
 Mention.propTypes = {
   children: PropTypes.node,
-  mention: PropTypes.instanceOf(Map)
+  mention: PropTypes.oneOfType([userMentionType, groupMentionType]),
 }
 export default Mention;
