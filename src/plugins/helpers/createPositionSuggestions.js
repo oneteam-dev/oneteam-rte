@@ -13,7 +13,6 @@ const getRelativeParent = (element) => {
   return getRelativeParent(element.parentElement);
 };
 
-// eslint-disable-next-line complexity
 const createPositionSuggestions = (position, isDisplay) => arg => {
   const { decoratorRect, popover } = arg;
   const relativeParent = getRelativeParent(popover.parentElement);
@@ -25,12 +24,12 @@ const createPositionSuggestions = (position, isDisplay) => arg => {
 
     const relativeParentRect = relativeParent.getBoundingClientRect();
     relativeRect.left = decoratorRect.left - relativeParentRect.left;
-    relativeRect.top = decoratorRect.top - relativeParentRect.top;
+    relativeRect.top = decoratorRect.bottom - relativeParentRect.top;
   } else {
     relativeRect.scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     relativeRect.scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
-    relativeRect.top = decoratorRect.top;
+    relativeRect.top = decoratorRect.bottom;
     relativeRect.left = decoratorRect.left;
   }
 
@@ -38,19 +37,20 @@ const createPositionSuggestions = (position, isDisplay) => arg => {
   const top = relativeRect.top + relativeRect.scrollTop;
 
   let transform;
+  let transition;
   if (isDisplay(arg)) {
     transform = 'scale(1)';
+    transition = 'all 0.25s cubic-bezier(.3,1.2,.2,1)';
   } else {
     transform = 'scale(0)';
+    transition = 'all 0.35s cubic-bezier(.3,1,.2,1)';
   }
 
   const ret = {
     left: `${left}px`,
     transform,
     transformOrigin: '1em 0%',
-    border: '1px solid rgba(0, 0, 0, .1)',
-    borderRadius: 4,
-    boxShadow: '0 2px 10px 0 rgba(0, 0, 0, .1)'
+    transition,
   };
 
   if (position === 'top') {

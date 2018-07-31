@@ -11,7 +11,7 @@ const createToContentOptions = ({ mentions = [] } = {}) => {
       while ((result = mentionRegex.exec(text))) { // eslint-disable-line no-cond-assign
         const [match, mentionName/*, teamName*/] = result;
         const { index: offset } = result;
-        const mention = mentions.find(m => [m.get('userName'), m.get('groupName')].includes(mentionName));
+        const mention = mentions.find(m => [m.userName, m.groupName].includes(mentionName));
         if (mention) {
           // TODO: ref https://draftjs.org/docs/v0-10-api-migration.html#content
           //                 \
@@ -20,7 +20,7 @@ const createToContentOptions = ({ mentions = [] } = {}) => {
             entity: entityKey,
             offset,
             length: match.length,
-            result: mention.get('name')
+            result: mention.name
           });
         }
       }

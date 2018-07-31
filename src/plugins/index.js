@@ -16,7 +16,9 @@ const defaultConfig = {
       'header-one', 'header-two', 'header-three', 'header-four', 'header-five', 'header-six'
     ]
   },
-  markdownShortcuts: {},
+  markdownShortcuts: {
+    insertEmptyBlockOnReturnWithModifierKey: false,
+  },
   checkableList: { sameWrapperAsUnorderedListItem: true },
   linkify: { component: Link },
   // TODO: this is maybe draft-js-emoji-plugin or draft-js issue
