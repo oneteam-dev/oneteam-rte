@@ -1,0 +1,74 @@
+referecnes:
+  defaults: &defaults
+    docker:
+      - image: node:8.9.4
+    working_directory: ~/oneteam-dev/oneteam-rte
+    environment:
+      TZ: '/usr/share/zoneinfo/UTC'
+  restore_npm_cache: &restore_npm_cache
+    keys:
+      - oneteam-rte-npm-v1-{{ .Branch }}-
+      - oneteam-rte-npm-v1-
+  save_npm_cache: &save_npm_cache
+    key: oneteam-rte-npm-v1-{{ .Branch }}-
+    paths:
+      - ~/.npmrc
+  restore_yarn_cache: &restore_yarn_cache
+    keys:
+      - oneteam-rte-yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - oneteam-rte-yarn-v1-{{ .Branch }}-
+  save_yarn_cache: &save_yarn_cache
+    key: oneteam-rte-yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+    paths:
+      - ~/.cache/yarn
+      - ./node_modules
+  setup_npm: &setup_npm
+    name: Setup npm
+    command: bash .circleci/setup-npm.sh
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Check yarn version
+          command: yarn --version
+      - restore_cache: *restore_yarn_cache
+      - run: yarn
+      - save_cache: *save_yarn_cache
+      - store_artifacts:
+          path: npm-debug.log
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run: yarn test
+      - store_artifacts:
+          path: npm-debug.log
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run: git fetch --tags
+      - run: npm run publish-if-tagged
+      - store_artifacts:
+          path: npm-debug.log
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - test
