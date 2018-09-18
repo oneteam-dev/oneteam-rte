@@ -2,7 +2,11 @@
 
 Oneteam Rich text editor.
 
-```
+```bash
+yarn add oneteam-rte
+
+# or
+
 npm i oneteam-rte
 ```
 
@@ -13,6 +17,35 @@ npm i oneteam-rte
 3. Commit your changes: git commit -am 'Add some feature'
 4. Push to the branch: git push origin my-new-feature
 5. Submit a pull request :D
+
+We using [Yarn](https://yarnpkg.com/) .
+
+```bash
+yarn # install dependency modules
+```
+
+To compile a file every time that you change it:
+
+```bash
+npm run watch
+```
+
+### Start development server for example
+
+```bash
+npm start
+open http://localhost:8008
+```
+
+### Update dependencies
+
+```bash
+yarn upgrade [package | package@tag | package@version | @scope/]... [--ignore-engines] [--pattern]
+
+# or
+
+yarn upgrade-interactive [--latest]
+```
 
 ## Publish new version
 
