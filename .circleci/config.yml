@@ -53,7 +53,7 @@ jobs:
     steps:
       - checkout
       - restore_cache: *restore_yarn_cache
-      - run: git fetch --tags
+      - run: *setup_npm
       - run: npm run publish-if-tagged
       - store_artifacts:
           path: npm-debug.log
