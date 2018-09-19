@@ -10,12 +10,7 @@ import 'prism-github/prism-github.css';
 import './index.styl';
 
 export default class Editor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isStripPastedStyles: window.clipboardData ? true : false,
-    };
-  }
+  state = { isStripPastedStyles: window.clipboardData ? true : false }
   handleClickInsertImage = () => {
     const url = window.prompt('Enter a image URL.');
     if (url) {
