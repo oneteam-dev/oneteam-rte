@@ -10,6 +10,7 @@ import 'prism-github/prism-github.css';
 import './index.styl';
 
 export default class Editor extends Component {
+  state = { isStripPastedStyles: window.clipboardData ? true : false }
   handleClickInsertImage = () => {
     const url = window.prompt('Enter a image URL.');
     if (url) {
@@ -56,6 +57,7 @@ export default class Editor extends Component {
           [FILE_PLACEHOLDER]: FilePlaceholder
         }}
         rawMentions={mentions}
+        stripPastedStyles={this.state.isStripPastedStyles}
       >
         {this.renderToolbar()}
       </OneteamRTE>
