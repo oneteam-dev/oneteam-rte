@@ -2334,7 +2334,7 @@ draft-js-modifiers@~0.2.1:
     draft-js "~0.10.5"
     immutable "~3.7.4"
 
-draft-js-oneteam-rte-plugin@^0.4.4:
+draft-js-oneteam-rte-plugin@^0.4.5:
   version "0.4.5"
   resolved "https://registry.yarnpkg.com/draft-js-oneteam-rte-plugin/-/draft-js-oneteam-rte-plugin-0.4.5.tgz#e598982db77c35e108a0790487ea54caf646d5ef"
   integrity sha512-blpNuYdTA1dxwEpxEzCCGOKaCdKUrYhEFmRwi0Xx8eYbvdiaRVHlroqTmcEgoW5WXn8qWhLNWorjy6FtsklVCQ==
