@@ -1,6 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { htmlToMarkdown, markdownToHTML } from '../src/encoding';
+import { htmlToMarkdown, markdownToHTML, htmlToContent } from '../src/encoding';
 import Editor from './Editor';
 
 const App = () => {
@@ -14,6 +14,7 @@ const App = () => {
         <div>
           <button onClick={() => console.info(htmlToMarkdown(this.textarea.value))}>htmlToMarkdown</button>
           <button onClick={() => console.info(markdownToHTML(this.textarea.value))}>markdownToHTML</button>
+          <button onClick={() => console.info(htmlToContent(this.textarea.value).getPlainText())}>htmlToContent (plain text)</button>
         </div>
       </div>
     </div>
