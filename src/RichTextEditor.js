@@ -2,6 +2,8 @@ import React, { Component, Children, cloneElement } from 'react';
 import { userMentionType, groupMentionType } from 'react-oneteam/lib/Mention';
 import ErrorBoundary from 'react-minimal-error-boundary';
 import PropTypes from 'prop-types';
+import { EditorState } from 'draft-js';
+import { insertText } from 'draft-js-modifiers';
 import Editor from 'draft-js-plugins-editor';
 import { INLINE_STYLES } from 'draft-js-oneteam-rte-plugin/lib/constants';
 import * as modifiers from 'draft-js-oneteam-rte-plugin/lib/modifiers';
@@ -17,6 +19,10 @@ import 'draft-js-checkable-list-plugin/lib/plugin.css';
 import '@sugarshin/draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-mention-plugin/lib/plugin.css';
 import 'react-oneteam/lib/react-oneteam.css';
+
+function normalizeSelection(editorState) {
+  return EditorState.forceSelection(editorState, editorState.getSelection());
+}
 
 export default class RichTextEditor extends Component {
   static propTypes = {
@@ -234,6 +240,13 @@ export default class RichTextEditor extends Component {
     }
     return false;
   }
+  _applyEditorState(editorState) {
+    const { onChange } = this.props;
+
+    onChange // eslint-disable-line no-unused-expressions
+      ? this.setState({ editorState }, onChange)
+      : this.setState({ editorState });
+  }
 
   /**
    * @public
@@ -247,5 +260,9 @@ export default class RichTextEditor extends Component {
     if (this.editor) {
       this.editor.blur();
     }
+  }
+  insertText = (text) => {
+    const nextEditorState = insertText(this.state.editorState, text);
+    this._applyEditorState(normalizeSelection(nextEditorState));
   }
 }
