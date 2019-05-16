@@ -31,6 +31,8 @@ export default class RichTextEditor extends Component {
     readOnly: PropTypes.bool,
     onReturnWithCommand: PropTypes.func,
     onPastedFiles: PropTypes.func,
+    onPastedText: PropTypes.func,
+    onBeforeInput: PropTypes.func,
     onKeyDown: PropTypes.func,
     onError: PropTypes.func,
     onRerenderedAfterError: PropTypes.func,
@@ -139,6 +141,18 @@ export default class RichTextEditor extends Component {
     this.changeEditorState = editorState => this.setState({ editorState }, this.props.onChange);
     this.getCurrentBlockType = (...args) => getCurrentBlockType(this.state.editorState, ...args);
     this.hasCurrentInlineStyle = (...args) => hasCurrentInlineStyle(this.state.editorState, ...args);
+    this.handlePastedText = (...args) => {
+      if (typeof this.props.onPastedText === 'function' && this.props.onPastedText(...args)) {
+        return 'handled';
+      }
+      return 'not-handled';
+    }
+    this.handleBeforeInput = (...args) => {
+      if (typeof this.props.onBeforeInput === 'function' && this.props.onBeforeInput(...args)) {
+        return 'handled';
+      }
+      return 'not-handled';
+    }
 
     Object.keys(this.oneteamRTEPlugin.modifiers).forEach((k) => {
       this[k] = this.oneteamRTEPlugin.modifiers[k];
@@ -193,6 +207,8 @@ export default class RichTextEditor extends Component {
               ref={c => this.editor = c}
               editorState={editorState}
               readOnly={readOnly}
+              handlePastedText={this.handlePastedText}
+              handleBeforeInput={this.handleBeforeInput}
               onChange={this.changeEditorState}
               onKeyDown={this.props.onKeyDown}
               placeholder={placeholder}
