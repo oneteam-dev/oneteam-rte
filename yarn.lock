@@ -5023,9 +5023,9 @@ react-minimal-error-boundary@^1.0.1:
     prop-types "^15.6.0"
     react-error-boundary "^1.2.1"
 
-react-oneteam@^0.4.5:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/react-oneteam/-/react-oneteam-0.4.5.tgz#b1b3783445300c70cb2df52cdef08c4cedd033ac"
+react-oneteam@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/react-oneteam/-/react-oneteam-0.4.7.tgz#d68739f598bb736401325971e51c28203f4b3d95"
   dependencies:
     classnames "^2.2.5"
     color-hash "^1.0.3"
