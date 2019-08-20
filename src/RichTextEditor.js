@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { getCurrentBlockType, hasCurrentInlineStyle, createEditorState, updateEditorState, mentionSuggestionsFilter } from './utils';
 import { contentToHTML, htmlToMarkdown } from './encoding'
 import createPlugins from './plugins';
+import { convertToMentions } from './plugins/hashtagList';
 import MentionSuggestionsEntry from './plugins/mention/components/MentionSuggestionsEntry';
 import 'draft-js/dist/Draft.css';
 import 'draft-js-oneteam-rte-plugin/lib/plugin.css';
@@ -50,6 +51,7 @@ export default class RichTextEditor extends Component {
     rawMentions: PropTypes.arrayOf(
       PropTypes.oneOfType([userMentionType, groupMentionType])
     ),
+    hashtagList: PropTypes.arrayOf(PropTypes.string),
     disableWebCardCreation: PropTypes.bool,
     stripPastedStyles: PropTypes.bool,
   }
@@ -88,6 +90,11 @@ export default class RichTextEditor extends Component {
   get mentionPlugin() {
     return this.plugins.mentionPlugin;
   }
+
+  get hashtagSuggestPlugin() {
+    return this.plugins.hashtagSuggestPlugin;
+  }
+
   get firstBlockText() {
     return this._contentState.getFirstBlock().getText();
   }
@@ -141,7 +148,8 @@ export default class RichTextEditor extends Component {
           }), {}) :
           undefined,
         imagePath: this.props.emojiImagePath
-      }
+      },
+      hashtagList: this.props.hashtagList
     });
 
     this.changeEditorState = editorState => this.setState({ editorState }, this.props.onChange);
@@ -225,6 +233,10 @@ export default class RichTextEditor extends Component {
               suggestions={this.state.mentionSuggestions}
               onSearchChange={this.handleMentionSearchChange}
               entryComponent={MentionSuggestionsEntry}
+            />
+            <this.hashtagSuggestPlugin.MentionSuggestions
+              onSearchChange={this.handleMentionSearchChange}
+              suggestions={convertToMentions(this.props.hashtagList)}
             />
           </div>
         </div>

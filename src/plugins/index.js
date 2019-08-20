@@ -6,6 +6,7 @@ import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createCheckableListPlugin from 'draft-js-checkable-list-plugin';
 import createEmojiPlugin from '@sugarshin/draft-js-emoji-plugin';
 import createMentionPlugin from './mention';
+import createHashtagSuggestPlugin from './hashtagList';
 import createPrismPlugin from './prism';
 import Link from '../components/Link';
 
@@ -39,6 +40,7 @@ const createPlugins = (configs) => {
   const emojiPlugin = createEmojiPlugin(config.emoji);
   const prismPlugin = createPrismPlugin(config.prism);
   const mentionPlugin = createMentionPlugin(config.mention);
+  const hashtagSuggestPlugin = createHashtagSuggestPlugin(config.hashtagList);
 
   // TODO: It becomes a block when pasting html containing `<code>`
   // https://github.com/ngs/draft-js-markdown-shortcuts-plugin/blob/28c6479ec137146a1bf8dedac6fae42c651fcf43/src/index.js#L24
@@ -57,11 +59,13 @@ const createPlugins = (configs) => {
       linkifyPlugin,
       prismPlugin,
       emojiPlugin,
-      mentionPlugin
+      mentionPlugin,
+      hashtagSuggestPlugin
     ],
     oneteamRTEPlugin,
     emojiPlugin,
-    mentionPlugin
+    mentionPlugin,
+    hashtagSuggestPlugin
   };
 }
 
