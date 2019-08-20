@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import createPluginObject, { defaultTheme } from 'draft-js-mention-plugin';
 import './style.css';
 
@@ -9,6 +10,11 @@ import './style.css';
 export const convertToMentions = hashtagList =>
   hashtagList.map((name, i) => ({ id: `hashtag-item-${i}`, name, userName: '', email: '' }));
 
+const MentionComponent = ({ children, theme }) => (
+  <span className={classnames(theme.mention, theme.hashtag)}>{children}</span>
+);
+MentionComponent.propTypes = { children: PropTypes.object, theme: PropTypes.object };
+
 // TODO remove a dependency on 'draft-js-mention-plugin'
 // Ad hoc support for hashtag suggest on rich text editor
 export default hashtagList =>
@@ -17,7 +23,5 @@ export default hashtagList =>
     mentionPrefix: '',
     mentionTrigger: '#',
     mentions: convertToMentions(hashtagList),
-    mentionComponent: ({ children, theme }) => (
-      <span className={classnames(theme.mention, theme.hashtag)}>{children}</span>
-    )
+    mentionComponent: MentionComponent
   });
