@@ -65,7 +65,8 @@
     "prop-types": "^15.6.2",
     "react-bootstrap": "^0.32.1",
     "react-minimal-error-boundary": "^1.0.1",
-    "react-oneteam": "^0.4.7"
+    "react-oneteam": "^0.4.7",
+    "styled-components": "3.4.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.40",
