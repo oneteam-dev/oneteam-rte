@@ -5,7 +5,7 @@ import createPluginObject, { defaultTheme } from 'draft-js-mention-plugin';
 import './style.css';
 
 /**
- * convert string[] into { id: string; email: string; userName: string, name: string }[]
+ * convert string[] into { id: string; name: string;  userName: string; email: string;}[]
  */
 export const convertToMentions = hashtagList =>
   hashtagList.map((name, i) => ({ id: `hashtag-item-${i}`, name, userName: '', email: '' }));
@@ -15,7 +15,7 @@ const MentionComponent = ({ children, theme }) => (
 );
 MentionComponent.propTypes = { children: PropTypes.array, theme: PropTypes.object };
 
-// TODO remove a dependency on 'draft-js-mention-plugin'
+// TODO: replace with a dedicated hashtag suggestion plugin which has no dependency on 'draft-js-mention-plugin'
 // Ad hoc support for hashtag suggest on rich text editor
 export default hashtagList =>
   createPluginObject({
