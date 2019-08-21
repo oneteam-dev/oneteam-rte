@@ -58,6 +58,7 @@ export default class Editor extends Component {
         }}
         rawMentions={mentions}
         stripPastedStyles={this.state.isStripPastedStyles}
+        hashtagList={hashtagList}
       >
         {this.renderToolbar()}
       </OneteamRTE>
@@ -79,3 +80,5 @@ const mentions = [
     email: 'a@ngs.io',
   }
 ]
+
+const hashtagList = ['#kyoto', '#hotel', '#lunch', '#hostel', '#kyototravel'];

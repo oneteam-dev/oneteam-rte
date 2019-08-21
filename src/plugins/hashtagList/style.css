@@ -1,0 +1,5 @@
+.draft-js-mention-plugin-hashtag span,
+.draft-js-mention-plugin-hashtag {
+  font-weight: bold;
+  background: #fff !important;
+}
