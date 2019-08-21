@@ -13,7 +13,7 @@ export const convertToMentions = hashtagList =>
 const MentionComponent = ({ children, theme }) => (
   <span className={classnames(theme.mention, theme.hashtag)}>{children}</span>
 );
-MentionComponent.propTypes = { children: PropTypes.object, theme: PropTypes.object };
+MentionComponent.propTypes = { children: PropTypes.array, theme: PropTypes.object };
 
 // TODO remove a dependency on 'draft-js-mention-plugin'
 // Ad hoc support for hashtag suggest on rich text editor
