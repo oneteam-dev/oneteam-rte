@@ -7,7 +7,7 @@ import './style.css';
 /**
  * convert string[] into { id: string; name: string;  userName: string; email: string;}[]
  */
-export const convertToMentions = hashtagList =>
+export const convertToMentions = (hashtagList = []) =>
   hashtagList.map((name, i) => ({ id: `hashtag-item-${i}`, name, userName: '', email: '' }));
 
 const MentionComponent = ({ children, theme }) => (
