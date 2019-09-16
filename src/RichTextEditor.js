@@ -25,6 +25,10 @@ function normalizeSelection(editorState) {
   return EditorState.forceSelection(editorState, editorState.getSelection());
 }
 
+function isHeaderBlock(blockTypeName) {
+  return ['one', 'two', 'three', 'four', 'five', 'six'].map(str => `header-${str}`).includes(blockTypeName);
+}
+
 export default class RichTextEditor extends Component {
   static propTypes = {
     initialHtml: PropTypes.string,
@@ -199,6 +203,15 @@ export default class RichTextEditor extends Component {
 
     return children;
   }
+
+  getBlockTypeName = () => {
+    const { editorState } = this.state;
+    const selection = editorState.getSelection();
+    return editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey())
+      .getType();
+  };
   render() {
     const { editorState } = this.state;
     const { className, readOnly, placeholder, onError, onRerenderedAfterError, stripPastedStyles } = this.props;
@@ -234,10 +247,12 @@ export default class RichTextEditor extends Component {
               onSearchChange={this.handleMentionSearchChange}
               entryComponent={MentionSuggestionsEntry}
             />
-            <this.hashtagSuggestPlugin.MentionSuggestions
-              onSearchChange={this.handleMentionSearchChange}
-              suggestions={convertToMentions(this.props.hashtagList)}
-            />
+            {isHeaderBlock(this.getBlockTypeName()) ? null : (
+              <this.hashtagSuggestPlugin.MentionSuggestions
+                onSearchChange={this.handleMentionSearchChange}
+                suggestions={convertToMentions(this.props.hashtagList)}
+              />
+            )}
           </div>
         </div>
       </ErrorBoundary>
