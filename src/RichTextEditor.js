@@ -121,6 +121,12 @@ export default class RichTextEditor extends Component {
     });
   }
 
+  handleHashTagMentionSearchChange = ({ value }) => {
+    this.setState({
+      hashTagSuggestions: mentionSuggestionsFilter(value, convertToMentions(this.props.hashtagList))
+    });
+  }
+
   constructor(props) {
     super(props);
     const mentionSuggestions = this.props.rawMentions;
@@ -132,7 +138,8 @@ export default class RichTextEditor extends Component {
     this.state = {
       editorState,
       isOpenInsertLinkInput: false,
-      mentionSuggestions
+      mentionSuggestions,
+      hashTagSuggestions: convertToMentions(this.props.hashtagList)
     };
 
     this._plugins = createPlugins({
@@ -249,8 +256,8 @@ export default class RichTextEditor extends Component {
             />
             {isHeaderBlock(this.getBlockTypeName()) ? null : (
               <this.hashtagSuggestPlugin.MentionSuggestions
-                onSearchChange={this.handleMentionSearchChange}
-                suggestions={convertToMentions(this.props.hashtagList)}
+                onSearchChange={this.handleHashTagMentionSearchChange}
+                suggestions={this.state.hashTagSuggestions}
               />
             )}
           </div>
