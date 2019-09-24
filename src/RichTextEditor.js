@@ -29,6 +29,10 @@ function isHeaderBlock(blockTypeName) {
   return ['one', 'two', 'three', 'four', 'five', 'six'].map(str => `header-${str}`).includes(blockTypeName);
 }
 
+function isDisableHashtagSuggest(blockTypeName) {
+  return isHeaderBlock(blockTypeName) || blockTypeName === 'code-block';
+}
+
 export default class RichTextEditor extends Component {
   static propTypes = {
     initialHtml: PropTypes.string,
@@ -254,7 +258,7 @@ export default class RichTextEditor extends Component {
               onSearchChange={this.handleMentionSearchChange}
               entryComponent={MentionSuggestionsEntry}
             />
-            {isHeaderBlock(this.getBlockTypeName()) ? null : (
+            {isDisableHashtagSuggest(this.getBlockTypeName()) ? null : (
               <this.hashtagSuggestPlugin.MentionSuggestions
                 onSearchChange={this.handleHashTagMentionSearchChange}
                 suggestions={this.state.hashTagSuggestions}
