@@ -44,6 +44,8 @@ export default class RichTextEditor extends Component {
     ]),
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onReturnWithCommand: PropTypes.func,
     onPastedFiles: PropTypes.func,
     onPastedText: PropTypes.func,
@@ -182,6 +184,16 @@ export default class RichTextEditor extends Component {
       }
       return 'not-handled';
     }
+    this.handleFocus = () => {
+      if (typeof this.props.onFocus === 'function') {
+        this.props.onFocus();
+      }
+    }
+    this.handleBlur = () => {
+      if (typeof this.props.onBlur === 'function') {
+        this.props.onBlur();
+      }
+    }
 
     Object.keys(this.oneteamRTEPlugin.modifiers).forEach((k) => {
       this[k] = this.oneteamRTEPlugin.modifiers[k];
@@ -249,6 +261,8 @@ export default class RichTextEditor extends Component {
               handleBeforeInput={this.handleBeforeInput}
               onChange={this.changeEditorState}
               onKeyDown={this.props.onKeyDown}
+              onFocus={this.handleFocus}
+              onBlur={this.handleBlur}
               placeholder={placeholder}
               stripPastedStyles={stripPastedStyles}
             />
