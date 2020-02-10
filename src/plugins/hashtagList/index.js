@@ -23,7 +23,11 @@ MentionComponent.propTypes = { children: PropTypes.array, theme: PropTypes.objec
 // Ad hoc support for hashtag suggest on rich text editor
 export default hashtagList =>
   createPluginObject({
-    theme: { ...defaultTheme, custom: 'draft-js-mention-plugin-hashtag-custom' },
+    theme: {
+      ...defaultTheme,
+      mentionSuggestions: `${defaultTheme.mentionSuggestions} is-hashtag-suggest`,
+      custom: 'draft-js-mention-plugin-hashtag-custom'
+    },
     mentionPrefix: '',
     mentionTrigger: '#',
     mentions: convertToMentions(hashtagList),
