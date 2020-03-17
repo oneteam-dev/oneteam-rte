@@ -65,7 +65,7 @@
     "prop-types": "^15.6.2",
     "react-bootstrap": "^0.32.1",
     "react-minimal-error-boundary": "^1.0.1",
-    "react-oneteam": "^0.4.7"
+    "react-oneteam": "^0.4.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.40",
@@ -78,7 +78,7 @@
     "@babel/preset-stage-2": "^7.0.0-beta.40",
     "babel-eslint": "^8.2.2",
     "babel-loader": "^8.0.0-beta.0",
-    "css-loader": "^0.28.9",
+    "css-loader": "^1.0.0",
     "eslint": "^4.18.1",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-react": "^7.7.0",
