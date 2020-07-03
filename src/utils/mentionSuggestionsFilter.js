@@ -8,8 +8,7 @@ const mentionSuggestionsFilter = (searchValue, suggestions) => {
       mentionName.toLowerCase().indexOf(value) > -1 ||
       email.toLowerCase().indexOf(value) > -1;
   });
-  const length = filteredSuggestions.length < 8 ? filteredSuggestions.length : 8;
-  return filteredSuggestions.slice(0, length);
+  return filteredSuggestions;
 };
 
 export default mentionSuggestionsFilter;
