@@ -1,14 +1,16 @@
 const mentionSuggestionsFilter = (searchValue, suggestions) => {
   const value = searchValue.toLowerCase();
-  const filteredSuggestions = suggestions.filter(suggestion => { // eslint-disable-line complexity
+  return suggestions.filter(suggestion => { // eslint-disable-line complexity
     const mentionName = suggestion.userName || suggestion.groupName || '';
     const email = suggestion.email || '';
     return !value ||
       (suggestion.name || '').toLowerCase().indexOf(value) > -1 ||
       mentionName.toLowerCase().indexOf(value) > -1 ||
       email.toLowerCase().indexOf(value) > -1;
+  }).map(suggestion => {
+    const id = suggestion.userName || suggestion.groupName || '';
+    return {...suggestion, id}
   });
-  return filteredSuggestions;
 };
 
 export default mentionSuggestionsFilter;
